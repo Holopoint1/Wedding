@@ -1,0 +1,13 @@
+# Cloudflare Wrangler local cache / account state — never commit
+.wrangler/
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/

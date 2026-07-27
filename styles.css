@@ -3055,3 +3055,6 @@ body:not(.home) #site-view { padding-top: 104px; }
   font-size: clamp(1.32rem, 2.1vw, 1.78rem);
   transform: translateX(-1.4rem);
 }
+
+/* Countdown nudged left of centre */
+.nav-countdown { transform: translateX(calc(-50% - 2.2rem)) scale(0.78); }

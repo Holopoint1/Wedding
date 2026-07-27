@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260727-14" />
+  <link rel="stylesheet" href="styles.css?v=20260727-16" />
 
   <script type="application/ld+json">
   {
@@ -57,10 +57,8 @@
     }
   }
   </script>
-</head>
-<body>
-
-  <!-- ============ INTRO ANIMATION ============ -->
+</head><body>
+<!-- ============ INTRO ANIMATION ============ -->
   <div id="intro" class="intro">
     <div class="intro-mark">
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +71,7 @@
     </div>
   </div>
 
-  <!-- ============ DRIFTING LEAVES BACKDROP ============ -->
+<!-- ============ DRIFTING LEAVES BACKDROP ============ -->
   <div class="leaves" aria-hidden="true">
     <span class="leaf leaf-1"></span>
     <span class="leaf leaf-2"></span>
@@ -85,8 +83,7 @@
 
   <!-- Right-rail navigator removed -->
 
-
-  <!-- ============ GUEST LOGIN GATE ============ -->
+<!-- ============ GUEST LOGIN GATE ============ -->
   <div id="gate" class="gate" hidden>
     <div class="gate-card">
       <svg viewBox="0 0 200 200" class="gate-mark" aria-hidden="true">
@@ -124,26 +121,30 @@
 
     <!-- ============ TOP NAV ============ -->
     <nav class="topnav" id="topnav">
-      <a href="#top" class="brand" aria-label="Alfie and Lorna home">
+      <a href="index.html" class="brand" aria-label="Alfie and Lorna home">
         <svg viewBox="0 0 140 60" width="140" height="60">
           <text x="70" y="44" text-anchor="middle" font-family="Italiana, serif" font-size="44" fill="currentColor" letter-spacing="2">A<tspan fill="#c97e7e" font-family="Pinyon Script, cursive" font-size="36" dx="6" dy="-4">&amp;</tspan><tspan dx="6" dy="4">L</tspan></text>
         </svg>
       </a>
+      <div class="nav-countdown" aria-label="Countdown to the wedding">
+        <span><b data-cd="days">--</b>d</span><span><b data-cd="hours">--</b>h</span><span><b data-cd="minutes">--</b>m</span><span><b data-cd="seconds">--</b>s</span>
+      </div>
       <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
       <ul id="nav-menu">
-        <li><a href="#story">Our Story</a></li>
-        <li><a href="#schedule">The Day</a></li>
-        <li><a href="#venue">Venue</a></li>
-        <li><a href="#travel">Travel &amp; Stay</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#faq">FAQs</a></li>
-        <li><a href="#rsvp" class="nav-rsvp">RSVP</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="day.html">The Day</a></li>
+        <li><a href="venue.html">Venue</a></li>
+        <li><a href="travel.html">Travel &amp; Stay</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="dress.html">Dress Code</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+        <li><a href="rsvp.html" class="nav-rsvp">RSVP</a></li>
       </ul>
     </nav>
 
-    <!-- ============ HERO ============ -->
+<!-- ============ HERO ============ -->
     <header class="hero">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-wildlife" aria-hidden="true">
@@ -192,7 +193,7 @@
           <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z" fill="#7d8a6b"/></svg>
           <span></span>
         </div>
-        <p class="hero-date reveal">Saturday · the fifteenth of May · two thousand and twenty-seven</p>
+        <p class="hero-date reveal">Saturday 15 May 2027</p>
         <p class="hero-time reveal">Ceremony at half past one in the afternoon</p>
         <p class="hero-venue reveal">Fruin Farm · Glen Fruin · Loch Lomond · Scotland<span class="saltire" aria-label="Scotland" title="Scotland"></span></p>
 
@@ -201,7 +202,7 @@
         </div>
 
         <div class="hero-actions hero-actions-top reveal">
-          <a href="#rsvp" class="hero-rsvp hero-rsvp-big">
+          <a href="rsvp.html" class="hero-rsvp hero-rsvp-big">
             <span>RSVP</span>
             <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12 H19 M13 6 L19 12 L13 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -229,26 +230,19 @@
           </div>
         </div>
 
-        <div class="countdown reveal" id="countdown" aria-label="Time until the wedding">
-          <div class="cd-block"><span class="cd-num" data-cd="days">--</span><span class="cd-lbl">Days</span></div>
-          <div class="cd-block"><span class="cd-num" data-cd="hours">--</span><span class="cd-lbl">Hours</span></div>
-          <div class="cd-block"><span class="cd-num" data-cd="minutes">--</span><span class="cd-lbl">Minutes</span></div>
-          <div class="cd-block"><span class="cd-num" data-cd="seconds">--</span><span class="cd-lbl">Seconds</span></div>
-        </div>
-
         <div class="hero-actions reveal">
-          <a href="#schedule" class="hero-cta">
+          <a href="day.html" class="hero-cta">
             <span>The day at a glance</span>
             <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 4 L12 20 M5 13 L12 20 L19 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
 
         <ul class="hero-quicklinks reveal" aria-label="Quick navigation">
-          <li><a href="#venue"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2 C 8 2, 5 5, 5 9 C 5 14, 12 22, 12 22 C 12 22, 19 14, 19 9 C 19 5, 16 2, 12 2 Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Venue &amp; map</span></a></li>
-          <li><a href="#travel"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 17 H20 M6 17 V12 L8 7 H16 L18 12 V17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="8" cy="17" r="1.5" fill="currentColor"/><circle cx="16" cy="17" r="1.5" fill="currentColor"/></svg><span>Travel &amp; stay</span></a></li>
-          <li><a href="#dress"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3 L12 6 L15 3 M9 3 L6 9 L9 21 H15 L18 9 L15 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Dress code</span></a></li>
-          <li><a href="#facts"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 8 V13 M12 16 V16.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Did you know</span></a></li>
-          <li><a href="#faq"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 9 Q9 6 12 6 Q15 6 15 9 Q15 11 12 12 V14 M12 17 V17.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>FAQ</span></a></li>
+          <li><a href="venue.html"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2 C 8 2, 5 5, 5 9 C 5 14, 12 22, 12 22 C 12 22, 19 14, 19 9 C 19 5, 16 2, 12 2 Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="9" r="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Venue &amp; map</span></a></li>
+          <li><a href="travel.html"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 17 H20 M6 17 V12 L8 7 H16 L18 12 V17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="8" cy="17" r="1.5" fill="currentColor"/><circle cx="16" cy="17" r="1.5" fill="currentColor"/></svg><span>Travel &amp; stay</span></a></li>
+          <li><a href="dress.html"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 3 L12 6 L15 3 M9 3 L6 9 L9 21 H15 L18 9 L15 3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><span>Dress code</span></a></li>
+          <li><a href="travel.html#facts"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 8 V13 M12 16 V16.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>Did you know</span></a></li>
+          <li><a href="faq.html"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 9 Q9 6 12 6 Q15 6 15 9 Q15 11 12 12 V14 M12 17 V17.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg><span>FAQ</span></a></li>
         </ul>
 
         <p class="hero-scroll-hint reveal" aria-hidden="true">Scroll to explore <span>↓</span></p>
@@ -258,7 +252,47 @@
     <!-- Tartan banner (Scottish accent) -->
     <div class="tartan-stripe" aria-hidden="true"></div>
 
-    <!-- ============ OUR STORY ============ -->
+    <!-- ============ EXPLORE WIDGETS ============ -->
+    <section id="explore" class="section section-blush">
+      <p class="section-eyebrow reveal">Find your way</p>
+      <h2 class="reveal">Everything you need</h2>
+      <p class="lead reveal">Each part of the wedding has its own page — tap a card to dive in.</p>
+      <div class="widget-grid">
+        <a class="widget-card reveal" href="day.html">
+          <div class="widget-img"><img src="brand_assets/inside_barn.webp" alt="Inside the barn at Fruin Farm, dressed for a wedding" loading="lazy" /></div>
+          <div class="widget-body"><h3>The Day</h3><p>The order of celebrations — from 1&nbsp;pm arrival to home time at midnight.</p><span class="widget-btn">See the schedule →</span></div>
+        </a>
+        <a class="widget-card reveal" href="venue.html">
+          <div class="widget-img"><img src="brand_assets/outside_barn.jpg" alt="The whitewashed barn at Fruin Farm" loading="lazy" /></div>
+          <div class="widget-body"><h3>The Venue</h3><p>Fruin Farm — a working farm in Glen Fruin, with map and directions.</p><span class="widget-btn">Visit the venue →</span></div>
+        </a>
+        <a class="widget-card reveal" href="travel.html">
+          <div class="widget-img"><img src="brand_assets/header_glen.jpg" alt="Morning mist over Glen Fruin" loading="lazy" /></div>
+          <div class="widget-body"><h3>Travel &amp; Stay</h3><p>Taxis, trains, the venue's own accommodation list — and how to get home at midnight.</p><span class="widget-btn">Plan your trip →</span></div>
+        </a>
+        <a class="widget-card reveal" href="travel.html#things">
+          <div class="widget-img"><img src="brand_assets/fruin_farm_lamb.jpg" alt="A lamb at Fruin Farm" loading="lazy" /></div>
+          <div class="widget-body"><h3>Things to Do</h3><p>Make a weekend of it — Loch Lomond walks, cruises, distilleries and alpacas.</p><span class="widget-btn">Explore the area →</span></div>
+        </a>
+        <a class="widget-card reveal" href="dress.html">
+          <div class="widget-img"><img src="brand_assets/tartan.jpg" alt="Robertson Hunting Ancient tartan" loading="lazy" /></div>
+          <div class="widget-body"><h3>Dress Code</h3><p>A Touch of Tartan — what to wear, our colours and both tartans.</p><span class="widget-btn">What to wear →</span></div>
+        </a>
+        <a class="widget-card reveal" href="gallery.html">
+          <div class="widget-img"><img src="brand_assets/alfnlorna2.jpg" alt="Alfie and Lorna" loading="lazy" /></div>
+          <div class="widget-body"><h3>Gallery</h3><p>A few of our favourite photos — growing as the day approaches.</p><span class="widget-btn">Have a look →</span></div>
+        </a>
+        <a class="widget-card reveal" href="faq.html">
+          <div class="widget-img"><img src="brand_assets/alpaca.webp" alt="A Fruin Farm alpaca" loading="lazy" /></div>
+          <div class="widget-body"><h3>FAQs &amp; Gifts</h3><p>Children, plus-ones, parking, gifts — all the practical questions answered.</p><span class="widget-btn">Read the FAQs →</span></div>
+        </a>
+        <a class="widget-card widget-card-rsvp reveal" href="rsvp.html">
+          <div class="widget-body"><h3>RSVP</h3><p>Please reply by 1st September — it only takes a minute.</p><span class="widget-btn widget-btn-light">RSVP now →</span></div>
+        </a>
+      </div>
+    </section>
+
+<!-- ============ OUR STORY ============ -->
     <section id="story" class="section section-cream story-section">
       <p class="section-eyebrow reveal">Our Story</p>
       <h2 class="reveal">How we got here</h2>
@@ -271,7 +305,7 @@
             <figcaption>Alfie</figcaption>
           </figure>
           <figure class="story-root">
-            <div class="story-avatar" data-initial="L"></div>
+            <div class="story-avatar"><img src="brand_assets/babylorna_face.jpg" alt="Lorna as a little girl, grinning on a garden swing" /></div>
             <figcaption>Lorna</figcaption>
           </figure>
         </div>
@@ -295,8 +329,12 @@
             <span class="story-year">1 December 2023</span>
             <p class="story-note">We moved in together</p>
           </li>
+          <li class="story-node story-node-engaged reveal">
+            <span class="story-year">January 2024</span>
+            <p class="story-note">We got engaged — Amsterdam, around New Year</p>
+          </li>
           <li class="story-node reveal">
-            <span class="story-year">2024</span>
+            <span class="story-year">Summer 2024</span>
             <p class="story-note">A month through the Balkans — Dubrovnik, Montenegro, Belgrade, Sarajevo, Mostar &amp; Split</p>
           </li>
           <li class="story-node reveal">
@@ -319,674 +357,7 @@
       </div>
     </section>
 
-    <!-- ============ THE DAY / SCHEDULE ============ -->
-    <section id="schedule" class="section section-sage">
-      <div class="section-decor section-decor-tl" aria-hidden="true">
-        <svg viewBox="0 0 200 200">
-          <g fill="none" stroke="#3a4632" stroke-width="1" stroke-linecap="round" opacity="0.4">
-            <path d="M20 180 Q40 120 80 100 T160 40"/>
-            <path d="M50 140 Q60 130 75 130"/>
-            <path d="M100 80 Q115 70 130 75"/>
-          </g>
-        </svg>
-      </div>
-      <p class="section-eyebrow reveal">The Day</p>
-      <h2 class="reveal">Order of celebrations</h2>
-      <p class="lead reveal">Here's how Saturday will unfold. Times are approximate — please arrive a little before the ceremony so we can begin on time.</p>
-
-      <ol class="schedule">
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="none" stroke="#3a4632" stroke-width="1.2"/><path d="M20 12 V20 L26 24" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </div>
-          <span class="time">1:00 pm</span>
-          <div class="sch-text"><strong>Guests arrive</strong><span>Please be seated a little before 1:30 pm so we can begin on time.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M10 30 L20 14 L30 30 Z M16 30 V24 H24 V30" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">1:30 pm</span>
-          <div class="sch-text"><strong>The ceremony</strong><span>1:30 – 2:00 pm. Outdoors, weather permitting — this is Scotland after all!</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M14 14 V26 Q14 30 20 30 Q26 30 26 26 V14 Z M14 14 H26 M20 30 V36" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">2:00 pm</span>
-          <div class="sch-text"><strong>Drinks, canapés &amp; photographs</strong><span>2:00 – 4:00 pm. Fizz and photos in the meadow.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="9" fill="none" stroke="#3a4632" stroke-width="1.2"/><path d="M11 22 H29 M14 12 H26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </div>
-          <span class="time">4:00 pm</span>
-          <div class="sch-text"><strong>Wedding meal &amp; speeches</strong><span>4:00 – 6:00 pm. Tears, laughter, possibly both at once.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="6" fill="none" stroke="#3a4632" stroke-width="1.2"/><path d="M20 22 C12 22 8 28 8 34 H32 C32 28 28 22 20 22 Z" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">6:00 pm</span>
-          <div class="sch-text"><strong>Evening guests arrive</strong><span>The party grows — welcome drinks for our evening guests.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M12 28 H28 M14 28 V18 H26 V28 M16 18 V14 H24 V18 M19 14 V10 H21 V14" fill="none" stroke="#3a4632" stroke-width="1.2"/></svg>
-          </div>
-          <span class="time">6:30 pm</span>
-          <div class="sch-text"><strong>Cake cut &amp; first dance</strong><span>Cameras at the ready.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M14 12 V24 A4 4 0 1 0 18 24 V14 H26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">7:00 pm</span>
-          <div class="sch-text"><strong>Ceilidh</strong><span>Live ceilidh band — no experience needed, the caller will keep you right.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M12 16 H26 V24 Q26 28 20 28 Q14 28 14 24 Z M26 18 H30 Q32 20 30 22 H26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/><path d="M16 12 Q17 10 16 8 M21 12 Q22 10 21 8" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </div>
-          <span class="time">9:00 pm</span>
-          <div class="sch-text"><strong>Band break &amp; evening buffet</strong><span>9:00 – 9:30 pm. Tea, coffee and a bite to eat — including our cut cake.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M14 12 V24 A4 4 0 1 0 18 24 V14 H26 M26 12 V22 A4 4 0 1 1 22 26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">9:30 pm</span>
-          <div class="sch-text"><strong>Evening band</strong><span>Back on the floor — dancing into the night.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M14 14 V26 Q14 30 20 30 Q26 30 26 26 V14 Z M14 14 H26 M20 30 V36" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">11:45 pm</span>
-          <div class="sch-text"><strong>Last orders</strong><span>One final round at the bar.</span></div>
-        </li>
-        <li class="reveal">
-          <div class="sch-icon">
-            <svg viewBox="0 0 40 40"><path d="M28 18 A8 8 0 1 1 22 12 A6 6 0 0 0 28 18 Z" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </div>
-          <span class="time">12:00 am</span>
-          <div class="sch-text"><strong>Home time</strong><span>Thank you for celebrating with us — safe travels home.</span></div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ============ VENUE ============ -->
-    <section id="venue" class="section section-cream venue-section">
-      <p class="section-eyebrow reveal">The Venue</p>
-      <h2 class="reveal">Fruin Farm</h2>
-      <p class="lead reveal">A working farm tucked into Glen Fruin, just west of Loch Lomond. Wide skies, ancient woodland, and red squirrels in the trees. We fell for it the moment we drove down the long farm track.</p>
-
-      <div class="venue-feature reveal">
-        <div class="venue-map">
-          <div class="map-wrap">
-            <iframe
-              id="venue-map-frame"
-              title="Map showing the venue at Glen Fruin, Helensburgh G84 9EE"
-              src="https://www.google.com/maps?q=Glen+Fruin+Helensburgh+G84+9EE&z=13&output=embed"
-              width="100%"
-              height="360"
-              style="border:0; border-radius:12px;"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <div class="map-zoom" aria-label="Map zoom controls">
-              <button type="button" id="map-zoom-in" aria-label="Zoom map in">+</button>
-              <button type="button" id="map-zoom-out" aria-label="Zoom map out">−</button>
-            </div>
-          </div>
-          <p class="map-link">
-            <a href="https://maps.google.com/?q=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Open in Google Maps →</a>
-            ·
-            <a href="https://maps.apple.com/?q=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Apple Maps →</a>
-          </p>
-        </div>
-        <div class="venue-feature-text">
-          <h3>A working farm in Glen Fruin</h3>
-          <p>The farm has been in the same family for generations. The barn is dressed with seasonal wildflowers, lit by hundreds of candles and strung with festoon lights as the evening draws in.</p>
-          <p>Nearby you'll find Loch Lomond, the Trossachs, and some of the prettiest walks in Scotland.</p>
-          <p class="venue-address">Glen Fruin · Helensburgh · G84 9EE</p>
-        </div>
-      </div>
-
-      <div class="venue-grid">
-        <div class="venue-card reveal">
-          <div class="card-icon">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 22 C12 22 8 28 8 34 H32 C32 28 28 22 20 22 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Ceremony</h3>
-          <p>Planned for outdoors with the hills as our backdrop, weather permitting — with the barn as a beautiful back-up.</p>
-        </div>
-        <div class="venue-card reveal">
-          <div class="card-icon">
-            <svg viewBox="0 0 40 40"><path d="M10 30 V18 L20 10 L30 18 V30 Z M16 30 V22 H24 V30" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Reception</h3>
-          <p>Family-style supper served in the candle-lit barn. Local produce, Scottish cheeses, and far too much cake.</p>
-        </div>
-        <div class="venue-card reveal">
-          <div class="card-icon">
-            <svg viewBox="0 0 40 40"><path d="M8 30 H32 M12 30 V18 Q20 12 28 18 V30" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="20" cy="22" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-          </div>
-          <h3>Outdoor space</h3>
-          <p>Open meadow, fire pit, and a view across to the hills. Bring a layer for the evening.</p>
-        </div>
-      </div>
-
-      <div class="venue-photos">
-        <figure class="reveal">
-          <img src="brand_assets/barnfield.webp" alt="The whitewashed farmhouse at Fruin Farm seen through the meadow grass" loading="lazy" />
-          <figcaption>The farmhouse through the meadow</figcaption>
-        </figure>
-        <figure class="reveal">
-          <img src="brand_assets/alpaca.webp" alt="One of Fruin Farm's resident alpacas" loading="lazy" />
-          <figcaption>The resident alpacas</figcaption>
-        </figure>
-        <figure class="reveal">
-          <img src="brand_assets/fruinfarmsignsmall.webp" alt="A Fruin Farm sheep standing beside the farm's wooden sign" loading="lazy" />
-          <figcaption>The welcome committee</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ============ TRAVEL ============ -->
-    <section id="travel" class="section section-blush">
-      <div class="rsvp-decor" aria-hidden="true">
-        <svg class="wl-squirrel reveal" viewBox="0 0 80 80">
-          <path fill="#a85a3a" stroke="#7a3f29" stroke-width="0.5" d="M40 60 Q30 60 25 50 Q22 40 30 35 Q35 32 38 28 Q40 20 48 22 Q54 24 52 32 Q58 36 56 44 Q62 40 68 44 Q74 50 68 58 Q72 50 70 42 Q66 36 60 38 Q58 30 52 26 Q56 18 48 14 Q42 14 40 22 Q34 22 30 28 Q22 32 20 42 Q18 52 26 58 Q34 64 40 60 Z"/>
-          <circle cx="46" cy="22" r="1.4" fill="#2a1a14"/>
-          <ellipse cx="42" cy="40" rx="6" ry="3" fill="#fff5e8" opacity="0.5"/>
-        </svg>
-      </div>
-      <p class="section-eyebrow reveal">Useful info</p>
-      <h2 class="reveal">Local taxis &amp; places to stay</h2>
-      <p class="lead reveal">Glen Fruin is rural and the venue is up a long farm track — pre-booking a taxi and a place to stay is what'll make the day stress-free. All the recommendations below come from the venue itself.</p>
-
-      <h3 class="subhead reveal">Local taxis</h3>
-      <p class="reveal" style="text-align:center;max-width:700px;margin:0 auto 1.5rem;">Pre-book your return run in advance — apps like Uber and Bolt aren't reliable this far out of Glasgow. Use the firm that covers where you're staying.</p>
-      <div class="taxi-grid">
-        <div class="taxi-card reveal">
-          <h4>Staying in Balloch or Alexandria?</h4>
-          <p>These firms are based in Balloch and Alexandria and cover all the accommodation on that side of the water.</p>
-          <p class="taxi-link"><strong>Wright Taxis:</strong> <a href="tel:013897210202">013897210202</a></p>
-          <p class="taxi-link"><strong>TOA Taxis:</strong> <a href="tel:01389742121">01389 742121</a></p>
-        </div>
-        <div class="taxi-card reveal">
-          <h4>Staying in Helensburgh?</h4>
-          <p>These firms are based in Helensburgh and cover the hotels and B&amp;Bs in and around the town.</p>
-          <p class="taxi-link"><strong>Neptune Taxis:</strong> <a href="tel:01436676666">01436 676666</a></p>
-          <p class="taxi-link"><strong>Trident Taxis:</strong> <a href="tel:01436593614">01436 593614</a></p>
-        </div>
-        <div class="taxi-card reveal">
-          <h4>Coach hire for groups</h4>
-          <p>Travelling as a bigger group? Boyd Coach Hire, based in Linwood, can run group transport to and from the farm.</p>
-          <p class="taxi-link"><strong>Boyd Coach Hire:</strong> <a href="tel:01418842222">0141 884 2222</a></p>
-          <p class="taxi-link"><a href="https://www.boydcoachhire.com/" target="_blank" rel="noopener">boydcoachhire.com →</a></p>
-        </div>
-      </div>
-
-      <h3 class="subhead reveal">Where to stay</h3>
-      <p class="reveal" style="text-align:center;max-width:760px;margin:0 auto 1.5rem;">These are the venue's own recommendations. Distances and drive times are to Fruin Farm.</p>
-
-      <h4 class="travel-subhead reveal">Balloch &amp; Alexandria side <span class="stay-taxi-note">· covered by Wright Taxis &amp; TOA Taxis</span></h4>
-      <div class="stay-grid">
-        <div class="stay-card reveal">
-          <p class="stay-tier">3 miles · 5 min drive</p>
-          <h4>Cameron House</h4>
-          <p>Five-star hotel on Loch Lomond with self-catering lodges that sleep up to 8.</p>
-          <p>Loch Lomond, Alexandria, G83 8QZ · <a href="tel:01389310777">01389 310777</a></p>
-          <p class="stay-link"><a href="https://www.cameronhouse.co.uk/" target="_blank" rel="noopener">cameronhouse.co.uk →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">2.6 miles · 5 min drive</p>
-          <h4>Auchendennan Luxury Cottages</h4>
-          <p>A whole range of self-catering cottages to choose from — great for groups.</p>
-          <p>Arden, Balloch, G83 8RB · <a href="tel:01389710000">01389 710000</a></p>
-          <p class="stay-link"><a href="https://www.loch-lomond-accommodation.co.uk/" target="_blank" rel="noopener">loch-lomond-accommodation.co.uk →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">6.1 miles · 8 min drive</p>
-          <h4>Loch Lomond Arms Hotel</h4>
-          <p>A country pub and hotel with rooms and cottages in pretty Luss village.</p>
-          <p>Luss Main Road, Loch Lomond, G83 8NY · <a href="tel:01436860420">01436 860420</a></p>
-          <p class="stay-link"><a href="http://lochlomondarmshotel.com/" target="_blank" rel="noopener">lochlomondarmshotel.com →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">4.8 miles · 7 min drive</p>
-          <h4>Lomond Woods Holiday Park</h4>
-          <p>Lodges, caravans and glamping pods near Balloch.</p>
-          <p>Old Luss Rd, Alexandria, G83 8QP · <a href="tel:01250878123">01250 878123</a></p>
-          <p class="stay-link"><a href="https://www.woodleisure.co.uk/our-parks/lomond-woods/" target="_blank" rel="noopener">woodleisure.co.uk →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">8.4 miles · 12 min drive</p>
-          <h4>Premier Inn Dumbarton</h4>
-          <p>If it's good enough for Lenny Henry… The reliable budget-friendly option.</p>
-          <p>Lomondgate Drive, Dumbarton, G82 3BN · <a href="tel:03333219214">0333 3219214</a></p>
-          <p class="stay-link"><a href="https://www.premierinn.com/gb/en/home.html" target="_blank" rel="noopener">premierinn.com →</a></p>
-        </div>
-      </div>
-
-      <h4 class="travel-subhead reveal">Helensburgh side <span class="stay-taxi-note">· covered by Neptune Taxis &amp; Trident Taxis</span></h4>
-      <div class="stay-grid">
-        <div class="stay-card reveal">
-          <p class="stay-tier">3 miles · 5 min drive</p>
-          <h4>The Commodore</h4>
-          <p>Part of the Vintage Inns chain, with a rustic pub and rooms on the seafront.</p>
-          <p>112–117 West Clyde Street, Helensburgh, G84 8ES · <a href="tel:01436676924">01436 676924</a></p>
-          <p class="stay-link"><a href="https://www.vintageinn.co.uk/" target="_blank" rel="noopener">vintageinn.co.uk →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">4.2 miles · 8 min drive</p>
-          <h4>The County Hotel</h4>
-          <p>A family-run hotel with 15 en-suite rooms.</p>
-          <p>Old Luss Road, Helensburgh, G84 7BH · <a href="tel:01436672034">01436 672034</a></p>
-          <p class="stay-link"><a href="https://www.countylodgehotel.co.uk/en-GB" target="_blank" rel="noopener">countylodgehotel.co.uk →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">2.8 miles · 4 min drive</p>
-          <h4>Moorlands</h4>
-          <p>A four-room upmarket B&amp;B with free on-site parking.</p>
-          <p>113 Sinclair Street, Helensburgh, G84 9QF · <a href="tel:07947018121">07947 018121</a></p>
-          <p class="stay-link"><a href="https://www.moorlandsbnb.com/en-gb" target="_blank" rel="noopener">moorlandsbnb.com →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">4.3 miles · 9 min drive</p>
-          <h4>No 20 Boutique B&amp;B</h4>
-          <p>Lovely rooms looked after by Kat, who is always there to help.</p>
-          <p>20 Craigendoran Ave, Helensburgh, G84 7AZ · <a href="tel:01436670520">01436 670520</a></p>
-          <p class="stay-link"><a href="http://www.no20craigendoran.co.uk/" target="_blank" rel="noopener">no20craigendoran.co.uk →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">3.2 miles · 5 min drive</p>
-          <h4>Sinclair House B&amp;B</h4>
-          <p>Four rooms and a self-catering flat.</p>
-          <p>91–93 Sinclair St, Helensburgh, G84 8TR · <a href="tel:01436676301">01436 676301</a></p>
-          <p class="stay-link"><a href="http://www.sinclairhouse.com/" target="_blank" rel="noopener">sinclairhouse.com →</a></p>
-        </div>
-        <div class="stay-card reveal">
-          <p class="stay-tier">3 miles · 5 min drive</p>
-          <h4>Ballmillig B&amp;B</h4>
-          <p>Very comfortable three-room B&amp;B with owners who are passionate about walking.</p>
-          <p>64B Colquhoun Street, Helensburgh, G84 9JP</p>
-          <p class="stay-link"><a href="https://www.balmillig.co.uk/" target="_blank" rel="noopener">balmillig.co.uk →</a></p>
-        </div>
-      </div>
-
-      <h3 class="subhead reveal">Getting to the venue</h3>
-      <p class="reveal" style="text-align:center;max-width:760px;margin:0 auto 1.5rem;">All distances and journey times below are approximate. Each card has a live Google Maps directions link — tap it for current traffic, public transport options and turn-by-turn directions to the postcode <strong>G84 9EE</strong>.</p>
-
-      <h4 class="travel-subhead reveal">By air <span class="saltire sm" aria-label="Scotland"></span></h4>
-      <div class="travel-grid">
-        <div class="travel-card reveal">
-          <h3>Glasgow Airport (GLA)</h3>
-          <p><strong>~30 miles · ~50 minutes by car</strong></p>
-          <p>The closest international airport to the venue. Hire car desk on arrival, or pre-book a taxi (~£60–80). No direct public transport route — taxi is the practical option.</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Glasgow+Airport+GLA&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Live directions GLA → venue →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Edinburgh Airport (EDI)</h3>
-          <p><strong>~75 miles · ~1 h 35 min by car</strong></p>
-          <p>More long-haul connections than Glasgow. Hire car or transfer via Glasgow Queen Street train + Helensburgh Central + taxi (~3 h total).</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Edinburgh+Airport+EDI&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Live directions EDI → venue →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Glasgow Prestwick (PIK)</h3>
-          <p><strong>~60 miles · ~1 h 20 min by car</strong></p>
-          <p>Smaller airport south of Glasgow — Ryanair routes from European cities. Hire car recommended.</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Glasgow+Prestwick+Airport+PIK&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Live directions PIK → venue →</a></p>
-        </div>
-      </div>
-
-      <h4 class="travel-subhead reveal">By train</h4>
-      <div class="travel-grid">
-        <div class="travel-card reveal">
-          <h3>Helensburgh Central</h3>
-          <p><strong>~5 miles · ~12 min by taxi from station</strong></p>
-          <p>The closest mainline station. Direct trains from <strong>Glasgow Queen Street</strong> (~50 min) and Edinburgh (via Queen Street, ~2 h). Pre-book a taxi to the venue — Helensburgh-based firms cover Glen Fruin.</p>
-          <p>
-            <a href="https://www.google.com/maps/dir/?api=1&amp;origin=Helensburgh+Central+Station&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Station → venue directions →</a><br>
-            <a href="https://www.scotrail.co.uk/plan-your-journey" target="_blank" rel="noopener">ScotRail timetables →</a>
-          </p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Garelochhead</h3>
-          <p><strong>~3 miles · ~8 min by taxi from station</strong></p>
-          <p>Smaller station even closer to Glen Fruin. Fewer trains but a shorter taxi from the station — handy for the late-night run home if you've stayed locally.</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Garelochhead+Station&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Station → venue directions →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>From Glasgow Queen St</h3>
-          <p><strong>~50 minutes by train + ~12 min taxi</strong></p>
-          <p>Trains to Helensburgh Central run roughly every 30 minutes during the day. Buy in advance for the best fares.</p>
-          <p><a href="https://www.thetrainline.com/buytickets/results?origin=GLQ&amp;destination=HLC" target="_blank" rel="noopener">Live fares &amp; times →</a></p>
-        </div>
-      </div>
-
-      <h4 class="travel-subhead reveal">By car / road</h4>
-      <div class="travel-grid">
-        <div class="travel-card reveal">
-          <h3>From Glasgow city</h3>
-          <p><strong>~30 miles · ~45 min</strong></p>
-          <p>A82 north along the loch, then A814 toward Helensburgh, then up the B832 into Glen Fruin. The farm track is signposted from the road. Free parking on site.</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Glasgow+City+Centre&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Glasgow → venue directions →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>From Edinburgh</h3>
-          <p><strong>~80 miles · ~1 h 40 min</strong></p>
-          <p>M9 → M876 → A82 north along Loch Lomond. Allow extra time on Friday afternoons.</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=Edinburgh&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Edinburgh → venue directions →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>From the south (M6/M74)</h3>
-          <p><strong>From Manchester ~225 mi · ~4 h</strong><br><strong>From London ~410 mi · ~7 h</strong></p>
-          <p>M6 north → M74 → M73/M80 around Glasgow → A82 along Loch Lomond. Stop at Luss for a leg-stretch and one of the best loch views in Scotland.</p>
-          <p><a href="https://www.google.com/maps/dir/?api=1&amp;origin=London&amp;destination=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">London → venue directions →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Parking &amp; satnav</h3>
-          <p>Free on-site parking on the meadow. Cars can be left overnight if you'd prefer not to drive after the celebrations.</p>
-          <p><strong>Postcode for satnav:</strong> G84 9EE<br><strong>What3words:</strong> <em>(couple to add)</em></p>
-        </div>
-      </div>
-
-      <h4 class="travel-subhead reveal">Other ways</h4>
-      <div class="travel-grid">
-        <div class="travel-card reveal">
-          <h3>Bus / coach</h3>
-          <p>Citylink coaches run from Glasgow Buchanan St toward Loch Lomond and Inveraray. Alight at <strong>Garelochhead</strong> or <strong>Arrochar &amp; Tarbet</strong> and pre-book a taxi the rest of the way.</p>
-          <p><a href="https://www.citylink.co.uk" target="_blank" rel="noopener">Citylink timetables →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Private coach (TBC)</h3>
-          <p>Couple may arrange a private coach from central Glasgow with a midnight return — please note this on your RSVP if of interest, and we'll confirm details closer to the day.</p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Cycle / e-bike</h3>
-          <p>The lochside National Cycle Route 7 passes within ~5 miles of the venue. Beautiful in good weather, but allow plenty of time and bring a change for the ceremony.</p>
-          <p><a href="https://www.sustrans.org.uk/find-a-route-on-the-national-cycle-network/route-7" target="_blank" rel="noopener">NCN Route 7 →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Live travel updates</h3>
-          <p>Friday traffic out of Glasgow can be slow — check live conditions before you set off.</p>
-          <p>
-            <a href="https://trafficscotland.org" target="_blank" rel="noopener">Traffic Scotland →</a><br>
-            <a href="https://www.scotrail.co.uk/service-updates" target="_blank" rel="noopener">ScotRail service updates →</a>
-          </p>
-        </div>
-      </div>
-
-      <p class="taxi-note reveal" style="margin-top:1.6rem"><em>Note on Google API: the directions links above use the public Google Maps URL format — they open in real Google Maps with current traffic data, no API key required. Embedding live drive-time numbers on the page itself would need a paid Distance Matrix API key, which we've avoided for this static site.</em></p>
-    </section>
-
-    <!-- ============ THINGS TO DO ============ -->
-    <section id="things" class="section section-cream">
-      <p class="section-eyebrow reveal">While you're here</p>
-      <h2 class="reveal">Make a weekend of it</h2>
-      <p class="lead reveal">Loch Lomond is one of our favourite places in the world. If you've travelled a long way, here's what we'd point you towards.</p>
-
-      <div class="things-grid">
-        <article class="thing reveal">
-          <div class="thing-icon">
-            <svg viewBox="0 0 40 40"><path d="M5 32 L13 18 L20 26 L27 14 L35 32 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Conic Hill</h3>
-          <p>A short, sharp climb at Balmaha rewarded with one of the best loch views in Scotland. Allow two hours.</p>
-        </article>
-        <article class="thing reveal">
-          <div class="thing-icon">
-            <svg viewBox="0 0 40 40"><path d="M5 28 Q15 20 25 28 T35 28 M5 32 Q15 24 25 32 T35 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Loch cruise</h3>
-          <p>Hop on a steamer from Tarbet or Balloch. Perfect for a slow morning before the wedding.</p>
-        </article>
-        <article class="thing reveal">
-          <div class="thing-icon">
-            <svg viewBox="0 0 40 40"><path d="M20 6 L24 16 L34 18 L26 24 L28 34 L20 28 L12 34 L14 24 L6 18 L16 16 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Luss village</h3>
-          <p>Picture-postcard cottages, a tiny kirk, and a pebble beach. Tea-rooms galore.</p>
-        </article>
-        <article class="thing reveal">
-          <div class="thing-icon">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 8 V20 L28 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Glengoyne distillery</h3>
-          <p>An hour's tour and tasting at Scotland's most beautiful distillery. Book ahead.</p>
-        </article>
-        <article class="thing reveal">
-          <div class="thing-icon">
-            <svg viewBox="0 0 40 40"><path d="M8 28 Q14 18 20 28 Q26 38 32 28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="14" cy="14" r="2" fill="currentColor"/></svg>
-          </div>
-          <h3>Inchcailloch island</h3>
-          <p>A tiny, wooded island reached by a five-minute ferry from Balmaha. Wild garlic, bluebells, woodpeckers.</p>
-        </article>
-        <article class="thing reveal">
-          <div class="thing-icon">
-            <svg viewBox="0 0 40 40"><path d="M10 30 L20 12 L30 30 M16 24 H24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>The Trossachs</h3>
-          <p>Just east of the loch — quieter, wilder, and home to red deer, ospreys and pine martens.</p>
-        </article>
-      </div>
-
-      <h3 class="subhead reveal">Right on the doorstep</h3>
-      <p class="reveal" style="text-align:center;max-width:700px;margin:0 auto 1.5rem;">A few more spots within minutes of the venue, as recommended by Top 100 Attractions.</p>
-      <div class="travel-grid">
-        <div class="travel-card reveal">
-          <h3>Fruin Farm itself</h3>
-          <p>Our venue is also a Top 100-rated restaurant — and you can book a walk with the resident alpacas and llamas (ring ahead).</p>
-          <p><a href="https://www.fruinfarm.co.uk" target="_blank" rel="noopener">fruinfarm.co.uk →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Maid of the Loch</h3>
-          <p>The last paddle steamer built in Britain (1953), berthed at Balloch Pier and lovingly restored — a slice of Loch Lomond history.</p>
-          <p><a href="https://top100attractions.com/attractions/item/maid-of-the-loch" target="_blank" rel="noopener">Full details →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Lennox of Lomond</h3>
-          <p>Family-run farm experiences on the lochside — meet the animals and see a working Scottish hill farm up close.</p>
-          <p><a href="https://top100attractions.com/attractions/item/lennox-of-lomond-farm-experiences" target="_blank" rel="noopener">Full details →</a></p>
-        </div>
-        <div class="travel-card reveal">
-          <h3>Helensburgh Golf Club</h3>
-          <p>A historic course above the town with views over the Clyde — a fine way to spend the morning after.</p>
-          <p><a href="https://top100attractions.com/attractions/item/helensburgh-golf-club" target="_blank" rel="noopener">Full details →</a></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ LOCAL FACTS ============ -->
-    <section id="facts" class="section section-blush">
-      <p class="section-eyebrow reveal">Did you know</p>
-      <h2 class="reveal">Curiosities of Loch Lomond</h2>
-      <p class="lead reveal">A few things about the place that make it more than just a pretty backdrop.</p>
-
-      <div class="facts-grid">
-        <article class="fact-card reveal">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M14 30 V18 Q14 12 20 12 Q26 12 26 18 V30 M18 18 V14 M22 18 V14 M16 24 H24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Wallabies on Inchconnachan</h3>
-          <p>One of the small wooded islands in Loch Lomond is home to a colony of wild wallabies — descendants of a handful released by Lady Arran Colquhoun in the 1940s. They've been hopping around in the bracken ever since.</p>
-        </article>
-
-        <article class="fact-card reveal">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M6 30 Q14 22 20 30 T34 30 M6 24 Q14 16 20 24 T34 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Britain's largest body of fresh water</h3>
-          <p>Loch Lomond is the largest lake in mainland Britain by surface area — over 27 square miles, dotted with around 30 islands. You can see a handful of them from Conic Hill on a clear day.</p>
-        </article>
-
-        <article class="fact-card reveal">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M8 32 L20 8 L32 32 Z M14 28 H26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>The Highland Boundary Fault</h3>
-          <p>The fault line that separates the Scottish Highlands from the Lowlands runs straight through Loch Lomond — you can literally walk from one geological world into another on Conic Hill.</p>
-        </article>
-
-        <article class="fact-card reveal">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 8 V32 M8 20 H32" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-          </div>
-          <h3>The capercaillie still calls here</h3>
-          <p>The Argyll forests around Glen Fruin are one of the last strongholds of the capercaillie, the giant grouse whose courtship "song" sounds like a cork popping followed by sharpening knives.</p>
-        </article>
-
-        <article class="fact-card reveal">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M10 28 L20 14 L30 28 M14 22 L20 16 L26 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Rob Roy country</h3>
-          <p>The eastern shore of the loch is the heart of Rob Roy MacGregor's old stomping ground — the cave where he reputedly hid from the redcoats is still there, just north of Inversnaid.</p>
-        </article>
-
-        <article class="fact-card reveal">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 40 40"><path d="M8 20 Q20 8 32 20 Q20 32 8 20 Z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>
-          </div>
-          <h3>Scotland's first National Park</h3>
-          <p>Loch Lomond &amp; The Trossachs was designated Scotland's first National Park in 2002 — 720 square miles of mountains, glens, lochs and forest, with the venue tucked right inside it.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ GALLERY ============ -->
-    <section id="gallery" class="section section-sage">
-      <p class="section-eyebrow reveal">Moments</p>
-      <h2 class="reveal">A few of our favourites</h2>
-      <p class="lead reveal">Photographs from our adventures so far. We'll keep adding to it as the day approaches.</p>
-
-      <div class="gallery">
-        <div class="gal-item reveal" style="--i:1"><div class="gal-placeholder"><span>Photo 1</span></div></div>
-        <div class="gal-item reveal" style="--i:2"><div class="gal-placeholder gal-tall"><span>Photo 2</span></div></div>
-        <div class="gal-item reveal" style="--i:3"><div class="gal-placeholder"><span>Photo 3</span></div></div>
-        <div class="gal-item reveal" style="--i:4"><div class="gal-placeholder gal-wide"><span>Photo 4</span></div></div>
-        <div class="gal-item reveal" style="--i:5"><div class="gal-placeholder"><span>Photo 5</span></div></div>
-        <div class="gal-item reveal" style="--i:6"><div class="gal-placeholder"><span>Photo 6</span></div></div>
-      </div>
-      <p class="gallery-note reveal">Drop your photos into the <code>/images</code> folder and update <code>index.html</code> to swap in the real shots.</p>
-    </section>
-
-    <!-- ============ DRESS CODE ============ -->
-    <section id="dress" class="section section-cream dress-section">
-      <p class="section-eyebrow reveal">What to wear</p>
-      <h2 class="reveal">A Touch of Tartan</h2>
-      <p class="lead reveal">Our dress code is <strong>A Touch of Tartan</strong>. From kilts and trews to a subtle detail in your hair or your shoes, we'd love you to add a little tartan wherever you can.</p>
-
-      <div class="dress-grid">
-        <div class="dress-card reveal">
-          <div class="tartan-swatch" aria-hidden="true"></div>
-          <p class="tartan-label">Robertson Hunting Ancient — our wedding tartan</p>
-          <div class="tartan-swatch tartan-swatch-groomsmen" aria-hidden="true"></div>
-          <p class="tartan-label">The groomsmen's tartan</p>
-          <h3>Tartan, big or small <span class="saltire sm" aria-label="Scotland"></span></h3>
-          <p>Men are encouraged to wear kilts or trews if they would like to. No tartan of your own? A tie, sash, scarf or even a ribbon counts — and the <a href="https://www.scotweb.co.uk/info/tartan-finder" target="_blank" rel="noopener">tartan finder</a> is a fun rabbit hole.</p>
-        </div>
-        <div class="dress-card reveal">
-          <div class="swatch-row">
-            <span class="swatch" style="background:#3a4632"></span>
-            <span class="swatch" style="background:#7d8a6b"></span>
-            <span class="swatch" style="background:#c97e7e"></span>
-            <span class="swatch" style="background:#e8c4a8"></span>
-            <span class="swatch" style="background:#b89968"></span>
-            <span class="swatch" style="background:#f6efe4"></span>
-          </div>
-          <h3>Our colours</h3>
-          <p>Forest green, sage, blush, peach, soft gold and cream. Take inspiration if it helps — but please wear what you love.</p>
-        </div>
-        <div class="dress-card reveal">
-          <h3>A few notes</h3>
-          <ul>
-            <li>We're planning an outdoor ceremony, weather permitting, and there'll be time outside through the day — bring a layer to keep comfortable.</li>
-            <li>Planning on stiletto heels? Consider heel stoppers for walking on the grass.</li>
-            <li>Please avoid full white or ivory.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ RSVP ============ -->
-    <section id="rsvp" class="section section-blush">
-      <div class="rsvp-frame reveal">
-        <p class="section-eyebrow">Kindly Reply</p>
-        <h2>RSVP</h2>
-        <p class="lead">We can't wait to celebrate with you. Please reply by <strong>1st September</strong>.</p>
-
-        <div class="rsvp-guest" id="rsvp-guest">
-          <p class="rsvp-guest-line">You're replying as <strong id="rsvp-guest-name"></strong></p>
-          <p class="rsvp-guest-invite" id="rsvp-guest-invite"></p>
-          <p class="rsvp-guest-switch"><a href="#" id="rsvp-switch">Not you? Switch guest</a></p>
-        </div>
-
-        <form id="rsvp-form" class="rsvp-form">
-          <fieldset>
-            <legend>Will you be joining us?</legend>
-            <div class="radio-group">
-              <label class="radio-pill"><input type="radio" name="attending" value="yes" required /><span>Joyfully accepts</span></label>
-              <label class="radio-pill"><input type="radio" name="attending" value="no" /><span>Regretfully declines</span></label>
-            </div>
-          </fieldset>
-
-          <div class="field-row">
-            <label>Dietary requirements or allergies
-              <input type="text" name="dietary" placeholder="e.g. vegetarian, gluten-free, nut allergy" />
-            </label>
-          </div>
-
-          <div class="field-row">
-            <label>Anything else we should know?
-              <textarea name="notes" rows="3"></textarea>
-            </label>
-          </div>
-
-          <button type="submit" class="primary-btn">Send RSVP</button>
-          <p id="rsvp-status" class="rsvp-status" hidden></p>
-        </form>
-      </div>
-    </section>
-
-    <!-- ============ FAQ ============ -->
-    <section id="faq" class="section section-cream">
-      <p class="section-eyebrow reveal">Questions</p>
-      <h2 class="reveal">Frequently asked</h2>
-      <p class="lead reveal">If we've missed anything, please drop us a line.</p>
-
-      <div class="faq">
-        <details class="faq-item reveal"><summary>Are children invited?</summary><p>As much as we love your little ones, we have decided to keep our wedding day to immediate family children only (our nieces and nephews). We hope you understand and we can't wait to celebrate with you.</p></details>
-        <details class="faq-item reveal"><summary>What is the dress code?</summary><p>Our dress code is <strong>A Touch of Tartan</strong>. From kilts and trews to a subtle detail in your hair or your shoes, we'd love you to add a little tartan wherever you can. Men are encouraged to wear kilts or trews if they would like to.</p></details>
-        <details class="faq-item reveal"><summary>What colour are the bridesmaid dresses?</summary><p>The bridesmaid dresses will be dark green.</p></details>
-        <details class="faq-item reveal"><summary>Is the wedding indoors or outdoors?</summary><p>We are planning to have an outdoor ceremony, weather permitting (this is Scotland after all!). There will also be opportunities to spend time outside throughout the day, so we recommend bringing a layer to keep you comfortable. Also, if you are planning on wearing stiletto heels, please consider wearing heel stoppers for walking on the grass.</p></details>
-        <details class="faq-item reveal"><summary>Can I leave my car overnight?</summary><p>There are 25 parking spaces available. Guests can leave their cars overnight in the car park at their own risk but must collect them by noon the next day.</p></details>
-        <details class="faq-item reveal"><summary>Can I bring a plus one?</summary><p>Due to venue capacity, we kindly ask guests to attend only with the named guests on their invitation.</p></details>
-        <details class="faq-item reveal"><summary>Do I need to bring a gift?</summary><p>Your presence is the greatest gift. However, if you wish to contribute, we would love a contribution towards our honeymoon.</p></details>
-        <details class="faq-item reveal"><summary>What time should I arrive?</summary><p>Guests arrive from 1:00 pm. Please be seated a little before 1:30 pm so the ceremony can begin on time. Evening guests, please arrive for 6:00 pm.</p></details>
-        <details class="faq-item reveal"><summary>How do I let you know about dietary needs?</summary><p>Please add anything we should know to the dietary field on your RSVP. We'll be in touch closer to the day if we need any more detail.</p></details>
-      </div>
-    </section>
-
-    <!-- ============ REGISTRY ============ -->
-    <section id="registry" class="section section-sage registry-section">
-      <p class="section-eyebrow reveal">Gifts</p>
-      <h2 class="reveal">Our registry</h2>
-      <div class="registry-card reveal">
-        <svg viewBox="0 0 60 60" class="gift-icon">
-          <rect x="10" y="22" width="40" height="30" fill="none" stroke="#3a4632" stroke-width="1.4"/>
-          <rect x="6" y="18" width="48" height="8" fill="none" stroke="#3a4632" stroke-width="1.4"/>
-          <path d="M30 18 V52 M22 18 Q14 8 22 8 Q30 8 30 18 Q30 8 38 8 Q46 8 38 18" fill="none" stroke="#c97e7e" stroke-width="1.4"/>
-        </svg>
-        <p>Your presence is the only present we need. If you'd like to mark the day with a gift, we're putting it all towards our honeymoon — somewhere with hopefully a few fewer raindrops than Scotland.</p>
-        <p class="muted">Contribution links will be added closer to the day.</p>
-      </div>
-    </section>
-
-    <!-- ============ FOOTER ============ -->
+<!-- ============ FOOTER ============ -->
     <footer class="site-footer">
       <div class="footer-mark">
         <svg viewBox="0 0 100 100">

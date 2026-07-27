@@ -2273,3 +2273,93 @@ html { scroll-snap-type: y proximity; }
   color: var(--blush-deep);
   margin-top: 0.4rem;
 }
+
+/* Engagement — blush-highlighted pill */
+.story-node-engaged .story-year {
+  background: var(--blush);
+  border-color: var(--blush-deep);
+}
+
+/* =========================================================
+   HOMEPAGE WIDGET CARDS — one per page of the site
+   ========================================================= */
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.6rem;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+.widget-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid rgba(125, 138, 107, 0.25);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: var(--shadow-soft);
+  transition: transform .3s, box-shadow .3s;
+}
+.widget-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); color: var(--ink); }
+.widget-img img {
+  display: block;
+  width: 100%;
+  height: 185px;
+  object-fit: cover;
+}
+.widget-body { padding: 1.3rem 1.5rem 1.7rem; display: flex; flex-direction: column; flex: 1; }
+.widget-body h3 { font-style: normal; font-family: var(--display); font-size: 1.5rem; margin-bottom: 0.4rem; }
+.widget-body p { margin: 0 0 1.2rem; font-size: 0.95rem; }
+.widget-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  background: var(--forest);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background .25s;
+}
+.widget-card:hover .widget-btn { background: var(--blush-deep); }
+.widget-card-rsvp {
+  background: var(--forest);
+  justify-content: center;
+  text-align: center;
+}
+.widget-card-rsvp .widget-body { align-items: center; }
+.widget-card-rsvp h3 { color: var(--cream); font-size: 2rem; }
+.widget-card-rsvp p { color: var(--cream-2); }
+.widget-btn-light { background: var(--cream); color: var(--forest); align-self: center; }
+.widget-card-rsvp:hover .widget-btn-light { background: var(--blush); color: var(--forest); }
+
+/* Compact countdown in the sticky header */
+.nav-countdown {
+  display: flex;
+  gap: 0.7rem;
+  align-items: baseline;
+  margin: 0 1rem;
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+  white-space: nowrap;
+}
+.nav-countdown b {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--forest);
+}
+@media (max-width: 520px) {
+  .nav-countdown { gap: 0.45rem; margin: 0 0.4rem; }
+  .nav-countdown span:last-child { display: none; }
+}
+
+/* Larger couple photo at the foot of the story tree */
+.story-couple img { width: 230px; height: 230px; }

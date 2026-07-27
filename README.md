@@ -1,16 +1,18 @@
 # Alfie & Lorna — Wedding Website
 
-Single-page wedding site for **Alfie & Lorna** · 15 May 2027 · Fruin Farm, Loch Lomond.
+Multi-page wedding site for **Alfie & Lorna** · 15 May 2027 · Fruin Farm, Loch Lomond.
 Live at **https://www.alflorna.com**
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `index.html` | All markup — guest login gate + main site (hero, schedule, venue, travel & stay, gallery, dress code, RSVP, FAQs, registry) |
+| `index.html` | Home — hero, widget cards linking to each page, Our Story timeline |
+| `day.html` / `venue.html` / `travel.html` / `gallery.html` / `dress.html` / `faq.html` / `rsvp.html` | One page per area; every page carries the login gate and header countdown |
 | `styles.css` | Elegant/classic floral styling with Scottish wildlife touches |
 | `guests.js`  | **The guest list & personal passwords — the only file to edit to manage guests** |
-| `app.js`     | Countdown, animations, login + RSVP handling |
+| `app.js`     | Countdown, animations, login + RSVP handling (shared by all pages) |
+| `brand_assets/` | Photos and tartans used across the site |
 
 ## How the login works
 

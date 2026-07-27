@@ -2064,3 +2064,19 @@ body.is-locked #site-view { visibility: hidden; }
 @media (max-width: 760px) {
   .venue-photos { grid-template-columns: 1fr; max-width: 480px; }
 }
+
+/* Second swatch + labels in the dress-code tartan card */
+.tartan-swatch-groomsmen {
+  background-image: url("brand_assets/groomsmen_tartan.jpg");
+  background-size: 200px auto;
+  height: 80px;
+  margin-top: 0.4rem;
+}
+.tartan-label {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--sage-deeper);
+  margin: -0.4rem 0 1rem;
+}

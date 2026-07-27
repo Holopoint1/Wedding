@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260727-19" />
+  <link rel="stylesheet" href="styles.css?v=20260727-22" />
 
   <script type="application/ld+json">
   {
@@ -122,11 +122,19 @@
       <ul id="nav-menu">
         <li><a href="index.html">Home</a></li>
         <li><a href="day.html">The Day</a></li>
-        <li><a href="venue.html">Venue</a></li>
-        <li><a href="travel.html">Travel &amp; Stay</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="dress.html">Dress Code</a></li>
-        <li><a href="faq.html">FAQs</a></li>
+        <li class="nav-dropdown">
+          <button type="button" class="nav-drop-btn" id="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
+            Info
+            <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 9 L12 16 L19 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="nav-drop-menu" id="nav-drop-menu" hidden>
+            <li><a href="venue.html">Venue</a></li>
+            <li><a href="travel.html">Travel &amp; Stay</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="dress.html">Dress Code</a></li>
+            <li><a href="faq.html">FAQs</a></li>
+          </ul>
+        </li>
         <li><a href="rsvp.html" class="nav-rsvp">RSVP</a></li>
       </ul>
     </nav>
@@ -166,6 +174,6 @@
   </main>
 
   <script src="guests.js?v=20260727-1"></script>
-  <script src="app.js?v=20260727-5"></script>
+  <script src="app.js?v=20260727-6"></script>
 </body>
 </html>

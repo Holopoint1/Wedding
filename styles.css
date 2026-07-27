@@ -2382,62 +2382,60 @@ html { scroll-snap-type: y proximity; }
 .nav-countdown b { font-size: 1.5rem; }
 
 /* =========================================================
-   HOME HERO — clean botanical: names on cream, flowers below
+   HOME HERO — full-bleed couple photo, minimal white text
    ========================================================= */
 .home .hero { overflow: hidden; }
 .home .hero-bg {
-  background: linear-gradient(180deg, #fbf6ec 0%, var(--cream) 100%);
+  background:
+    linear-gradient(180deg, rgba(22, 28, 16, 0.5) 0%, rgba(22, 28, 16, 0.22) 45%, rgba(22, 28, 16, 0.35) 100%),
+    url("brand_assets/header_couple.jpg") center 28% / cover no-repeat,
+    var(--forest);
 }
 .home .hero-wildlife { display: none; }
 .home .hero-inner {
   justify-content: flex-start;
-  padding-top: clamp(7rem, 17vh, 11rem);
+  padding-top: clamp(5.5rem, 11vh, 8rem);
   position: relative;
   z-index: 5;
 }
-.home .hero-flowers {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 48vh;
-  z-index: 1;
-  background: url("brand_assets/flowers.webp") center 32% / cover no-repeat;
-}
-.home .hero-flowers::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, var(--cream) 0%, rgba(246, 239, 228, 0.55) 20%, rgba(246, 239, 228, 0) 52%);
-}
 
-.hero-date-num {
-  font-family: var(--sans);
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 0.5em;
-  color: var(--sage-deeper);
-  margin: 0 0 1.2rem;
-}
-.home .couple-names,
-.home .couple-names span { color: var(--blush-deep); }
-.home .amp { color: var(--gold); }
 .hero-mini {
   font-family: var(--serif);
   font-style: italic;
   font-size: clamp(1.15rem, 1.8vw, 1.5rem);
-  color: var(--blush-deep);
-  margin: 1.4rem 0 0;
+  color: #fdfaf3;
+  margin: 0 0 0.8rem;
   letter-spacing: 0.05em;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
+}
+.home .couple-names,
+.home .couple-names span { color: #fdfaf3; text-shadow: 0 2px 22px rgba(0, 0, 0, 0.35); }
+.home .amp { color: #eec3bb; }
+.hero-date-num {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.55em;
+  color: #fdfaf3;
+  margin: 1.6rem 0 0;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
 }
 .hero-venue-min {
   font-family: var(--sans);
   font-size: 0.7rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--sage-deeper);
+  color: rgba(253, 250, 243, 0.85);
   margin: 1rem 0 0;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
 }
+
+/* Light nav while over the photo (home only, before scrolling) */
+.home .topnav:not(.scrolled) { color: #fdfaf3; }
+.home .topnav:not(.scrolled) .brand { color: #fdfaf3; }
+.home .topnav:not(.scrolled) a { color: #fdfaf3; }
+.home .topnav:not(.scrolled) a:hover { color: #eec3bb; }
+.home .topnav:not(.scrolled) .nav-toggle span { background: #fdfaf3; }
 
 /* Full-width Glen Fruin band between hero and sections */
 .photo-band {
@@ -2455,3 +2453,88 @@ html { scroll-snap-type: y proximity; }
   cursor: default;
 }
 .story-svg .tl-node:hover { transform: scale(1.07); }
+
+/* Countdown: clearer numerals, colour-coded units fading green -> red */
+.nav-countdown b {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: 0.01em;
+}
+.nav-countdown span:nth-child(1) b { color: #4f7c42; } /* days    - green  */
+.nav-countdown span:nth-child(2) b { color: #a08a2e; } /* hours   - gold   */
+.nav-countdown span:nth-child(3) b { color: #c67c35; } /* minutes - orange */
+.nav-countdown span:nth-child(4) b { color: #bf5546; } /* seconds - red    */
+
+/* Nav "Info" dropdown */
+.nav-dropdown { position: relative; }
+.nav-drop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem 0;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: inherit;
+}
+.nav-drop-btn svg { transition: transform .25s; }
+.nav-dropdown.open .nav-drop-btn svg { transform: rotate(180deg); }
+.nav-drop-menu {
+  display: block !important;   /* beat .topnav ul's flex layout */
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  min-width: 210px;
+  width: max-content;
+  background: var(--paper);
+  border: 1px solid rgba(125, 138, 107, 0.3);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lift);
+  z-index: 200;
+}
+.nav-drop-menu li { display: block; margin: 0; }
+.nav-drop-menu[hidden] { display: none !important; }
+.nav-drop-menu li a {
+  display: block;
+  padding: 0.6rem 1.5rem;
+  color: var(--forest) !important;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.nav-drop-menu li a::after { display: none; }
+.nav-drop-menu li a:hover { background: var(--blush-soft); color: var(--blush-deep) !important; }
+@media (max-width: 900px) {
+  .nav-dropdown { position: static; }
+  .nav-drop-btn { display: none; }
+  .nav-drop-menu,
+  .nav-drop-menu[hidden] {
+    display: block !important;
+    position: static;
+    transform: none;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    min-width: 0;
+  }
+}
+
+/* Footer credit line: readable italic serif instead of script */
+.footer-credit {
+  font-family: var(--serif) !important;
+  font-style: italic;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.03em !important;
+  color: var(--cream-2) !important;
+}

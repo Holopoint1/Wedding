@@ -393,3 +393,19 @@ window.alfieLornaExport = function () {
   zin.addEventListener("click", () => setZoom(zoom + 1));
   zout.addEventListener("click", () => setZoom(zoom - 1));
 })();
+
+/* ---------- Info dropdown in the nav ---------- */
+(function initNavDropdown() {
+  const btn  = document.getElementById("nav-drop-btn");
+  const menu = document.getElementById("nav-drop-menu");
+  if (!btn || !menu) return;
+  const li = btn.closest("li");
+  const setOpen = (o) => {
+    li.classList.toggle("open", o);
+    menu.hidden = !o;
+    btn.setAttribute("aria-expanded", String(o));
+  };
+  btn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(menu.hidden); });
+  document.addEventListener("click", (e) => { if (!li.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+})();

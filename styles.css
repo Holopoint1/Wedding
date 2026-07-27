@@ -319,12 +319,26 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  /* Misty Glen Fruin at dawn — light veil overall, soft glow behind the text */
   background:
-    radial-gradient(ellipse 60% 52% at 50% 44%, rgba(251, 246, 236, 0.6) 0%, rgba(251, 246, 236, 0.3) 55%, transparent 78%),
-    linear-gradient(180deg, rgba(251, 246, 236, 0.38) 0%, rgba(251, 246, 236, 0.3) 45%, rgba(246, 239, 228, 0.85) 82%, var(--cream) 100%),
-    url("brand_assets/header_glen.jpg") center 55% / cover no-repeat,
-    var(--cream);
+    radial-gradient(ellipse at 30% 20%, rgba(243, 220, 212, 0.55) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(184, 196, 168, 0.55) 0%, transparent 55%),
+    linear-gradient(180deg, #fbf6ec 0%, var(--cream) 100%);
+}
+
+/* Glen Fruin panorama — framed at its natural size so it stays sharp */
+.hero-photo {
+  width: min(1000px, 92vw);
+  margin: 2.4rem auto 0;
+}
+.hero-photo img {
+  display: block;
+  width: 100%;
+  height: clamp(200px, 32vh, 330px);
+  object-fit: cover;
+  object-position: center 55%;
+  border-radius: 14px;
+  border: 1px solid rgba(125, 138, 107, 0.3);
+  box-shadow: var(--shadow-lift);
 }
 
 .hero-wildlife { position: absolute; inset: 0; pointer-events: none; }

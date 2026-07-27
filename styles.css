@@ -2558,3 +2558,24 @@ html { scroll-snap-type: y proximity; }
   letter-spacing: 0.03em !important;
   color: var(--cream-2) !important;
 }
+
+/* Hero readability pass: photo lower, centred timer, bolder small text */
+.home .hero-bg { background-position: center 16%, center 16%; }
+.nav-countdown {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .nav-countdown { position: static; transform: none; margin: 0 0.4rem; }
+}
+.hero-mini { font-weight: 600; }
+.hero-date-num { font-weight: 700; font-size: 1.15rem; }
+.hero-venue-min { font-weight: 700; font-size: 0.8rem; color: rgba(253, 250, 243, 0.95); }
+.topnav a.nav-rsvp {
+  padding: 0.7rem 1.9rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.26em;
+}

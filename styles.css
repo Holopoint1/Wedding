@@ -3071,3 +3071,9 @@ body:not(.home) #site-view { padding-top: 104px; }
 @media (min-width: 901px) {
   .nav-countdown { transform: translateX(calc(-50% - 1.1rem)) scale(0.78); }
 }
+
+/* Mobile: countdown sits a little further right, closer to the burger */
+@media (max-width: 900px) {
+  .nav-countdown { margin-right: 0.15rem; }
+  .nav-toggle { margin-left: 0.35rem; }
+}

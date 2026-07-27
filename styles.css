@@ -3077,3 +3077,61 @@ body:not(.home) #site-view { padding-top: 104px; }
   .nav-countdown { margin-right: 0.15rem; }
   .nav-toggle { margin-left: 0.35rem; }
 }
+
+/* The eyebrow's left nudge suits the wide header, but on a phone it reads
+   as off-centre. Bring it back to the right on small screens. */
+@media (max-width: 900px) {
+  .home .hero-mini { transform: translateX(-0.35rem); }
+}
+
+/* =========================================================
+   LEAVES — keep to the outer margins
+   The couple sit in the middle of every photo, so the leaves are
+   confined to the left and right edges and their sideways drift is
+   small. Nothing crosses the middle of the screen on any device.
+   ========================================================= */
+.leaf-1 { left: 2%;  }
+.leaf-2 { left: 7.5%; }
+.leaf-3 { left: 89%; }
+.leaf-4 { left: 94.5%; }
+.leaf-5 { left: 13%; }
+.leaf-6 { left: 84%; }
+
+@keyframes leafFall {
+  0%   { transform: translate3d(0, -6vh, 0); opacity: 0; }
+  6%   { opacity: 0.32; }
+  25%  { transform: translate3d(1.1vw, 24vh, 0); }
+  50%  { transform: translate3d(-0.7vw, 52vh, 0); }
+  75%  { transform: translate3d(1.3vw, 80vh, 0); }
+  84%  { opacity: 0.32; }
+  100% { transform: translate3d(0.5vw, 114vh, 0); opacity: 0; }
+}
+@keyframes leafSway {
+  0%   { transform: scale(var(--leaf-scale, 1)) rotate(-58deg) translateX(-9px); }
+  50%  { transform: scale(var(--leaf-scale, 1)) rotate(20deg)  translateX(2px); }
+  100% { transform: scale(var(--leaf-scale, 1)) rotate(74deg)  translateX(9px); }
+}
+
+/* Phones are narrower, so hug the very edges */
+@media (max-width: 720px) {
+  .leaf-1 { left: 1%; }
+  .leaf-2 { left: 5%; }
+  .leaf-3 { left: 92%; }
+  .leaf-4 { left: 96%; }
+}
+
+/* Mobile: countdown centred in the header, between logo and burger */
+@media (max-width: 900px) {
+  .nav-countdown {
+    position: absolute;
+    left: 50%;
+    right: auto;
+    margin: 0;
+    transform: translateX(-50%) !important;
+  }
+  .nav-toggle { margin-left: 0; }
+}
+/* Very small phones: shrink it a touch so it clears the monogram */
+@media (max-width: 400px) {
+  .nav-countdown { transform: translateX(-50%) scale(0.86) !important; }
+}

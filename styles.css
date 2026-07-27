@@ -1554,20 +1554,23 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 /* =========================================================
    TARTAN & SALTIRE — Scottish accents
    ========================================================= */
-/* Tile-able tartan in the wedding palette: sage base, forest cross-bands,
-   cream + gold + blush thin stripes. Small enough to repeat invisibly. */
-.tartan-tile {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='%237d8a6b'/><rect y='15' width='80' height='12' fill='%233a4632'/><rect y='40' width='80' height='3' fill='%23f6efe4'/><rect y='60' width='80' height='6' fill='%23c97e7e' fill-opacity='0.85'/><rect x='15' width='12' height='80' fill='%233a4632' fill-opacity='0.55'/><rect x='40' width='3' height='80' fill='%23f6efe4' fill-opacity='0.6'/><rect x='60' width='6' height='80' fill='%23c97e7e' fill-opacity='0.5'/><rect y='45' width='80' height='1' fill='%23b89968'/><rect x='45' width='1' height='80' fill='%23b89968'/></svg>");
+/* Robertson Hunting Ancient tartan — alternating green & blue sett with a
+   red overcheck, in the softer "ancient" palette. Two crossing gradient
+   layers multiply-blended so the intersections darken like a real weave. */
+.tartan-tile,
+.tartan-stripe,
+.tartan-swatch {
+  background-color: #b2bf9b;
+  background-image:
+    repeating-linear-gradient(90deg, #b2bf9b 0 40px, #d99989 40px 44px, #a7b7c7 44px 84px, #d99989 84px 88px),
+    repeating-linear-gradient(0deg,  #b2bf9b 0 40px, #d99989 40px 44px, #a7b7c7 44px 84px, #d99989 84px 88px);
+  background-blend-mode: multiply;
   background-repeat: repeat;
-  background-size: 80px 80px;
 }
 
 .tartan-stripe {
   height: 28px;
   width: 100%;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='%237d8a6b'/><rect y='15' width='80' height='12' fill='%233a4632'/><rect y='40' width='80' height='3' fill='%23f6efe4'/><rect y='60' width='80' height='6' fill='%23c97e7e' fill-opacity='0.85'/><rect x='15' width='12' height='80' fill='%233a4632' fill-opacity='0.55'/><rect x='40' width='3' height='80' fill='%23f6efe4' fill-opacity='0.6'/><rect x='60' width='6' height='80' fill='%23c97e7e' fill-opacity='0.5'/><rect y='45' width='80' height='1' fill='%23b89968'/><rect x='45' width='1' height='80' fill='%23b89968'/></svg>");
-  background-repeat: repeat;
-  background-size: 80px 80px;
   border-top: 1px solid var(--cream-2);
   border-bottom: 1px solid var(--cream-2);
   position: relative;
@@ -1578,9 +1581,6 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   width: 100%;
   height: 110px;
   border-radius: 6px;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><rect width='80' height='80' fill='%237d8a6b'/><rect y='15' width='80' height='12' fill='%233a4632'/><rect y='40' width='80' height='3' fill='%23f6efe4'/><rect y='60' width='80' height='6' fill='%23c97e7e' fill-opacity='0.85'/><rect x='15' width='12' height='80' fill='%233a4632' fill-opacity='0.55'/><rect x='40' width='3' height='80' fill='%23f6efe4' fill-opacity='0.6'/><rect x='60' width='6' height='80' fill='%23c97e7e' fill-opacity='0.5'/><rect y='45' width='80' height='1' fill='%23b89968'/><rect x='45' width='1' height='80' fill='%23b89968'/></svg>");
-  background-repeat: repeat;
-  background-size: 80px 80px;
   border: 1px solid var(--cream-2);
   margin-bottom: 1rem;
   box-shadow: var(--shadow-soft);

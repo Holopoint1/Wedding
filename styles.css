@@ -2847,3 +2847,15 @@ body.lb-open { overflow: hidden; }
   .cd-units { gap: 0.4rem; font-size: 0.38rem; }
   .cd-units b { font-size: 0.78rem; }
 }
+
+/* Hero fine-tuning */
+/* Names a little smaller, and tighter to the line above so they sit higher */
+.home .couple-names { font-size: clamp(3.1rem, 8.6vw, 5.9rem); }
+.home .hero-mini {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 0.35rem;
+}
+/* Date and venue a little lower down the photo */
+.home .hero-date-num { bottom: 4rem; }
+.home .hero-venue-min { bottom: 1.6rem; }

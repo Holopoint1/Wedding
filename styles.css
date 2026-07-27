@@ -319,10 +319,11 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .hero-bg {
   position: absolute;
   inset: 0;
+  /* Misty Glen Fruin at dawn, under a soft cream veil so the text reads */
   background:
-    radial-gradient(ellipse at 30% 20%, rgba(243, 220, 212, 0.55) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(184, 196, 168, 0.55) 0%, transparent 55%),
-    linear-gradient(180deg, #fbf6ec 0%, var(--cream) 100%);
+    linear-gradient(180deg, rgba(251, 246, 236, 0.62) 0%, rgba(251, 246, 236, 0.55) 45%, rgba(246, 239, 228, 0.9) 82%, var(--cream) 100%),
+    url("brand_assets/cropped-22711421550_a17be83217_h1-3.webp") center 30% / cover no-repeat,
+    var(--cream);
 }
 
 .hero-wildlife { position: absolute; inset: 0; pointer-events: none; }
@@ -2032,4 +2033,34 @@ body.is-locked #site-view { visibility: hidden; }
 .gate-suggest li.is-active {
   background: rgba(125, 138, 107, 0.14);
   color: var(--forest);
+}
+
+/* Venue photo strip — real shots of the farm */
+.venue-photos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  max-width: 1100px;
+  margin: 3rem auto 0;
+}
+.venue-photos figure { margin: 0; }
+.venue-photos img {
+  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(125, 138, 107, 0.25);
+  box-shadow: var(--shadow-soft);
+}
+.venue-photos figcaption {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--sage-deeper);
+  margin-top: 0.6rem;
+}
+@media (max-width: 760px) {
+  .venue-photos { grid-template-columns: 1fr; max-width: 480px; }
 }

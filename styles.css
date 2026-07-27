@@ -2802,3 +2802,39 @@ body.lb-open { overflow: hidden; }
   stroke: #ffcdc4;
   stroke-width: 0.9px;
 }
+
+/* Countdown with a label, back to a comfortable size */
+.nav-countdown {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12rem;
+  padding: 0.4rem 1.25rem;
+  transform: translateX(-50%) scale(1);
+}
+.cd-title {
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.52rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+  line-height: 1;
+}
+.cd-units {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+}
+.cd-units b { font-size: 1.35rem; font-weight: 700; }
+.cd-units span:nth-child(1) b { color: #4f7c42; }
+.cd-units span:nth-child(2) b { color: #a08a2e; }
+.cd-units span:nth-child(3) b { color: #c67c35; }
+.cd-units span:nth-child(4) b { color: #bf5546; }
+@media (max-width: 900px) {
+  .nav-countdown { transform: none; font-size: inherit; gap: 0.1rem; padding: 0.3rem 0.8rem; }
+  .cd-title { font-size: 0.42rem; letter-spacing: 0.28em; }
+  .cd-units { gap: 0.5rem; font-size: 0.45rem; }
+  .cd-units b { font-size: 0.95rem; }
+}

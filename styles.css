@@ -2380,3 +2380,69 @@ html { scroll-snap-type: y proximity; }
   font-size: 0.66rem;
 }
 .nav-countdown b { font-size: 1.5rem; }
+
+/* =========================================================
+   HOME HERO — clean botanical: names on cream, flowers below
+   ========================================================= */
+.home .hero { overflow: hidden; }
+.home .hero-bg {
+  background: linear-gradient(180deg, #fbf6ec 0%, var(--cream) 100%);
+}
+.home .hero-wildlife { display: none; }
+.home .hero-inner {
+  justify-content: flex-start;
+  padding-top: clamp(7rem, 17vh, 11rem);
+  position: relative;
+  z-index: 5;
+}
+.home .hero-flowers {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48vh;
+  z-index: 1;
+  background: url("brand_assets/flowers.webp") center 32% / cover no-repeat;
+}
+.home .hero-flowers::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--cream) 0%, rgba(246, 239, 228, 0.55) 20%, rgba(246, 239, 228, 0) 52%);
+}
+
+.hero-date-num {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.5em;
+  color: var(--sage-deeper);
+  margin: 0 0 1.2rem;
+}
+.home .couple-names,
+.home .couple-names span { color: var(--blush-deep); }
+.home .amp { color: var(--gold); }
+.hero-mini {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  color: var(--blush-deep);
+  margin: 1.4rem 0 0;
+  letter-spacing: 0.05em;
+}
+.hero-venue-min {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+  margin: 1rem 0 0;
+}
+
+/* Full-width Glen Fruin band between hero and sections */
+.photo-band {
+  height: clamp(190px, 32vh, 320px);
+  background: url("brand_assets/cropped-22711421550_a17be83217_h1-3.webp") center 55% / cover no-repeat;
+  border-top: 1px solid var(--cream-2);
+  border-bottom: 1px solid var(--cream-2);
+}

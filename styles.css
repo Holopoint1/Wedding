@@ -2446,3 +2446,12 @@ html { scroll-snap-type: y proximity; }
   border-top: 1px solid var(--cream-2);
   border-bottom: 1px solid var(--cream-2);
 }
+
+/* Timeline hover: each milestone lifts gently */
+.story-svg .tl-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform .35s ease;
+  cursor: default;
+}
+.story-svg .tl-node:hover { transform: scale(1.07); }

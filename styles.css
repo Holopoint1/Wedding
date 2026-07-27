@@ -3001,3 +3001,57 @@ body.lb-open { overflow: hidden; }
   .topnav .brand svg,
   .topnav.scrolled .brand svg { width: 94px; height: 40px; }
 }
+
+/* RSVP: choose your name from the guest list */
+.rsvp-guest { text-align: left; }
+.rsvp-name-label {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+}
+.rsvp-name-label input {
+  display: block;
+  width: 100%;
+  margin-top: 0.45rem;
+  padding: 0.85rem 1rem;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid rgba(125, 138, 107, 0.4);
+  outline: none;
+  transition: border-color .25s, box-shadow .25s;
+}
+.rsvp-name-label input:focus {
+  border-color: var(--sage-deep);
+  box-shadow: 0 0 0 3px rgba(125, 138, 107, 0.15);
+}
+.rsvp-guest-invite {
+  margin: 0.8rem 0 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--sage-deeper);
+  text-align: center;
+}
+.rsvp-guest-invite.is-found { color: var(--forest); }
+
+/* The header is fixed, so inner pages need clearance or their first
+   element (the tartan stripe) sits underneath it. The homepage is
+   exempt because its full-height hero already allows for the nav. */
+body:not(.home) #site-view { padding-top: 104px; }
+@media (max-width: 900px) {
+  body:not(.home) #site-view { padding-top: 84px; }
+}
+@media (max-width: 720px) {
+  body:not(.home) #site-view { padding-top: 76px; }
+}
+
+/* Hero eyebrow: slightly larger and nudged left of centre */
+.home .hero-mini {
+  font-size: clamp(1.32rem, 2.1vw, 1.78rem);
+  transform: translateX(-1.4rem);
+}

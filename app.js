@@ -9,21 +9,19 @@ const RSVP_KEY = "alfie-lorna-rsvp";
 const AUTH_KEY = "alfie-lorna-auth";
 const REMOTE_ENDPOINT = ""; // Formspree / Netlify / Apps Script URL when ready
 
-/* ---------- Guest login gate ----------
-   Guests are defined in guests.js (GUEST_LIST). Each logs in with
-   their name + personal password. The session is remembered on the
-   device until they tap "Switch guest". */
-const gate       = document.getElementById("gate");
-const gateForm   = document.getElementById("gate-form");
-const gateName   = document.getElementById("gate-name");
-const gatePass   = document.getElementById("gate-pass");
-const gateError  = document.getElementById("gate-error");
+/* ---------- Site login gate ----------
+   One shared password (SITE_PASSWORD in guests.js) unlocks the site.
+   The session is remembered on the device until "Sign out" is used. */
+const gate      = document.getElementById("gate");
+const gateForm  = document.getElementById("gate-form");
+const gatePass  = document.getElementById("gate-pass");
+const gateError = document.getElementById("gate-error");
 
 const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
-/* Storage that can never throw — some browsers block localStorage /
-   sessionStorage entirely (cookie blocking, private modes). The site
-   must still work; it just won't remember the login between visits. */
+/* Storage that can never throw. Some browsers block localStorage and
+   sessionStorage outright; the site must still work, it just won't
+   remember the login between visits. */
 const store = {
   get:  (k) => { try { return localStorage.getItem(k); }    catch { return null; } },
   set:  (k, v) => { try { localStorage.setItem(k, v); }     catch {} },
@@ -33,77 +31,17 @@ const store = {
   sdel: (k) => { try { sessionStorage.removeItem(k); }      catch {} },
 };
 
-/* ---------- Name type-ahead ----------
-   As the guest types, matching names from the list drop down under
-   the field — tap or arrow+Enter to pick one. */
 const ALL_NAMES = (typeof GUEST_LIST !== "undefined")
   ? [...new Set(GUEST_LIST.map(g => g.name))].sort()
   : [];
 
-(function initTypeahead() {
-  const input = gateName;
-  const list  = document.getElementById("gate-suggest");
-  if (!input || !list) return;
-
-  let matches = [];
-  let active = -1; // highlighted row, -1 = none
-
-  const hide = () => { list.hidden = true; list.innerHTML = ""; active = -1; };
-
-  function pick(name) {
-    input.value = name;
-    hide();
-    const pass = document.getElementById("gate-pass");
-    if (pass) pass.focus();
-  }
-
-  function render() {
-    const q = norm(input.value);
-    if (!q) { hide(); return; }
-    matches = ALL_NAMES.filter(n => norm(n).includes(q)).slice(0, 8);
-    // Nothing to add if the only match is exactly what's typed already
-    if (!matches.length || (matches.length === 1 && norm(matches[0]) === q)) { hide(); return; }
-    active = -1;
-    list.innerHTML = "";
-    matches.forEach((name, i) => {
-      const li = document.createElement("li");
-      li.textContent = name;
-      li.setAttribute("role", "option");
-      // mousedown fires before the input's blur, so taps always register
-      li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(name); });
-      list.appendChild(li);
-    });
-    list.hidden = false;
-  }
-
-  function highlight(i) {
-    active = i;
-    [...list.children].forEach((li, j) => li.classList.toggle("is-active", j === i));
-  }
-
-  input.addEventListener("input", render);
-  input.addEventListener("focus", render);
-  input.addEventListener("blur", () => setTimeout(hide, 150));
-  input.addEventListener("keydown", (e) => {
-    if (list.hidden) return;
-    if (e.key === "ArrowDown") { e.preventDefault(); highlight(Math.min(active + 1, matches.length - 1)); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); highlight(Math.max(active - 1, 0)); }
-    else if (e.key === "Enter" && active >= 0) { e.preventDefault(); pick(matches[active]); }
-    else if (e.key === "Escape") { hide(); }
-  });
-})();
-
-function findGuest(name, password) {
+function findGuest(name) {
   if (typeof GUEST_LIST === "undefined") return null;
-  // Password disambiguates guests who share a name.
-  return GUEST_LIST.find(g => norm(g.name) === norm(name) && norm(g.password) === norm(password)) || null;
+  return GUEST_LIST.find(g => norm(g.name) === norm(name)) || null;
 }
 
-function currentGuest() {
-  try {
-    const saved = JSON.parse(store.get(AUTH_KEY) || "null");
-    return saved ? findGuest(saved.name, saved.password) : null;
-  } catch { return null; }
+function isUnlocked() {
+  return norm(store.get(AUTH_KEY)) === norm(typeof SITE_PASSWORD !== "undefined" ? SITE_PASSWORD : "");
 }
 
 function setLocked(locked) {
@@ -111,71 +49,98 @@ function setLocked(locked) {
   document.body.classList.toggle("is-locked", locked);
 }
 
-function applyGuest(guest) {
-  const nameEl   = document.getElementById("rsvp-guest-name");
-  const inviteEl = document.getElementById("rsvp-guest-invite");
-  if (nameEl) nameEl.textContent = guest.name;
-  if (inviteEl) {
-    inviteEl.textContent = guest.invite === "evening"
-      ? "You're invited to the evening celebration. Join us from 6:00 pm for the cake, first dance and ceilidh."
-      : "You're invited to the whole day. Join us from 1:00 pm for the ceremony.";
-  }
-}
-
-function applyPreview() {
-  const nameEl   = document.getElementById("rsvp-guest-name");
-  const inviteEl = document.getElementById("rsvp-guest-invite");
-  if (nameEl) nameEl.textContent = "Preview mode";
-  if (inviteEl) inviteEl.textContent = "You're browsing without signing in. Sign in with your invitation details to send an RSVP.";
-}
-
-function enterPreview() {
-  store.sset("alfie-lorna-preview", "1");
-  setLocked(false);
-  const guest = currentGuest();
-  if (guest) applyGuest(guest); else applyPreview();
-}
-
 (function initGate() {
   if (!gate) return;
-  const guest = currentGuest();
   const wantsPreview = store.sget("alfie-lorna-preview") || /[?#]preview/.test(window.location.href);
-  if (guest) { setLocked(false); applyGuest(guest); }
-  else if (wantsPreview) { setLocked(false); applyPreview(); }
-  else setLocked(true);
+  setLocked(!(isUnlocked() || wantsPreview));
 
   const previewBtn = document.getElementById("gate-preview");
-  if (previewBtn) previewBtn.addEventListener("click", enterPreview);
+  if (previewBtn) {
+    previewBtn.addEventListener("click", () => {
+      store.sset("alfie-lorna-preview", "1");
+      setLocked(false);
+    });
+  }
 
   gateForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const guest = findGuest(gateName.value, gatePass.value);
-    if (!guest) {
-      const nameKnown = typeof GUEST_LIST !== "undefined" && GUEST_LIST.some(g => norm(g.name) === norm(gateName.value));
-      gateError.textContent = nameKnown
-        ? "That password doesn't match. It's on your invitation, so do check the spelling."
-        : "We can't find that name on the guest list. Try it exactly as it appears on your invitation.";
+    const given = norm(gatePass.value);
+    const want  = norm(typeof SITE_PASSWORD !== "undefined" ? SITE_PASSWORD : "");
+    if (!want || given !== want) {
+      gateError.textContent = "That password doesn't match the one on your invitation. Do check the spelling.";
       gateError.hidden = false;
       return;
     }
     gateError.hidden = true;
-    store.set(AUTH_KEY, JSON.stringify({ name: guest.name, password: guest.password }));
+    store.set(AUTH_KEY, gatePass.value.trim());
     setLocked(false);
-    applyGuest(guest);
   });
+})();
 
-  const switchLink = document.getElementById("rsvp-switch");
-  if (switchLink) {
-    switchLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      store.del(AUTH_KEY);
-      store.sdel("alfie-lorna-preview");
-      gateForm.reset();
-      gateError.hidden = true;
-      setLocked(true);
-      window.scrollTo({ top: 0 });
-    });
+/* ---------- RSVP name picker ----------
+   Only people on the guest list can reply. Typing filters the list;
+   choosing a name shows whether they are a day or evening guest. */
+let rsvpGuest = null;
+
+(function initRsvpName() {
+  const input = document.getElementById("rsvp-name");
+  const list  = document.getElementById("rsvp-suggest");
+  const note  = document.getElementById("rsvp-guest-invite");
+  if (!input || !list) return;
+
+  let matches = [];
+  let active = -1;
+  const hide = () => { list.hidden = true; list.innerHTML = ""; active = -1; };
+
+  function choose(name) {
+    input.value = name;
+    rsvpGuest = findGuest(name);
+    hide();
+    if (note && rsvpGuest) {
+      note.textContent = rsvpGuest.invite === "evening"
+        ? "You're invited to the evening celebration. Join us from 6:00 pm for the cake, first dance and ceilidh."
+        : "You're invited to the whole day. Join us from 1:00 pm for the ceremony.";
+      note.classList.add("is-found");
+    }
   }
+
+  function render() {
+    const q = norm(input.value);
+    rsvpGuest = findGuest(input.value);
+    if (note && !rsvpGuest) {
+      note.textContent = "Choose your name from the list so we know who's replying.";
+      note.classList.remove("is-found");
+    }
+    if (!q) { hide(); return; }
+    matches = ALL_NAMES.filter(n => norm(n).includes(q)).slice(0, 8);
+    if (!matches.length || (matches.length === 1 && norm(matches[0]) === q)) { hide(); return; }
+    active = -1;
+    list.innerHTML = "";
+    matches.forEach(name => {
+      const li = document.createElement("li");
+      li.textContent = name;
+      li.setAttribute("role", "option");
+      li.addEventListener("mousedown", (e) => { e.preventDefault(); choose(name); });
+      list.appendChild(li);
+    });
+    list.hidden = false;
+  }
+
+  const highlight = (i) => {
+    active = i;
+    [...list.children].forEach((li, j) => li.classList.toggle("is-active", j === i));
+  };
+
+  input.addEventListener("input", render);
+  input.addEventListener("focus", render);
+  input.addEventListener("blur", () => setTimeout(() => { hide(); render(); }, 150));
+  input.addEventListener("keydown", (e) => {
+    if (list.hidden) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); highlight(Math.min(active + 1, matches.length - 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); highlight(Math.max(active - 1, 0)); }
+    else if (e.key === "Enter" && active >= 0) { e.preventDefault(); choose(matches[active]); }
+    else if (e.key === "Escape") hide();
+  });
 })();
 
 /* ---------- Intro fade ---------- */
@@ -323,13 +288,16 @@ if (rsvpForm) {
   rsvpForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Only guests on the list (i.e. logged in) can RSVP.
-    const guest = currentGuest();
+    // Only people on the guest list can reply.
+    const nameInput = document.getElementById("rsvp-name");
+    const guest = rsvpGuest || findGuest(nameInput ? nameInput.value : "");
     if (!guest) {
-      rsvpStatus.textContent = "Please sign in with your invitation details to RSVP.";
+      rsvpStatus.textContent = nameInput && nameInput.value.trim()
+        ? "We can't find that name on our guest list. Please choose your name from the suggestions, or email us and we'll sort it out."
+        : "Please choose your name from the list first so we know who's replying.";
       rsvpStatus.hidden = false;
-      store.sdel("alfie-lorna-preview");
-      setLocked(true);
+      rsvpStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (nameInput) nameInput.focus();
       return;
     }
 
@@ -339,8 +307,7 @@ if (rsvpForm) {
     data.submittedAt = new Date().toISOString();
 
     const all = readRsvps();
-    // Password in the key keeps two guests with the same name separate.
-    const key = `${norm(guest.name)}|${guest.password}`;
+    const key = norm(guest.name);
     all[key] = data;
     store.set(RSVP_KEY, JSON.stringify(all));
 

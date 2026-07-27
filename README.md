@@ -16,28 +16,38 @@ Live at **https://www.alflorna.com**
 
 ## How the login works
 
-Every guest has a **personal login**: their name + their own simple password
-(e.g. `thistle56`). Both are listed in the **"Website Password" column of the
-Guest List spreadsheet** — include the password with each invitation.
+There is **one password for the whole website**, set at the top of `guests.js`:
 
-Guests live in `guests.js`:
+```js
+const SITE_PASSWORD = "Fruin2027";
+```
+
+Share it with your invitations. Anyone with the password can browse the whole
+site. Change it here and everyone uses the new one.
+
+## Who can RSVP
+
+Browsing is open to anyone with the password, but **only people on the guest
+list can send an RSVP**. That list also lives in `guests.js`:
 
 ```js
 const GUEST_LIST = [
-  { name: "Harry Dobson", invite: "day",     password: "crag33" },
-  { name: "Jen Smith",    invite: "evening", password: "bud93"  },
+  { name: "Harry Dobson", invite: "day" },
+  { name: "Jen Smith",    invite: "evening" },
   ...
 ];
 ```
 
-- `name` — matched ignoring case/extra spaces; guests can type it or pick from a dropdown
-- `invite` — `"day"` (whole day, from 1:00 pm) or `"evening"` (from 6:00 pm); shown to the guest when they RSVP
-- `password` — their personal password
+- `name` is matched ignoring case and spacing. On the RSVP page a guest starts
+  typing and picks their name from the suggestions.
+- `invite` is `"day"` (whole day, from 1:00 pm) or `"evening"` (from 6:00 pm).
+  The guest sees which one applies to them as soon as they pick their name.
 
-**To add a guest** (e.g. a space opens up): add a line and give them a password.
-**To remove a guest**: delete their line — they can no longer log in or RSVP.
-Only people in this list can RSVP. Two guests may share a name (there are two
-Helen Beatties) — their different passwords tell them apart.
+**To add a guest** (a space opens up): add a line.
+**To remove a guest**: delete their line and they can no longer reply.
+
+A name that isn't on the list is turned away with a message asking them to
+email you, so nobody outside the list can submit a response.
 
 ## RSVP
 

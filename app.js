@@ -22,6 +22,18 @@ const guestNames = document.getElementById("guest-names");
 
 const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
+/* Storage that can never throw — some browsers block localStorage /
+   sessionStorage entirely (cookie blocking, private modes). The site
+   must still work; it just won't remember the login between visits. */
+const store = {
+  get:  (k) => { try { return localStorage.getItem(k); }    catch { return null; } },
+  set:  (k, v) => { try { localStorage.setItem(k, v); }     catch {} },
+  del:  (k) => { try { localStorage.removeItem(k); }        catch {} },
+  sget: (k) => { try { return sessionStorage.getItem(k); }  catch { return null; } },
+  sset: (k, v) => { try { sessionStorage.setItem(k, v); }   catch {} },
+  sdel: (k) => { try { sessionStorage.removeItem(k); }      catch {} },
+};
+
 // Fill the name dropdown (each unique name once)
 if (guestNames && typeof GUEST_LIST !== "undefined") {
   [...new Set(GUEST_LIST.map(g => g.name))].sort().forEach(name => {
@@ -39,7 +51,7 @@ function findGuest(name, password) {
 
 function currentGuest() {
   try {
-    const saved = JSON.parse(localStorage.getItem(AUTH_KEY) || "null");
+    const saved = JSON.parse(store.get(AUTH_KEY) || "null");
     return saved ? findGuest(saved.name, saved.password) : null;
   } catch { return null; }
 }
@@ -67,21 +79,23 @@ function applyPreview() {
   if (inviteEl) inviteEl.textContent = "You're browsing without signing in — sign in with your invitation details to send an RSVP.";
 }
 
+function enterPreview() {
+  store.sset("alfie-lorna-preview", "1");
+  setLocked(false);
+  const guest = currentGuest();
+  if (guest) applyGuest(guest); else applyPreview();
+}
+
 (function initGate() {
   if (!gate) return;
   const guest = currentGuest();
+  const wantsPreview = store.sget("alfie-lorna-preview") || /[?#]preview/.test(window.location.href);
   if (guest) { setLocked(false); applyGuest(guest); }
-  else if (sessionStorage.getItem("alfie-lorna-preview")) { setLocked(false); applyPreview(); }
+  else if (wantsPreview) { setLocked(false); applyPreview(); }
   else setLocked(true);
 
   const previewBtn = document.getElementById("gate-preview");
-  if (previewBtn) {
-    previewBtn.addEventListener("click", () => {
-      sessionStorage.setItem("alfie-lorna-preview", "1");
-      setLocked(false);
-      if (!currentGuest()) applyPreview();
-    });
-  }
+  if (previewBtn) previewBtn.addEventListener("click", enterPreview);
 
   gateForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -95,7 +109,7 @@ function applyPreview() {
       return;
     }
     gateError.hidden = true;
-    localStorage.setItem(AUTH_KEY, JSON.stringify({ name: guest.name, password: guest.password }));
+    store.set(AUTH_KEY, JSON.stringify({ name: guest.name, password: guest.password }));
     setLocked(false);
     applyGuest(guest);
   });
@@ -104,8 +118,8 @@ function applyPreview() {
   if (switchLink) {
     switchLink.addEventListener("click", (e) => {
       e.preventDefault();
-      localStorage.removeItem(AUTH_KEY);
-      sessionStorage.removeItem("alfie-lorna-preview");
+      store.del(AUTH_KEY);
+      store.sdel("alfie-lorna-preview");
       gateForm.reset();
       gateError.hidden = true;
       setLocked(true);
@@ -264,7 +278,7 @@ if (rsvpForm) {
     if (!guest) {
       rsvpStatus.textContent = "Please sign in with your invitation details to RSVP.";
       rsvpStatus.hidden = false;
-      sessionStorage.removeItem("alfie-lorna-preview");
+      store.sdel("alfie-lorna-preview");
       setLocked(true);
       return;
     }
@@ -278,7 +292,7 @@ if (rsvpForm) {
     // Password in the key keeps two guests with the same name separate.
     const key = `${norm(guest.name)}|${guest.password}`;
     all[key] = data;
-    localStorage.setItem(RSVP_KEY, JSON.stringify(all));
+    store.set(RSVP_KEY, JSON.stringify(all));
 
     if (REMOTE_ENDPOINT) {
       try {
@@ -301,7 +315,7 @@ if (rsvpForm) {
 }
 
 function readRsvps() {
-  try { return JSON.parse(localStorage.getItem(RSVP_KEY) || "{}"); }
+  try { return JSON.parse(store.get(RSVP_KEY) || "{}"); }
   catch { return {}; }
 }
 

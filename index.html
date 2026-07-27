@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260727-10" />
+  <link rel="stylesheet" href="styles.css?v=20260727-11" />
 
   <script type="application/ld+json">
   {
@@ -180,7 +180,7 @@
       </div>
 
       <div class="hero-inner">
-        <p class="eyebrow reveal">Welcome to the wedding website of</p>
+        <p class="eyebrow reveal">Welcome to the wedding of</p>
         <h1 class="couple-names reveal">
           <span>Alfie</span>
           <span class="amp">&amp;</span>
@@ -357,15 +357,22 @@
 
       <div class="venue-feature reveal">
         <div class="venue-map">
-          <iframe
-            title="Map showing the venue at Glen Fruin, Helensburgh G84 9EE"
-            src="https://www.google.com/maps?q=Glen+Fruin+Helensburgh+G84+9EE&z=13&output=embed"
-            width="100%"
-            height="360"
-            style="border:0; border-radius:12px;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="map-wrap">
+            <iframe
+              id="venue-map-frame"
+              title="Map showing the venue at Glen Fruin, Helensburgh G84 9EE"
+              src="https://www.google.com/maps?q=Glen+Fruin+Helensburgh+G84+9EE&z=13&output=embed"
+              width="100%"
+              height="360"
+              style="border:0; border-radius:12px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="map-zoom" aria-label="Map zoom controls">
+              <button type="button" id="map-zoom-in" aria-label="Zoom map in">+</button>
+              <button type="button" id="map-zoom-out" aria-label="Zoom map out">−</button>
+            </div>
+          </div>
           <p class="map-link">
             <a href="https://maps.google.com/?q=Glen+Fruin+Helensburgh+G84+9EE" target="_blank" rel="noopener">Open in Google Maps →</a>
             ·
@@ -700,6 +707,31 @@
           <p>Just east of the loch — quieter, wilder, and home to red deer, ospreys and pine martens.</p>
         </article>
       </div>
+
+      <h3 class="subhead reveal">Right on the doorstep</h3>
+      <p class="reveal" style="text-align:center;max-width:700px;margin:0 auto 1.5rem;">A few more spots within minutes of the venue, as recommended by Top 100 Attractions.</p>
+      <div class="travel-grid">
+        <div class="travel-card reveal">
+          <h3>Fruin Farm itself</h3>
+          <p>Our venue is also a Top 100-rated restaurant — and you can book a walk with the resident alpacas and llamas (ring ahead).</p>
+          <p><a href="https://www.fruinfarm.co.uk" target="_blank" rel="noopener">fruinfarm.co.uk →</a></p>
+        </div>
+        <div class="travel-card reveal">
+          <h3>Maid of the Loch</h3>
+          <p>The last paddle steamer built in Britain (1953), berthed at Balloch Pier and lovingly restored — a slice of Loch Lomond history.</p>
+          <p><a href="https://top100attractions.com/attractions/item/maid-of-the-loch" target="_blank" rel="noopener">Full details →</a></p>
+        </div>
+        <div class="travel-card reveal">
+          <h3>Lennox of Lomond</h3>
+          <p>Family-run farm experiences on the lochside — meet the animals and see a working Scottish hill farm up close.</p>
+          <p><a href="https://top100attractions.com/attractions/item/lennox-of-lomond-farm-experiences" target="_blank" rel="noopener">Full details →</a></p>
+        </div>
+        <div class="travel-card reveal">
+          <h3>Helensburgh Golf Club</h3>
+          <p>A historic course above the town with views over the Clyde — a fine way to spend the morning after.</p>
+          <p><a href="https://top100attractions.com/attractions/item/helensburgh-golf-club" target="_blank" rel="noopener">Full details →</a></p>
+        </div>
+      </div>
     </section>
 
     <!-- ============ LOCAL FACTS ============ -->
@@ -906,6 +938,6 @@
   </main>
 
   <script src="guests.js?v=20260727-1"></script>
-  <script src="app.js?v=20260727-4"></script>
+  <script src="app.js?v=20260727-5"></script>
 </body>
 </html>

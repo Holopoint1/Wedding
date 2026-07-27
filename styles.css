@@ -319,10 +319,11 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .hero-bg {
   position: absolute;
   inset: 0;
-  /* Misty Glen Fruin at dawn, under a soft cream veil so the text reads */
+  /* Misty Glen Fruin at dawn — light veil overall, soft glow behind the text */
   background:
-    linear-gradient(180deg, rgba(251, 246, 236, 0.62) 0%, rgba(251, 246, 236, 0.55) 45%, rgba(246, 239, 228, 0.9) 82%, var(--cream) 100%),
-    url("brand_assets/cropped-22711421550_a17be83217_h1-3.webp") center 30% / cover no-repeat,
+    radial-gradient(ellipse 60% 52% at 50% 44%, rgba(251, 246, 236, 0.6) 0%, rgba(251, 246, 236, 0.3) 55%, transparent 78%),
+    linear-gradient(180deg, rgba(251, 246, 236, 0.38) 0%, rgba(251, 246, 236, 0.3) 45%, rgba(246, 239, 228, 0.85) 82%, var(--cream) 100%),
+    url("brand_assets/header_glen.jpg") center 55% / cover no-repeat,
     var(--cream);
 }
 
@@ -2080,3 +2081,38 @@ body.is-locked #site-view { visibility: hidden; }
   color: var(--sage-deeper);
   margin: -0.4rem 0 1rem;
 }
+
+/* Venue map zoom buttons */
+.map-wrap { position: relative; }
+.map-zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-zoom button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(125, 138, 107, 0.4);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--forest);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: background .2s, transform .2s;
+}
+.map-zoom button:hover { background: var(--blush-soft); transform: translateY(-1px); }
+
+/* Book-like scrolling: sections gently snap into view like pages.
+   "proximity" (not mandatory) so long sections still scroll freely. */
+html { scroll-snap-type: y proximity; }
+.hero { scroll-snap-align: start; }
+.section { scroll-snap-align: start; scroll-margin-top: 64px; }
+
+/* Stronger text colours over the hero photo */
+.hero-time { color: var(--sage-deeper); }
+.hero-rsvp-deadline { color: var(--forest); }

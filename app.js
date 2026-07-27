@@ -378,3 +378,18 @@ window.alfieLornaExport = function () {
   a.click();
   URL.revokeObjectURL(url);
 };
+
+/* ---------- Venue map zoom buttons ---------- */
+(function initMapZoom() {
+  const frame = document.getElementById("venue-map-frame");
+  const zin  = document.getElementById("map-zoom-in");
+  const zout = document.getElementById("map-zoom-out");
+  if (!frame || !zin || !zout) return;
+  let zoom = 13;
+  function setZoom(z) {
+    zoom = Math.max(6, Math.min(18, z));
+    frame.src = `https://www.google.com/maps?q=Glen+Fruin+Helensburgh+G84+9EE&z=${zoom}&output=embed`;
+  }
+  zin.addEventListener("click", () => setZoom(zoom + 1));
+  zout.addEventListener("click", () => setZoom(zoom - 1));
+})();

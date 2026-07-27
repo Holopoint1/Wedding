@@ -3061,3 +3061,13 @@ body:not(.home) #site-view { padding-top: 104px; }
 
 /* Countdown: back a touch to the right */
 .nav-countdown { transform: translateX(calc(-50% - 1.1rem)) scale(0.78); }
+
+/* The nudge above was unscoped, so on phones (where the pill sits in the
+   normal flow rather than centred) it dragged the countdown over the
+   monogram. Shift only on desktop; leave the mobile pill in place. */
+@media (max-width: 900px) {
+  .nav-countdown { transform: none !important; margin-left: auto; margin-right: 0.6rem; }
+}
+@media (min-width: 901px) {
+  .nav-countdown { transform: translateX(calc(-50% - 1.1rem)) scale(0.78); }
+}

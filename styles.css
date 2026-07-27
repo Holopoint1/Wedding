@@ -1979,3 +1979,23 @@ body.is-locked #site-view { visibility: hidden; }
   text-transform: uppercase;
   color: var(--sage-deeper);
 }
+
+/* Gate preview (skip sign-in) button */
+.gate-preview {
+  display: block;
+  margin: 1.1rem auto 0;
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+  text-decoration: underline;
+  text-decoration-color: var(--sage);
+  text-underline-offset: 3px;
+  transition: color .25s;
+}
+.gate-preview:hover { color: var(--blush-deep); }

@@ -60,11 +60,28 @@ function applyGuest(guest) {
   }
 }
 
+function applyPreview() {
+  const nameEl   = document.getElementById("rsvp-guest-name");
+  const inviteEl = document.getElementById("rsvp-guest-invite");
+  if (nameEl) nameEl.textContent = "Preview mode";
+  if (inviteEl) inviteEl.textContent = "You're browsing without signing in — sign in with your invitation details to send an RSVP.";
+}
+
 (function initGate() {
   if (!gate) return;
   const guest = currentGuest();
   if (guest) { setLocked(false); applyGuest(guest); }
+  else if (sessionStorage.getItem("alfie-lorna-preview")) { setLocked(false); applyPreview(); }
   else setLocked(true);
+
+  const previewBtn = document.getElementById("gate-preview");
+  if (previewBtn) {
+    previewBtn.addEventListener("click", () => {
+      sessionStorage.setItem("alfie-lorna-preview", "1");
+      setLocked(false);
+      if (!currentGuest()) applyPreview();
+    });
+  }
 
   gateForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -88,6 +105,7 @@ function applyGuest(guest) {
     switchLink.addEventListener("click", (e) => {
       e.preventDefault();
       localStorage.removeItem(AUTH_KEY);
+      sessionStorage.removeItem("alfie-lorna-preview");
       gateForm.reset();
       gateError.hidden = true;
       setLocked(true);
@@ -246,6 +264,7 @@ if (rsvpForm) {
     if (!guest) {
       rsvpStatus.textContent = "Please sign in with your invitation details to RSVP.";
       rsvpStatus.hidden = false;
+      sessionStorage.removeItem("alfie-lorna-preview");
       setLocked(true);
       return;
     }

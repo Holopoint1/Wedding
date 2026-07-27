@@ -2989,3 +2989,7 @@ body.lb-open { overflow: hidden; }
     min-width: 0;
   }
 }
+
+/* Date and venue lower again on the hero */
+.home .hero-date-num { bottom: 2.9rem; }
+.home .hero-venue-min { bottom: 0.9rem; }

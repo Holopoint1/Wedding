@@ -1999,3 +1999,7 @@ body.is-locked #site-view { visibility: hidden; }
   transition: color .25s;
 }
 .gate-preview:hover { color: var(--blush-deep); }
+
+/* The hidden attribute must always beat .gate's display:flex —
+   without this the gate never visually disappears. */
+.gate[hidden] { display: none !important; }

@@ -2363,3 +2363,20 @@ html { scroll-snap-type: y proximity; }
 
 /* Larger couple photo at the foot of the story tree */
 .story-couple img { width: 230px; height: 230px; }
+
+
+/* Snaking story-tree SVG */
+.story-tree { max-width: 1000px; margin: 0 auto; overflow-x: auto; }
+.story-svg { display: block; width: 100%; height: auto; min-width: 620px; }
+
+/* Bigger, more obvious header countdown */
+.nav-countdown {
+  gap: 1rem;
+  padding: 0.35rem 1.2rem;
+  border: 1px solid rgba(125, 138, 107, 0.35);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+  font-size: 0.66rem;
+}
+.nav-countdown b { font-size: 1.5rem; }

@@ -2003,3 +2003,36 @@ body.is-locked #site-view { visibility: hidden; }
 /* The hidden attribute must always beat .gate's display:flex —
    without this the gate never visually disappears. */
 .gate[hidden] { display: none !important; }
+
+/* Name type-ahead dropdown on the login gate */
+.gate-name-wrap { position: relative; display: block; }
+.gate-suggest {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid rgba(125, 138, 107, 0.4);
+  box-shadow: var(--shadow-soft);
+  max-height: 240px;
+  overflow-y: auto;
+}
+.gate-suggest[hidden] { display: none !important; }
+.gate-suggest li {
+  padding: 0.65rem 1rem;
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.gate-suggest li:hover,
+.gate-suggest li.is-active {
+  background: rgba(125, 138, 107, 0.14);
+  color: var(--forest);
+}

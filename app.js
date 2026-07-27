@@ -18,7 +18,6 @@ const gateForm   = document.getElementById("gate-form");
 const gateName   = document.getElementById("gate-name");
 const gatePass   = document.getElementById("gate-pass");
 const gateError  = document.getElementById("gate-error");
-const guestNames = document.getElementById("guest-names");
 
 const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
@@ -34,14 +33,65 @@ const store = {
   sdel: (k) => { try { sessionStorage.removeItem(k); }      catch {} },
 };
 
-// Fill the name dropdown (each unique name once)
-if (guestNames && typeof GUEST_LIST !== "undefined") {
-  [...new Set(GUEST_LIST.map(g => g.name))].sort().forEach(name => {
-    const opt = document.createElement("option");
-    opt.value = name;
-    guestNames.appendChild(opt);
+/* ---------- Name type-ahead ----------
+   As the guest types, matching names from the list drop down under
+   the field — tap or arrow+Enter to pick one. */
+const ALL_NAMES = (typeof GUEST_LIST !== "undefined")
+  ? [...new Set(GUEST_LIST.map(g => g.name))].sort()
+  : [];
+
+(function initTypeahead() {
+  const input = gateName;
+  const list  = document.getElementById("gate-suggest");
+  if (!input || !list) return;
+
+  let matches = [];
+  let active = -1; // highlighted row, -1 = none
+
+  const hide = () => { list.hidden = true; list.innerHTML = ""; active = -1; };
+
+  function pick(name) {
+    input.value = name;
+    hide();
+    const pass = document.getElementById("gate-pass");
+    if (pass) pass.focus();
+  }
+
+  function render() {
+    const q = norm(input.value);
+    if (!q) { hide(); return; }
+    matches = ALL_NAMES.filter(n => norm(n).includes(q)).slice(0, 8);
+    // Nothing to add if the only match is exactly what's typed already
+    if (!matches.length || (matches.length === 1 && norm(matches[0]) === q)) { hide(); return; }
+    active = -1;
+    list.innerHTML = "";
+    matches.forEach((name, i) => {
+      const li = document.createElement("li");
+      li.textContent = name;
+      li.setAttribute("role", "option");
+      // mousedown fires before the input's blur, so taps always register
+      li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(name); });
+      list.appendChild(li);
+    });
+    list.hidden = false;
+  }
+
+  function highlight(i) {
+    active = i;
+    [...list.children].forEach((li, j) => li.classList.toggle("is-active", j === i));
+  }
+
+  input.addEventListener("input", render);
+  input.addEventListener("focus", render);
+  input.addEventListener("blur", () => setTimeout(hide, 150));
+  input.addEventListener("keydown", (e) => {
+    if (list.hidden) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); highlight(Math.min(active + 1, matches.length - 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); highlight(Math.max(active - 1, 0)); }
+    else if (e.key === "Enter" && active >= 0) { e.preventDefault(); pick(matches[active]); }
+    else if (e.key === "Escape") { hide(); }
   });
-}
+})();
 
 function findGuest(name, password) {
   if (typeof GUEST_LIST === "undefined") return null;

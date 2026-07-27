@@ -1561,10 +1561,14 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .tartan-tile,
 .tartan-stripe,
 .tartan-swatch {
-  --tb: #6997cf; /* blue   */
-  --tk: #474e56; /* black  */
-  --tg: #6db089; /* green  */
-  --tr: #dd796e; /* red    */
+  /* Values are pre-compensated for the multiply blend below (the browser
+     squares them where the two layers cross) — the blocks render as
+     blue #3468b0, green #3d8b4d, black #1e242b, matched to a photo of
+     the actual kilt fabric. */
+  --tb: #73a3d4; /* blue   */
+  --tk: #576069; /* black  */
+  --tg: #7dbc8c; /* green  */
+  --tr: #cc847a; /* red    */
   background-color: var(--tb);
   background-image:
     repeating-linear-gradient(90deg,

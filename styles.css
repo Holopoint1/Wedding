@@ -1554,16 +1554,29 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 /* =========================================================
    TARTAN & SALTIRE — Scottish accents
    ========================================================= */
-/* Robertson Hunting Ancient tartan — alternating green & blue sett with a
-   red overcheck, in the softer "ancient" palette. Two crossing gradient
-   layers multiply-blended so the intersections darken like a real weave. */
+/* Robertson Hunting tartan — blue blocks with black tramlines, black bands,
+   green blocks with a red overcheck. Two crossing gradient layers multiply-
+   blended so the intersections darken like a real weave.
+   Sett: B46 K4 B4 K4 B46 | K46 | G46 R8 G46 | K46 (scaled to px). */
 .tartan-tile,
 .tartan-stripe,
 .tartan-swatch {
-  background-color: #b2bf9b;
+  --tb: #6997cf; /* blue   */
+  --tk: #474e56; /* black  */
+  --tg: #6db089; /* green  */
+  --tr: #dd796e; /* red    */
+  background-color: var(--tb);
   background-image:
-    repeating-linear-gradient(90deg, #b2bf9b 0 40px, #d99989 40px 44px, #a7b7c7 44px 84px, #d99989 84px 88px),
-    repeating-linear-gradient(0deg,  #b2bf9b 0 40px, #d99989 40px 44px, #a7b7c7 44px 84px, #d99989 84px 88px);
+    repeating-linear-gradient(90deg,
+      var(--tb) 0 21px,  var(--tk) 21px 23px,  var(--tb) 23px 25px,
+      var(--tk) 25px 27px, var(--tb) 27px 48px, var(--tk) 48px 69px,
+      var(--tg) 69px 90px, var(--tr) 90px 94px, var(--tg) 94px 115px,
+      var(--tk) 115px 136px),
+    repeating-linear-gradient(0deg,
+      var(--tb) 0 21px,  var(--tk) 21px 23px,  var(--tb) 23px 25px,
+      var(--tk) 25px 27px, var(--tb) 27px 48px, var(--tk) 48px 69px,
+      var(--tg) 69px 90px, var(--tr) 90px 94px, var(--tg) 94px 115px,
+      var(--tk) 115px 136px);
   background-blend-mode: multiply;
   background-repeat: repeat;
 }

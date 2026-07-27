@@ -2785,3 +2785,20 @@ body.lb-open { overflow: hidden; }
 
 /* Keep the eyebrow line clear of the countdown pill */
 .home .hero-inner { padding-top: clamp(5rem, 9vh, 6.5rem); }
+
+/* A & L monogram: bolder and brighter so it reads over the hero photo */
+.topnav .brand svg text { paint-order: stroke fill; }
+.home .topnav:not(.scrolled) .brand {
+  color: #ffffff;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
+}
+.home .topnav:not(.scrolled) .brand svg text {
+  stroke: #ffffff;
+  stroke-width: 1.1px;
+}
+/* The ampersand is dusty rose by default; lift it on the photo */
+.home .topnav:not(.scrolled) .brand svg tspan[fill] {
+  fill: #ffcdc4;
+  stroke: #ffcdc4;
+  stroke-width: 0.9px;
+}

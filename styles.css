@@ -3135,3 +3135,12 @@ body:not(.home) #site-view { padding-top: 104px; }
 @media (max-width: 400px) {
   .nav-countdown { transform: translateX(-50%) scale(0.86) !important; }
 }
+
+/* Freeze the page behind the lightbox without losing scroll position */
+body.lb-open {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}

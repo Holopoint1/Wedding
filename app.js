@@ -420,10 +420,17 @@ window.alfieLornaExport = function () {
   const lbCap   = document.getElementById("lb-caption");
   let current = 0;
 
+  let savedScroll = 0;
+
   function openLightbox(i) {
     current = i;
     show();
     box.hidden = false;
+    // Freeze the page without losing the reader's place. Setting overflow
+    // hidden alone makes some mobile browsers jump back to the top, which
+    // feels like being thrown somewhere else on the site.
+    savedScroll = window.scrollY || window.pageYOffset || 0;
+    document.body.style.top = `-${savedScroll}px`;
     document.body.classList.add("lb-open");
   }
   function show() {
@@ -433,12 +440,22 @@ window.alfieLornaExport = function () {
     lbCap.textContent = p.caption || "";
   }
   const step = (n) => { current = (current + n + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length; show(); };
-  const close = () => { box.hidden = true; document.body.classList.remove("lb-open"); };
+  const close = () => {
+    box.hidden = true;
+    document.body.classList.remove("lb-open");
+    document.body.style.top = "";
+    // Restore instantly; smooth scrolling here would look like a jump.
+    const prev = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, savedScroll);
+    document.documentElement.style.scrollBehavior = prev;
+  };
 
   document.getElementById("lb-close").addEventListener("click", close);
   document.getElementById("lb-prev").addEventListener("click", (e) => { e.stopPropagation(); step(-1); });
   document.getElementById("lb-next").addEventListener("click", (e) => { e.stopPropagation(); step(1); });
-  box.addEventListener("click", (e) => { if (e.target === box || e.target === lbImg) close(); });
+  box.addEventListener("click", (e) => { if (e.target === box) close(); });
+  lbImg.addEventListener("click", (e) => e.stopPropagation());
   document.addEventListener("keydown", (e) => {
     if (box.hidden) return;
     if (e.key === "Escape") close();

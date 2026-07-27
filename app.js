@@ -117,8 +117,8 @@ function applyGuest(guest) {
   if (nameEl) nameEl.textContent = guest.name;
   if (inviteEl) {
     inviteEl.textContent = guest.invite === "evening"
-      ? "You're invited to the evening celebration — join us from 6:00 pm for the cake, first dance and ceilidh."
-      : "You're invited to the whole day — join us from 1:00 pm for the ceremony.";
+      ? "You're invited to the evening celebration. Join us from 6:00 pm for the cake, first dance and ceilidh."
+      : "You're invited to the whole day. Join us from 1:00 pm for the ceremony.";
   }
 }
 
@@ -126,7 +126,7 @@ function applyPreview() {
   const nameEl   = document.getElementById("rsvp-guest-name");
   const inviteEl = document.getElementById("rsvp-guest-invite");
   if (nameEl) nameEl.textContent = "Preview mode";
-  if (inviteEl) inviteEl.textContent = "You're browsing without signing in — sign in with your invitation details to send an RSVP.";
+  if (inviteEl) inviteEl.textContent = "You're browsing without signing in. Sign in with your invitation details to send an RSVP.";
 }
 
 function enterPreview() {
@@ -153,8 +153,8 @@ function enterPreview() {
     if (!guest) {
       const nameKnown = typeof GUEST_LIST !== "undefined" && GUEST_LIST.some(g => norm(g.name) === norm(gateName.value));
       gateError.textContent = nameKnown
-        ? "That password doesn't match — it's on your invitation. Do check the spelling."
-        : "We can't find that name on the guest list — try the name exactly as it appears on your invitation.";
+        ? "That password doesn't match. It's on your invitation, so do check the spelling."
+        : "We can't find that name on the guest list. Try it exactly as it appears on your invitation.";
       gateError.hidden = false;
       return;
     }
@@ -357,7 +357,7 @@ if (rsvpForm) {
     }
 
     rsvpStatus.textContent = data.attending === "yes"
-      ? "Thank you — we can't wait to see you in May."
+      ? "Thank you, we can't wait to see you in May."
       : "Thank you for letting us know. You'll be missed.";
     rsvpStatus.hidden = false;
     rsvpStatus.scrollIntoView({ behavior: "smooth", block: "center" });

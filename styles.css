@@ -3058,3 +3058,6 @@ body:not(.home) #site-view { padding-top: 104px; }
 
 /* Countdown nudged left of centre */
 .nav-countdown { transform: translateX(calc(-50% - 2.2rem)) scale(0.78); }
+
+/* Countdown: back a touch to the right */
+.nav-countdown { transform: translateX(calc(-50% - 1.1rem)) scale(0.78); }

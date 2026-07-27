@@ -2993,3 +2993,11 @@ body.lb-open { overflow: hidden; }
 /* Date and venue lower again on the hero */
 .home .hero-date-num { bottom: 2.9rem; }
 .home .hero-venue-min { bottom: 0.9rem; }
+
+/* Mobile: smaller monogram, tucked further left */
+@media (max-width: 900px) {
+  .topnav,
+  .topnav.scrolled { padding-left: 0.55rem; }
+  .topnav .brand svg,
+  .topnav.scrolled .brand svg { width: 94px; height: 40px; }
+}

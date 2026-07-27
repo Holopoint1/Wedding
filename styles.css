@@ -2752,3 +2752,36 @@ body.lb-open { overflow: hidden; }
   .schedule .sch-icon { grid-row: span 2; }
   .sch-text { grid-column: 2; }
 }
+
+/* Countdown 40% smaller. The desktop pill is absolutely positioned, so a
+   transform scale shrinks it exactly without disturbing the nav layout. */
+.nav-countdown {
+  transform: translateX(-50%) scale(0.6);
+  transform-origin: center;
+}
+@media (max-width: 900px) {
+  /* Static in the flow here, so scale the type instead of transforming. */
+  .nav-countdown { transform: none; font-size: 0.3rem; gap: 0.45rem; padding: 0.17rem 0.57rem; }
+  .nav-countdown b { font-size: 0.6rem; }
+}
+
+/* Names sit higher in the hero */
+.home .hero-inner { padding-top: clamp(3.6rem, 6.5vh, 5.2rem); }
+
+/* Date and venue anchored to the bottom of the hero */
+.home .hero-date-num {
+  top: auto;
+  bottom: 5.2rem;
+}
+.home .hero-venue-min {
+  top: auto;
+  bottom: 2.6rem;
+}
+
+/* Nav links noticeably bolder */
+.topnav a,
+.nav-drop-btn { font-weight: 700; }
+.nav-drop-menu li a { font-weight: 700; }
+
+/* Keep the eyebrow line clear of the countdown pill */
+.home .hero-inner { padding-top: clamp(5rem, 9vh, 6.5rem); }

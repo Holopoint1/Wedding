@@ -81,7 +81,7 @@ GitHub repo (`Holopoint1/Wedding`); pushing to the default branch redeploys.
 - **Names / date / venue** — search `index.html` for `Alfie`, `Lorna`, `15 May 2027`, `Fruin Farm`
 - **Schedule times** — `<ol class="schedule">` in `index.html`
 - **Accommodation & taxis** — the "Useful info" section in `index.html` (from the venue's own list)
-- **Email** — replace `hello@alfieandlorna.co.uk` (gate + site footer)
+- **Email** — replace `lornaandalfie@outlook.com` (gate + site footer)
 - **Colours** — CSS custom properties at the top of `styles.css`
 - **Gallery** — drop photos into `/images` and swap the placeholders in `index.html`
 

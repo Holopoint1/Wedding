@@ -2838,3 +2838,12 @@ body.lb-open { overflow: hidden; }
   .cd-units { gap: 0.5rem; font-size: 0.45rem; }
   .cd-units b { font-size: 0.95rem; }
 }
+
+/* Countdown a touch smaller again (scaled so the label stays legible) */
+.nav-countdown { transform: translateX(-50%) scale(0.78); }
+@media (max-width: 900px) {
+  .nav-countdown { transform: none; padding: 0.24rem 0.65rem; }
+  .cd-title { font-size: 0.36rem; }
+  .cd-units { gap: 0.4rem; font-size: 0.38rem; }
+  .cd-units b { font-size: 0.78rem; }
+}

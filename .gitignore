@@ -1,13 +1,8 @@
-# Cloudflare Wrangler local cache / account state — never commit
+# Source documents that must never be published with the site.
+# They stay on your computer; they just don't get deployed.
+*.xlsx
+*.xls
+*.docx
+*.pdf
+~$*
 .wrangler/
-
-# Dependencies
-node_modules/
-
-# Logs
-*.log
-
-# OS / editor cruft
-.DS_Store
-Thumbs.db
-.vscode/

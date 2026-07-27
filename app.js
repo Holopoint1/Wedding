@@ -2,11 +2,99 @@
    Alfie & Lorna — interactions, animations, RSVP
    ========================================================= */
 
-// Saturday 15 May 2027, 14:00 BST (UTC+1) — ceremony start at Fruin Farm
-const WEDDING_DATE = new Date("2027-05-15T14:00:00+01:00");
+// Saturday 15 May 2027, 13:30 BST (UTC+1) — ceremony start at Fruin Farm
+const WEDDING_DATE = new Date("2027-05-15T13:30:00+01:00");
 const WEDDING_MS = WEDDING_DATE.getTime();
 const RSVP_KEY = "alfie-lorna-rsvp";
+const AUTH_KEY = "alfie-lorna-auth";
 const REMOTE_ENDPOINT = ""; // Formspree / Netlify / Apps Script URL when ready
+
+/* ---------- Guest login gate ----------
+   Guests are defined in guests.js (GUEST_LIST). Each logs in with
+   their name + personal password. The session is remembered on the
+   device until they tap "Switch guest". */
+const gate       = document.getElementById("gate");
+const gateForm   = document.getElementById("gate-form");
+const gateName   = document.getElementById("gate-name");
+const gatePass   = document.getElementById("gate-pass");
+const gateError  = document.getElementById("gate-error");
+const guestNames = document.getElementById("guest-names");
+
+const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+
+// Fill the name dropdown (each unique name once)
+if (guestNames && typeof GUEST_LIST !== "undefined") {
+  [...new Set(GUEST_LIST.map(g => g.name))].sort().forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    guestNames.appendChild(opt);
+  });
+}
+
+function findGuest(name, password) {
+  if (typeof GUEST_LIST === "undefined") return null;
+  // Password disambiguates guests who share a name.
+  return GUEST_LIST.find(g => norm(g.name) === norm(name) && norm(g.password) === norm(password)) || null;
+}
+
+function currentGuest() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(AUTH_KEY) || "null");
+    return saved ? findGuest(saved.name, saved.password) : null;
+  } catch { return null; }
+}
+
+function setLocked(locked) {
+  if (gate) gate.hidden = !locked;
+  document.body.classList.toggle("is-locked", locked);
+}
+
+function applyGuest(guest) {
+  const nameEl   = document.getElementById("rsvp-guest-name");
+  const inviteEl = document.getElementById("rsvp-guest-invite");
+  if (nameEl) nameEl.textContent = guest.name;
+  if (inviteEl) {
+    inviteEl.textContent = guest.invite === "evening"
+      ? "You're invited to the evening celebration — join us from 6:00 pm for the cake, first dance and ceilidh."
+      : "You're invited to the whole day — join us from 1:00 pm for the ceremony.";
+  }
+}
+
+(function initGate() {
+  if (!gate) return;
+  const guest = currentGuest();
+  if (guest) { setLocked(false); applyGuest(guest); }
+  else setLocked(true);
+
+  gateForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const guest = findGuest(gateName.value, gatePass.value);
+    if (!guest) {
+      const nameKnown = typeof GUEST_LIST !== "undefined" && GUEST_LIST.some(g => norm(g.name) === norm(gateName.value));
+      gateError.textContent = nameKnown
+        ? "That password doesn't match — it's on your invitation. Do check the spelling."
+        : "We can't find that name on the guest list — try the name exactly as it appears on your invitation.";
+      gateError.hidden = false;
+      return;
+    }
+    gateError.hidden = true;
+    localStorage.setItem(AUTH_KEY, JSON.stringify({ name: guest.name, password: guest.password }));
+    setLocked(false);
+    applyGuest(guest);
+  });
+
+  const switchLink = document.getElementById("rsvp-switch");
+  if (switchLink) {
+    switchLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem(AUTH_KEY);
+      gateForm.reset();
+      gateError.hidden = true;
+      setLocked(true);
+      window.scrollTo({ top: 0 });
+    });
+  }
+})();
 
 /* ---------- Intro fade ---------- */
 window.addEventListener("load", () => {
@@ -24,20 +112,39 @@ const onScroll = () => {
 window.addEventListener("scroll", onScroll, { passive: true });
 onScroll();
 
-/* ---------- Mobile nav toggle ---------- */
-const navToggle = document.getElementById("nav-toggle");
-const navMenu   = document.getElementById("nav-menu");
-if (navToggle) {
-  navToggle.addEventListener("click", () => {
-    const open = navMenu.classList.toggle("is-open");
+/* ---------- Mobile nav: open / close, tap-off, Esc, scroll ---------- */
+const navToggle   = document.getElementById("nav-toggle");
+const navMenu     = document.getElementById("nav-menu");
+const navBackdrop = document.getElementById("nav-backdrop");
+
+if (navToggle && navMenu) {
+  const isOpen = () => navMenu.classList.contains("is-open");
+  const setNav = (open) => {
+    navMenu.classList.toggle("is-open", open);
     navToggle.classList.toggle("is-open", open);
+    if (navBackdrop) navBackdrop.classList.toggle("is-open", open);
     navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  };
+  const closeNav = () => setNav(false);
+
+  navToggle.addEventListener("click", (e) => {
+    e.stopPropagation();          // don't let the outside-click handler see this
+    setNav(!isOpen());
   });
-  navMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
-    navMenu.classList.remove("is-open");
-    navToggle.classList.remove("is-open");
-    navToggle.setAttribute("aria-expanded", "false");
-  }));
+
+  // Choosing a link closes the menu
+  navMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+
+  // Tapping the scrim — or anywhere outside the menu — closes it
+  if (navBackdrop) navBackdrop.addEventListener("click", closeNav);
+  document.addEventListener("click", (e) => {
+    if (isOpen() && !navMenu.contains(e.target) && !navToggle.contains(e.target)) closeNav();
+  });
+
+  // Escape key, or scrolling the page, also closes it
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
+  window.addEventListener("scroll", () => { if (isOpen()) closeNav(); }, { passive: true });
 }
 
 /* ---------- Rail collapse toggle ---------- */
@@ -133,11 +240,24 @@ const rsvpStatus = document.getElementById("rsvp-status");
 if (rsvpForm) {
   rsvpForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    // Only guests on the list (i.e. logged in) can RSVP.
+    const guest = currentGuest();
+    if (!guest) {
+      rsvpStatus.textContent = "Please sign in with your invitation details to RSVP.";
+      rsvpStatus.hidden = false;
+      setLocked(true);
+      return;
+    }
+
     const data = Object.fromEntries(new FormData(rsvpForm).entries());
+    data.name = guest.name;
+    data.invite = guest.invite;
     data.submittedAt = new Date().toISOString();
 
     const all = readRsvps();
-    const key = (data["rsvp-name"] || "guest").toLowerCase().trim();
+    // Password in the key keeps two guests with the same name separate.
+    const key = `${norm(guest.name)}|${guest.password}`;
     all[key] = data;
     localStorage.setItem(RSVP_KEY, JSON.stringify(all));
 

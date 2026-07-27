@@ -1,14 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6efe4" />
+
+  <!-- Wedding sites are kept out of public search by default. To make it Google-findable,
+       change the line below to:  <meta name="robots" content="index, follow" />  -->
+  <meta name="robots" content="noindex, nofollow" />
+
   <title>Alfie &amp; Lorna · 15 May 2027 · Fruin Farm, Loch Lomond</title>
-  <meta name="description" content="The wedding of Alfie and Lorna at Fruin Farm, Loch Lomond, Scotland — 15 May 2027." />
+  <meta name="description" content="The wedding of Alfie &amp; Lorna — Saturday 15 May 2027 at Fruin Farm, Glen Fruin, Loch Lomond. Travel, where to stay, the order of the day, and RSVP inside." />
+
+  <!-- Social share card (WhatsApp / iMessage / Facebook). Add the two URL lines once
+       the domain + a 1200x630 photo exist; without them you still get a text card. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Alfie &amp; Lorna" />
+  <meta property="og:title" content="Alfie &amp; Lorna · Saturday 15 May 2027" />
+  <meta property="og:description" content="We're getting married at Fruin Farm, Loch Lomond. Tap for travel, where to stay, the order of the day, and to RSVP." />
+  <meta property="og:locale" content="en_GB" />
+  <!-- <meta property="og:url" content="https://your-domain/" /> -->
+  <!-- <meta property="og:image" content="https://your-domain/share.jpg" /> -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Alfie &amp; Lorna · Saturday 15 May 2027" />
+  <meta name="twitter:description" content="We're getting married at Fruin Farm, Loch Lomond. Tap for travel, where to stay, the order of the day, and to RSVP." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20270515" />
+  <link rel="stylesheet" href="styles.css?v=20260727-1" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "The Wedding of Alfie & Lorna",
+    "startDate": "2027-05-15T13:30:00+01:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "description": "The wedding of Alfie & Lorna at Fruin Farm, Glen Fruin, Loch Lomond, Scotland.",
+    "location": {
+      "@type": "Place",
+      "name": "Fruin Farm",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Glen Fruin",
+        "addressLocality": "Helensburgh",
+        "postalCode": "G84 9EE",
+        "addressRegion": "Argyll and Bute",
+        "addressCountry": "GB"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 56.0157,
+        "longitude": -4.7270
+      }
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -38,6 +86,36 @@
   <!-- Right-rail navigator removed -->
 
 
+  <!-- ============ GUEST LOGIN GATE ============ -->
+  <div id="gate" class="gate" hidden>
+    <div class="gate-card">
+      <svg viewBox="0 0 200 200" class="gate-mark" aria-hidden="true">
+        <circle cx="100" cy="100" r="78" fill="none" stroke="#7d8a6b" stroke-width="0.8" />
+        <circle cx="100" cy="100" r="68" fill="none" stroke="#b89968" stroke-width="0.5" />
+        <text x="100" y="92" text-anchor="middle" font-family="Italiana, serif" font-size="34" fill="#3a4632">A</text>
+        <text x="100" y="118" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="22" fill="#c97e7e" font-style="italic">&amp;</text>
+        <text x="100" y="144" text-anchor="middle" font-family="Italiana, serif" font-size="34" fill="#3a4632">L</text>
+      </svg>
+      <p class="gate-eyebrow">Alfie &amp; Lorna</p>
+      <h1 class="gate-title">Welcome to our wedding website</h1>
+      <p class="gate-lead">Please sign in with the name and password from your invitation.</p>
+      <form id="gate-form" class="gate-form">
+        <label>Your name
+          <input type="text" id="gate-name" list="guest-names" autocomplete="name" placeholder="Start typing or pick your name…" required />
+          <datalist id="guest-names"></datalist>
+        </label>
+        <label>Your password
+          <input type="password" id="gate-pass" autocomplete="current-password" placeholder="From your invitation" required />
+        </label>
+        <button type="submit" class="primary-btn">Enter</button>
+        <p id="gate-error" class="gate-error" hidden></p>
+      </form>
+      <p class="gate-help">Lost your password? Email <a href="mailto:hello@alfieandlorna.co.uk">hello@alfieandlorna.co.uk</a></p>
+    </div>
+  </div>
+
+  <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
+
   <main id="site-view">
 
     <!-- ============ TOP NAV ============ -->
@@ -53,10 +131,10 @@
       <ul id="nav-menu">
         <li><a href="#schedule">The Day</a></li>
         <li><a href="#venue">Venue</a></li>
-        <li><a href="#travel">Useful info</a></li>
+        <li><a href="#travel">Travel &amp; Stay</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#rsvp">RSVP</a></li>
-        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#rsvp" class="nav-rsvp">RSVP</a></li>
       </ul>
     </nav>
 
@@ -98,8 +176,7 @@
       </div>
 
       <div class="hero-inner">
-        <p class="eyebrow reveal">Together with their families</p>
-        <p class="eyebrow-sub reveal">request the pleasure of your company at the marriage of</p>
+        <p class="eyebrow reveal">Welcome to the wedding website of</p>
         <h1 class="couple-names reveal">
           <span>Alfie</span>
           <span class="amp">&amp;</span>
@@ -111,10 +188,18 @@
           <span></span>
         </div>
         <p class="hero-date reveal">Saturday · the fifteenth of May · two thousand and twenty-seven</p>
-        <p class="hero-time reveal">Ceremony at two o'clock in the afternoon</p>
+        <p class="hero-time reveal">Ceremony at half past one in the afternoon</p>
         <p class="hero-venue reveal">Fruin Farm · Glen Fruin · Loch Lomond · Scotland<span class="saltire" aria-label="Scotland" title="Scotland"></span></p>
 
-        <p class="hero-welcome reveal">After what feels like a long road, we're getting married in the Scottish hills — and we'd love nothing more than to have you there. Below you'll find everything you need to plan the day with us: travel, where to stay, the order of the day, what to wear, and a place to RSVP.</p>
+        <div class="hero-actions hero-actions-top reveal">
+          <a href="#rsvp" class="hero-rsvp hero-rsvp-big">
+            <span>RSVP</span>
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12 H19 M13 6 L19 12 L13 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="hero-rsvp-deadline">Please reply by 1st September</p>
+        </div>
+
+        <p class="hero-welcome reveal">We can't wait to celebrate our special day with you! Here you'll find everything you need to know about the wedding, including timings, accommodation, travel details and how to RSVP.</p>
 
         <div class="hero-stats reveal" aria-label="At a glance">
           <div class="hero-stat">
@@ -122,7 +207,7 @@
             <span class="hero-stat-lbl">minutes from Glasgow</span>
           </div>
           <div class="hero-stat">
-            <span class="hero-stat-num">2:00</span>
+            <span class="hero-stat-num">1:30</span>
             <span class="hero-stat-lbl">pm ceremony</span>
           </div>
           <div class="hero-stat">
@@ -130,8 +215,8 @@
             <span class="hero-stat-lbl">ceilidh &amp; dancing</span>
           </div>
           <div class="hero-stat">
-            <span class="hero-stat-num">15 May</span>
-            <span class="hero-stat-lbl">RSVP by 2027</span>
+            <span class="hero-stat-num">1 Sept</span>
+            <span class="hero-stat-lbl">RSVP deadline</span>
           </div>
         </div>
 
@@ -143,10 +228,6 @@
         </div>
 
         <div class="hero-actions reveal">
-          <a href="#rsvp" class="hero-rsvp">
-            <span>RSVP by 15 May 2027</span>
-            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12 H19 M13 6 L19 12 L13 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
           <a href="#schedule" class="hero-cta">
             <span>The day at a glance</span>
             <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 4 L12 20 M5 13 L12 20 L19 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -188,50 +269,78 @@
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="14" fill="none" stroke="#3a4632" stroke-width="1.2"/><path d="M20 12 V20 L26 24" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linecap="round"/></svg>
           </div>
-          <span class="time">1:30 pm</span>
-          <div class="sch-text"><strong>Guests arrive</strong><span>Welcome drinks on the lawn — please be seated by 1:55 pm.</span></div>
+          <span class="time">1:00 pm</span>
+          <div class="sch-text"><strong>Guests arrive</strong><span>Please be seated a little before 1:30 pm so we can begin on time.</span></div>
         </li>
         <li class="reveal">
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><path d="M10 30 L20 14 L30 30 Z M16 30 V24 H24 V30" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
           </div>
-          <span class="time">2:00 pm</span>
-          <div class="sch-text"><strong>The ceremony</strong><span>Held in the farm's flower-lined barn. About thirty minutes.</span></div>
+          <span class="time">1:30 pm</span>
+          <div class="sch-text"><strong>The ceremony</strong><span>1:30 – 2:00 pm. Outdoors, weather permitting — this is Scotland after all!</span></div>
         </li>
         <li class="reveal">
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><path d="M14 14 V26 Q14 30 20 30 Q26 30 26 26 V14 Z M14 14 H26 M20 30 V36" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
           </div>
-          <span class="time">2:45 pm</span>
-          <div class="sch-text"><strong>Drinks &amp; photographs</strong><span>Canapés, fizz, and group photos in the meadow.</span></div>
+          <span class="time">2:00 pm</span>
+          <div class="sch-text"><strong>Drinks, canapés &amp; photographs</strong><span>2:00 – 4:00 pm. Fizz and photos in the meadow.</span></div>
         </li>
         <li class="reveal">
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><circle cx="20" cy="22" r="9" fill="none" stroke="#3a4632" stroke-width="1.2"/><path d="M11 22 H29 M14 12 H26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linecap="round"/></svg>
           </div>
-          <span class="time">4:30 pm</span>
-          <div class="sch-text"><strong>Wedding breakfast</strong><span>Three Scottish-inspired courses, served in the long barn.</span></div>
+          <span class="time">4:00 pm</span>
+          <div class="sch-text"><strong>Wedding meal &amp; speeches</strong><span>4:00 – 6:00 pm. Tears, laughter, possibly both at once.</span></div>
+        </li>
+        <li class="reveal">
+          <div class="sch-icon">
+            <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="6" fill="none" stroke="#3a4632" stroke-width="1.2"/><path d="M20 22 C12 22 8 28 8 34 H32 C32 28 28 22 20 22 Z" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="time">6:00 pm</span>
+          <div class="sch-text"><strong>Evening guests arrive</strong><span>The party grows — welcome drinks for our evening guests.</span></div>
         </li>
         <li class="reveal">
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><path d="M12 28 H28 M14 28 V18 H26 V28 M16 18 V14 H24 V18 M19 14 V10 H21 V14" fill="none" stroke="#3a4632" stroke-width="1.2"/></svg>
           </div>
-          <span class="time">7:00 pm</span>
-          <div class="sch-text"><strong>Speeches &amp; cake</strong><span>Tears, laughter, possibly both at once.</span></div>
+          <span class="time">6:30 pm</span>
+          <div class="sch-text"><strong>Cake cut &amp; first dance</strong><span>Cameras at the ready.</span></div>
         </li>
         <li class="reveal">
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><path d="M14 12 V24 A4 4 0 1 0 18 24 V14 H26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
           </div>
-          <span class="time">8:00 pm</span>
-          <div class="sch-text"><strong>First dance &amp; evening</strong><span>Live ceilidh band, then DJ until late.</span></div>
+          <span class="time">7:00 pm</span>
+          <div class="sch-text"><strong>Ceilidh</strong><span>Live ceilidh band — no experience needed, the caller will keep you right.</span></div>
+        </li>
+        <li class="reveal">
+          <div class="sch-icon">
+            <svg viewBox="0 0 40 40"><path d="M12 16 H26 V24 Q26 28 20 28 Q14 28 14 24 Z M26 18 H30 Q32 20 30 22 H26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/><path d="M16 12 Q17 10 16 8 M21 12 Q22 10 21 8" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+          <span class="time">9:00 pm</span>
+          <div class="sch-text"><strong>Band break &amp; evening buffet</strong><span>9:00 – 9:30 pm. Tea, coffee and a bite to eat — including our cut cake.</span></div>
+        </li>
+        <li class="reveal">
+          <div class="sch-icon">
+            <svg viewBox="0 0 40 40"><path d="M14 12 V24 A4 4 0 1 0 18 24 V14 H26 M26 12 V22 A4 4 0 1 1 22 26" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="time">9:30 pm</span>
+          <div class="sch-text"><strong>Evening band</strong><span>Back on the floor — dancing into the night.</span></div>
+        </li>
+        <li class="reveal">
+          <div class="sch-icon">
+            <svg viewBox="0 0 40 40"><path d="M14 14 V26 Q14 30 20 30 Q26 30 26 26 V14 Z M14 14 H26 M20 30 V36" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="time">11:45 pm</span>
+          <div class="sch-text"><strong>Last orders</strong><span>One final round at the bar.</span></div>
         </li>
         <li class="reveal">
           <div class="sch-icon">
             <svg viewBox="0 0 40 40"><path d="M28 18 A8 8 0 1 1 22 12 A6 6 0 0 0 28 18 Z" fill="none" stroke="#3a4632" stroke-width="1.2" stroke-linejoin="round"/></svg>
           </div>
           <span class="time">12:00 am</span>
-          <div class="sch-text"><strong>Carriages</strong><span>The coach back to Glasgow leaves promptly at midnight.</span></div>
+          <div class="sch-text"><strong>Home time</strong><span>Thank you for celebrating with us — safe travels home.</span></div>
         </li>
       </ol>
     </section>
@@ -273,7 +382,7 @@
             <svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M20 22 C12 22 8 28 8 34 H32 C32 28 28 22 20 22 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
           </div>
           <h3>Ceremony</h3>
-          <p>Held in the long barn, dressed with eucalyptus, hydrangea and Scottish wildflowers.</p>
+          <p>Planned for outdoors with the hills as our backdrop, weather permitting — with the barn as a beautiful back-up.</p>
         </div>
         <div class="venue-card reveal">
           <div class="card-icon">
@@ -303,66 +412,116 @@
       </div>
       <p class="section-eyebrow reveal">Useful info</p>
       <h2 class="reveal">Local taxis &amp; places to stay</h2>
-      <p class="lead reveal">Glen Fruin is rural and the venue is up a long farm track — pre-booking a taxi and a place to stay is what'll make the day stress-free. The blocks below are placeholders for the couple to fill in with verified local recommendations before invitations go out.</p>
+      <p class="lead reveal">Glen Fruin is rural and the venue is up a long farm track — pre-booking a taxi and a place to stay is what'll make the day stress-free. All the recommendations below come from the venue itself.</p>
 
       <h3 class="subhead reveal">Local taxis</h3>
-      <p class="reveal" style="text-align:center;max-width:700px;margin:0 auto 1.5rem;">Pre-book your return run in advance. Apps like Uber and Bolt aren't reliable this far out of Glasgow.</p>
+      <p class="reveal" style="text-align:center;max-width:700px;margin:0 auto 1.5rem;">Pre-book your return run in advance — apps like Uber and Bolt aren't reliable this far out of Glasgow. Use the firm that covers where you're staying.</p>
       <div class="taxi-grid">
         <div class="taxi-card reveal">
-          <h4>[ Local taxi firm — name ]</h4>
-          <p>Short description of the firm and the area they cover.</p>
-          <p class="taxi-link"><strong>Phone: TBC</strong></p>
+          <h4>Staying in Balloch or Alexandria?</h4>
+          <p>These firms are based in Balloch and Alexandria and cover all the accommodation on that side of the water.</p>
+          <p class="taxi-link"><strong>Wright Taxis:</strong> <a href="tel:013897210202">013897210202</a></p>
+          <p class="taxi-link"><strong>TOA Taxis:</strong> <a href="tel:01389742121">01389 742121</a></p>
         </div>
         <div class="taxi-card reveal">
-          <h4>[ Second taxi firm — name ]</h4>
-          <p>Useful if you're staying on the eastern side of the loch.</p>
-          <p class="taxi-link"><strong>Phone: TBC</strong></p>
+          <h4>Staying in Helensburgh?</h4>
+          <p>These firms are based in Helensburgh and cover the hotels and B&amp;Bs in and around the town.</p>
+          <p class="taxi-link"><strong>Neptune Taxis:</strong> <a href="tel:01436676666">01436 676666</a></p>
+          <p class="taxi-link"><strong>Trident Taxis:</strong> <a href="tel:01436593614">01436 593614</a></p>
         </div>
         <div class="taxi-card reveal">
-          <h4>[ Garelochhead / closest pickup ]</h4>
-          <p>Closest pickup point to Fruin Farm — best for the late-evening run.</p>
-          <p class="taxi-link"><strong>Phone: TBC</strong></p>
+          <h4>Coach hire for groups</h4>
+          <p>Travelling as a bigger group? Boyd Coach Hire, based in Linwood, can run group transport to and from the farm.</p>
+          <p class="taxi-link"><strong>Boyd Coach Hire:</strong> <a href="tel:01418842222">0141 884 2222</a></p>
+          <p class="taxi-link"><a href="https://www.boydcoachhire.com/" target="_blank" rel="noopener">boydcoachhire.com →</a></p>
         </div>
       </div>
-      <p class="taxi-note reveal"><em>Couple to confirm names &amp; numbers with venue before invitations go out.</em></p>
 
       <h3 class="subhead reveal">Where to stay</h3>
+      <p class="reveal" style="text-align:center;max-width:760px;margin:0 auto 1.5rem;">These are the venue's own recommendations. Distances and drive times are to Fruin Farm.</p>
+
+      <h4 class="travel-subhead reveal">Balloch &amp; Alexandria side <span class="stay-taxi-note">· covered by Wright Taxis &amp; TOA Taxis</span></h4>
       <div class="stay-grid">
         <div class="stay-card reveal">
-          <p class="stay-tier">Closest to the venue</p>
-          <h4>[ Hotel / inn — name ]</h4>
-          <p>Closest accommodation to Fruin Farm — ideal if you'd rather not deal with a long taxi back at midnight.</p>
-          <p class="stay-link"><strong>Website: TBC</strong></p>
+          <p class="stay-tier">3 miles · 5 min drive</p>
+          <h4>Cameron House</h4>
+          <p>Five-star hotel on Loch Lomond with self-catering lodges that sleep up to 8.</p>
+          <p>Loch Lomond, Alexandria, G83 8QZ · <a href="tel:01389310777">01389 310777</a></p>
+          <p class="stay-link"><a href="https://www.cameronhouse.co.uk/" target="_blank" rel="noopener">cameronhouse.co.uk →</a></p>
         </div>
         <div class="stay-card reveal">
-          <p class="stay-tier">Treat yourself</p>
-          <h4>[ Lochside hotel — name ]</h4>
-          <p>Higher-end option with restaurant and spa for guests making a weekend of it.</p>
-          <p class="stay-link"><strong>Website: TBC</strong></p>
+          <p class="stay-tier">2.6 miles · 5 min drive</p>
+          <h4>Auchendennan Luxury Cottages</h4>
+          <p>A whole range of self-catering cottages to choose from — great for groups.</p>
+          <p>Arden, Balloch, G83 8RB · <a href="tel:01389710000">01389 710000</a></p>
+          <p class="stay-link"><a href="https://www.loch-lomond-accommodation.co.uk/" target="_blank" rel="noopener">loch-lomond-accommodation.co.uk →</a></p>
         </div>
         <div class="stay-card reveal">
-          <p class="stay-tier">Mid-range</p>
-          <h4>[ Mid-range hotel — name ]</h4>
-          <p>Comfortable, friendly hotel within easy taxi distance of the venue.</p>
-          <p class="stay-link"><strong>Website: TBC</strong></p>
+          <p class="stay-tier">6.1 miles · 8 min drive</p>
+          <h4>Loch Lomond Arms Hotel</h4>
+          <p>A country pub and hotel with rooms and cottages in pretty Luss village.</p>
+          <p>Luss Main Road, Loch Lomond, G83 8NY · <a href="tel:01436860420">01436 860420</a></p>
+          <p class="stay-link"><a href="http://lochlomondarmshotel.com/" target="_blank" rel="noopener">lochlomondarmshotel.com →</a></p>
         </div>
         <div class="stay-card reveal">
-          <p class="stay-tier">Easy on the wallet</p>
-          <h4>[ Pub with rooms / B&amp;B — name ]</h4>
-          <p>Honest, clean rooms — the budget-friendly option close to the venue.</p>
-          <p class="stay-link"><strong>Website: TBC</strong></p>
+          <p class="stay-tier">4.8 miles · 7 min drive</p>
+          <h4>Lomond Woods Holiday Park</h4>
+          <p>Lodges, caravans and glamping pods near Balloch.</p>
+          <p>Old Luss Rd, Alexandria, G83 8QP · <a href="tel:01250878123">01250 878123</a></p>
+          <p class="stay-link"><a href="https://www.woodleisure.co.uk/our-parks/lomond-woods/" target="_blank" rel="noopener">woodleisure.co.uk →</a></p>
         </div>
         <div class="stay-card reveal">
-          <p class="stay-tier">For groups</p>
-          <h4>Self-catering cottages</h4>
-          <p>Lovely Airbnbs and cottages around Loch Lomond if you'd like to stay together as a group.</p>
-          <p class="stay-link"><a href="https://www.lochlomond-trossachs.org/things-to-do/where-to-stay/" target="_blank" rel="noopener">National Park accommodation →</a></p>
+          <p class="stay-tier">8.4 miles · 12 min drive</p>
+          <h4>Premier Inn Dumbarton</h4>
+          <p>If it's good enough for Lenny Henry… The reliable budget-friendly option.</p>
+          <p>Lomondgate Drive, Dumbarton, G82 3BN · <a href="tel:03333219214">0333 3219214</a></p>
+          <p class="stay-link"><a href="https://www.premierinn.com/gb/en/home.html" target="_blank" rel="noopener">premierinn.com →</a></p>
+        </div>
+      </div>
+
+      <h4 class="travel-subhead reveal">Helensburgh side <span class="stay-taxi-note">· covered by Neptune Taxis &amp; Trident Taxis</span></h4>
+      <div class="stay-grid">
+        <div class="stay-card reveal">
+          <p class="stay-tier">3 miles · 5 min drive</p>
+          <h4>The Commodore</h4>
+          <p>Part of the Vintage Inns chain, with a rustic pub and rooms on the seafront.</p>
+          <p>112–117 West Clyde Street, Helensburgh, G84 8ES · <a href="tel:01436676924">01436 676924</a></p>
+          <p class="stay-link"><a href="https://www.vintageinn.co.uk/" target="_blank" rel="noopener">vintageinn.co.uk →</a></p>
         </div>
         <div class="stay-card reveal">
-          <p class="stay-tier">More options</p>
-          <h4>Wider area search</h4>
-          <p>If the above are full, search Helensburgh, Garelochhead, Luss, Arrochar and Balloch for more rooms within easy reach of the venue.</p>
-          <p class="stay-link"><a href="https://www.booking.com/searchresults.html?ss=Helensburgh%2C+Scotland" target="_blank" rel="noopener">Search rooms near Helensburgh →</a></p>
+          <p class="stay-tier">4.2 miles · 8 min drive</p>
+          <h4>The County Hotel</h4>
+          <p>A family-run hotel with 15 en-suite rooms.</p>
+          <p>Old Luss Road, Helensburgh, G84 7BH · <a href="tel:01436672034">01436 672034</a></p>
+          <p class="stay-link"><a href="https://www.countylodgehotel.co.uk/en-GB" target="_blank" rel="noopener">countylodgehotel.co.uk →</a></p>
+        </div>
+        <div class="stay-card reveal">
+          <p class="stay-tier">2.8 miles · 4 min drive</p>
+          <h4>Moorlands</h4>
+          <p>A four-room upmarket B&amp;B with free on-site parking.</p>
+          <p>113 Sinclair Street, Helensburgh, G84 9QF · <a href="tel:07947018121">07947 018121</a></p>
+          <p class="stay-link"><a href="https://www.moorlandsbnb.com/en-gb" target="_blank" rel="noopener">moorlandsbnb.com →</a></p>
+        </div>
+        <div class="stay-card reveal">
+          <p class="stay-tier">4.3 miles · 9 min drive</p>
+          <h4>No 20 Boutique B&amp;B</h4>
+          <p>Lovely rooms looked after by Kat, who is always there to help.</p>
+          <p>20 Craigendoran Ave, Helensburgh, G84 7AZ · <a href="tel:01436670520">01436 670520</a></p>
+          <p class="stay-link"><a href="http://www.no20craigendoran.co.uk/" target="_blank" rel="noopener">no20craigendoran.co.uk →</a></p>
+        </div>
+        <div class="stay-card reveal">
+          <p class="stay-tier">3.2 miles · 5 min drive</p>
+          <h4>Sinclair House B&amp;B</h4>
+          <p>Four rooms and a self-catering flat.</p>
+          <p>91–93 Sinclair St, Helensburgh, G84 8TR · <a href="tel:01436676301">01436 676301</a></p>
+          <p class="stay-link"><a href="http://www.sinclairhouse.com/" target="_blank" rel="noopener">sinclairhouse.com →</a></p>
+        </div>
+        <div class="stay-card reveal">
+          <p class="stay-tier">3 miles · 5 min drive</p>
+          <h4>Ballmillig B&amp;B</h4>
+          <p>Very comfortable three-room B&amp;B with owners who are passionate about walking.</p>
+          <p>64B Colquhoun Street, Helensburgh, G84 9JP</p>
+          <p class="stay-link"><a href="https://www.balmillig.co.uk/" target="_blank" rel="noopener">balmillig.co.uk →</a></p>
         </div>
       </div>
 
@@ -601,10 +760,15 @@
     <!-- ============ DRESS CODE ============ -->
     <section id="dress" class="section section-cream dress-section">
       <p class="section-eyebrow reveal">What to wear</p>
-      <h2 class="reveal">Dress code</h2>
-      <p class="lead reveal">Black tie optional. Think garden-party meets Highland barn — comfortable, considered, and ready to dance.</p>
+      <h2 class="reveal">A Touch of Tartan</h2>
+      <p class="lead reveal">Our dress code is <strong>A Touch of Tartan</strong>. From kilts and trews to a subtle detail in your hair or your shoes, we'd love you to add a little tartan wherever you can.</p>
 
       <div class="dress-grid">
+        <div class="dress-card reveal">
+          <div class="tartan-swatch" aria-hidden="true"></div>
+          <h3>Tartan, big or small <span class="saltire sm" aria-label="Scotland"></span></h3>
+          <p>Men are encouraged to wear kilts or trews if they would like to. No tartan of your own? A tie, sash, scarf or even a ribbon counts — and the <a href="https://www.scotweb.co.uk/info/tartan-finder" target="_blank" rel="noopener">tartan finder</a> is a fun rabbit hole.</p>
+        </div>
         <div class="dress-card reveal">
           <div class="swatch-row">
             <span class="swatch" style="background:#3a4632"></span>
@@ -618,16 +782,10 @@
           <p>Forest green, sage, blush, peach, soft gold and cream. Take inspiration if it helps — but please wear what you love.</p>
         </div>
         <div class="dress-card reveal">
-          <div class="tartan-swatch" aria-hidden="true"></div>
-          <h3>Tartan welcome <span class="saltire sm" aria-label="Scotland"></span></h3>
-          <p>Kilts, sashes, ties, scarves — wear your clan tartan with pride. If you don't have one, the <a href="https://www.scotweb.co.uk/info/tartan-finder" target="_blank" rel="noopener">Scottish Register of Tartans</a> is a fun rabbit hole.</p>
-        </div>
-        <div class="dress-card reveal">
           <h3>A few notes</h3>
           <ul>
-            <li>The ceremony is indoors but the drinks reception spills outside — bring a wrap or jacket for the evening.</li>
-            <li>It's a working farm — heels can sink into grass, so consider a flat or block heel.</li>
-            <li>Tartan is welcome, encouraged, celebrated.</li>
+            <li>We're planning an outdoor ceremony, weather permitting, and there'll be time outside through the day — bring a layer to keep comfortable.</li>
+            <li>Planning on stiletto heels? Consider heel stoppers for walking on the grass.</li>
             <li>Please avoid full white or ivory.</li>
           </ul>
         </div>
@@ -639,15 +797,15 @@
       <div class="rsvp-frame reveal">
         <p class="section-eyebrow">Kindly Reply</p>
         <h2>RSVP</h2>
-        <p class="lead">We can't wait to celebrate with you. Please reply by <strong>15 May 2027</strong>.</p>
+        <p class="lead">We can't wait to celebrate with you. Please reply by <strong>1st September</strong>.</p>
+
+        <div class="rsvp-guest" id="rsvp-guest">
+          <p class="rsvp-guest-line">You're replying as <strong id="rsvp-guest-name"></strong></p>
+          <p class="rsvp-guest-invite" id="rsvp-guest-invite"></p>
+          <p class="rsvp-guest-switch"><a href="#" id="rsvp-switch">Not you? Switch guest</a></p>
+        </div>
 
         <form id="rsvp-form" class="rsvp-form">
-          <div class="field-row">
-            <label>Your name
-              <input type="text" name="rsvp-name" placeholder="So we know who's replying" required />
-            </label>
-          </div>
-
           <fieldset>
             <legend>Will you be joining us?</legend>
             <div class="radio-group">
@@ -657,64 +815,8 @@
           </fieldset>
 
           <div class="field-row">
-            <label>Names of guests in your party
-              <textarea name="guests" rows="2" placeholder="One name per line"></textarea>
-            </label>
-          </div>
-
-          <fieldset>
-            <legend>Starter</legend>
-            <div class="radio-group radio-stack">
-              <label class="radio-pill"><input type="radio" name="starter" value="cullen-skink" /><span>Cullen skink</span></label>
-              <label class="radio-pill"><input type="radio" name="starter" value="haggis-bonbons" /><span>Haggis bonbons with whisky cream</span></label>
-              <label class="radio-pill"><input type="radio" name="starter" value="beetroot-goats-cheese" /><span>Roasted beetroot &amp; goat's cheese (v)</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Main</legend>
-            <div class="radio-group radio-stack">
-              <label class="radio-pill"><input type="radio" name="main" value="beef" /><span>Roast Scottish beef, dauphinoise, red wine jus</span></label>
-              <label class="radio-pill"><input type="radio" name="main" value="salmon" /><span>Loch-smoked salmon with herb butter</span></label>
-              <label class="radio-pill"><input type="radio" name="main" value="wild-mushroom" /><span>Wild mushroom &amp; tarragon pithivier (v)</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Dessert</legend>
-            <div class="radio-group radio-stack">
-              <label class="radio-pill"><input type="radio" name="dessert" value="cranachan" /><span>Cranachan with raspberries</span></label>
-              <label class="radio-pill"><input type="radio" name="dessert" value="sticky-toffee" /><span>Sticky toffee pudding</span></label>
-              <label class="radio-pill"><input type="radio" name="dessert" value="cheese" /><span>Scottish cheeseboard</span></label>
-            </div>
-          </fieldset>
-
-          <div class="field-row">
             <label>Dietary requirements or allergies
-              <input type="text" name="dietary" placeholder="e.g. gluten-free, nut allergy" />
-            </label>
-          </div>
-
-          <fieldset>
-            <legend>Coach from central Glasgow?</legend>
-            <div class="radio-group">
-              <label class="radio-pill"><input type="radio" name="coach" value="yes" /><span>Yes please</span></label>
-              <label class="radio-pill"><input type="radio" name="coach" value="no" /><span>No, making own way</span></label>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Staying overnight nearby?</legend>
-            <div class="radio-group">
-              <label class="radio-pill"><input type="radio" name="staying" value="yes" /><span>Yes</span></label>
-              <label class="radio-pill"><input type="radio" name="staying" value="no" /><span>No</span></label>
-              <label class="radio-pill"><input type="radio" name="staying" value="help" /><span>Need recommendations</span></label>
-            </div>
-          </fieldset>
-
-          <div class="field-row">
-            <label>A song to get you on the dance floor
-              <input type="text" name="song" placeholder="Artist — Track" />
+              <input type="text" name="dietary" placeholder="e.g. vegetarian, gluten-free, nut allergy" />
             </label>
           </div>
 
@@ -737,13 +839,14 @@
       <p class="lead reveal">If we've missed anything, please drop us a line.</p>
 
       <div class="faq">
-        <details class="faq-item reveal"><summary>Can I bring a plus-one?</summary><p>Plus-ones have been included on a guest-by-guest basis. Your invitation will say if you've been allocated one.</p></details>
-        <details class="faq-item reveal"><summary>Can I bring my children?</summary><p>We adore your kids — but we've kept the celebration mostly grown-ups-only. Children of immediate family are warmly welcome; otherwise please consider it a date night.</p></details>
-        <details class="faq-item reveal"><summary>What time should I arrive?</summary><p>Please aim to arrive between 1:30 pm and 1:55 pm so we can begin the ceremony promptly at 2:00 pm.</p></details>
-        <details class="faq-item reveal"><summary>Will the day be indoors or outdoors?</summary><p>The ceremony and dinner are indoors. Drinks and photographs will be outside, weather permitting — bring a layer!</p></details>
-        <details class="faq-item reveal"><summary>Is there parking?</summary><p>Yes, free parking is available on the farm. Cars can be left overnight if you'd prefer not to drive after the celebration.</p></details>
-        <details class="faq-item reveal"><summary>What's the dress code?</summary><p>Black tie optional, garden-party-meets-barn. Tartan welcome. Please save full white/ivory for the bride.</p></details>
-        <details class="faq-item reveal"><summary>Can I take photos?</summary><p>During the ceremony we'd love you to be fully present — no phones or cameras please. Snap as many as you like once we're out of the barn.</p></details>
+        <details class="faq-item reveal"><summary>Are children invited?</summary><p>As much as we love your little ones, we have decided to keep our wedding day to immediate family children only (our nieces and nephews). We hope you understand and we can't wait to celebrate with you.</p></details>
+        <details class="faq-item reveal"><summary>What is the dress code?</summary><p>Our dress code is <strong>A Touch of Tartan</strong>. From kilts and trews to a subtle detail in your hair or your shoes, we'd love you to add a little tartan wherever you can. Men are encouraged to wear kilts or trews if they would like to.</p></details>
+        <details class="faq-item reveal"><summary>What colour are the bridesmaid dresses?</summary><p>The bridesmaid dresses will be dark green.</p></details>
+        <details class="faq-item reveal"><summary>Is the wedding indoors or outdoors?</summary><p>We are planning to have an outdoor ceremony, weather permitting (this is Scotland after all!). There will also be opportunities to spend time outside throughout the day, so we recommend bringing a layer to keep you comfortable. Also, if you are planning on wearing stiletto heels, please consider wearing heel stoppers for walking on the grass.</p></details>
+        <details class="faq-item reveal"><summary>Can I leave my car overnight?</summary><p>There are 25 parking spaces available. Guests can leave their cars overnight in the car park at their own risk but must collect them by noon the next day.</p></details>
+        <details class="faq-item reveal"><summary>Can I bring a plus one?</summary><p>Due to venue capacity, we kindly ask guests to attend only with the named guests on their invitation.</p></details>
+        <details class="faq-item reveal"><summary>Do I need to bring a gift?</summary><p>Your presence is the greatest gift. However, if you wish to contribute, we would love a contribution towards our honeymoon.</p></details>
+        <details class="faq-item reveal"><summary>What time should I arrive?</summary><p>Guests arrive from 1:00 pm. Please be seated a little before 1:30 pm so the ceremony can begin on time. Evening guests, please arrive for 6:00 pm.</p></details>
         <details class="faq-item reveal"><summary>How do I let you know about dietary needs?</summary><p>Please add anything we should know to the dietary field on your RSVP. We'll be in touch closer to the day if we need any more detail.</p></details>
       </div>
     </section>
@@ -780,6 +883,7 @@
     </footer>
   </main>
 
-  <script src="app.js?v=20270515"></script>
+  <script src="guests.js?v=20260727-1"></script>
+  <script src="app.js?v=20260727-1"></script>
 </body>
 </html>

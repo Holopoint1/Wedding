@@ -409,3 +409,73 @@ window.alfieLornaExport = function () {
   document.addEventListener("click", (e) => { if (!li.contains(e.target)) setOpen(false); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
 })();
+
+/* ---------- Gallery: render photos + lightbox ---------- */
+(function initGallery() {
+  const grid = document.getElementById("gallery-grid");
+  if (!grid || typeof GALLERY_PHOTOS === "undefined") return;
+
+  const empty = document.getElementById("gallery-empty");
+  if (!GALLERY_PHOTOS.length) { if (empty) empty.hidden = false; return; }
+
+  GALLERY_PHOTOS.forEach((photo, i) => {
+    const fig = document.createElement("figure");
+    fig.className = "gal-item reveal";
+    fig.style.setProperty("--i", i + 1);
+
+    const img = document.createElement("img");
+    img.src = photo.src;
+    img.alt = photo.caption || "Alfie and Lorna";
+    img.loading = "lazy";
+    // Portrait shots span two rows so nothing is squashed or cropped oddly.
+    img.addEventListener("load", () => {
+      if (img.naturalHeight > img.naturalWidth * 1.15) fig.classList.add("is-tall");
+    });
+    fig.appendChild(img);
+
+    if (photo.caption) {
+      const cap = document.createElement("figcaption");
+      cap.textContent = photo.caption;
+      fig.appendChild(cap);
+    }
+    fig.addEventListener("click", () => openLightbox(i));
+    grid.appendChild(fig);
+  });
+
+  // Reveal the freshly-built items (the observer already ran on page load)
+  grid.querySelectorAll(".reveal").forEach((el, i) => {
+    el.style.transitionDelay = `${Math.min(i, 8) * 70}ms`;
+    requestAnimationFrame(() => el.classList.add("is-visible"));
+  });
+
+  const box     = document.getElementById("lightbox");
+  const lbImg   = document.getElementById("lb-img");
+  const lbCap   = document.getElementById("lb-caption");
+  let current = 0;
+
+  function openLightbox(i) {
+    current = i;
+    show();
+    box.hidden = false;
+    document.body.classList.add("lb-open");
+  }
+  function show() {
+    const p = GALLERY_PHOTOS[current];
+    lbImg.src = p.src;
+    lbImg.alt = p.caption || "Alfie and Lorna";
+    lbCap.textContent = p.caption || "";
+  }
+  const step = (n) => { current = (current + n + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length; show(); };
+  const close = () => { box.hidden = true; document.body.classList.remove("lb-open"); };
+
+  document.getElementById("lb-close").addEventListener("click", close);
+  document.getElementById("lb-prev").addEventListener("click", (e) => { e.stopPropagation(); step(-1); });
+  document.getElementById("lb-next").addEventListener("click", (e) => { e.stopPropagation(); step(1); });
+  box.addEventListener("click", (e) => { if (e.target === box || e.target === lbImg) close(); });
+  document.addEventListener("keydown", (e) => {
+    if (box.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft") step(-1);
+    else if (e.key === "ArrowRight") step(1);
+  });
+})();

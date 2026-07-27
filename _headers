@@ -1,0 +1,16 @@
+# Cloudflare Pages headers
+
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, noimageindex
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Photos and other assets can be cached hard; the HTML must not be.
+/brand_assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/gallery/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

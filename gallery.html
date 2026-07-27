@@ -10,24 +10,24 @@
   <meta name="robots" content="noindex, nofollow" />
 
   <title>Gallery · Alfie &amp; Lorna</title>
-  <meta name="description" content="The wedding of Alfie &amp; Lorna — Saturday 15 May 2027 at Fruin Farm, Glen Fruin, Loch Lomond. Travel, where to stay, the order of the day, and RSVP inside." />
+  <meta name="description" content="The wedding of Alfie and Lorna, Saturday 15 May 2027 at Fruin Farm, Glen Fruin, Loch Lomond. Travel, where to stay, the order of the day and RSVP inside." />
 
   <!-- Social share card (WhatsApp / iMessage / Facebook). Add the two URL lines once
        the domain + a 1200x630 photo exist; without them you still get a text card. -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Alfie &amp; Lorna" />
   <meta property="og:title" content="Alfie &amp; Lorna · Saturday 15 May 2027" />
-  <meta property="og:description" content="We're getting married at Fruin Farm, Loch Lomond. Tap for travel, where to stay, the order of the day, and to RSVP." />
+  <meta property="og:description" content="We're getting married at Fruin Farm, Loch Lomond. Tap for travel, where to stay, the order of the day and to RSVP." />
   <meta property="og:locale" content="en_GB" />
   <!-- <meta property="og:url" content="https://your-domain/" /> -->
   <!-- <meta property="og:image" content="https://your-domain/share.jpg" /> -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Alfie &amp; Lorna · Saturday 15 May 2027" />
-  <meta name="twitter:description" content="We're getting married at Fruin Farm, Loch Lomond. Tap for travel, where to stay, the order of the day, and to RSVP." />
+  <meta name="twitter:description" content="We're getting married at Fruin Farm, Loch Lomond. Tap for travel, where to stay, the order of the day and to RSVP." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260727-24" />
+  <link rel="stylesheet" href="styles.css?v=20260727-26" />
 
   <script type="application/ld+json">
   {
@@ -108,7 +108,7 @@
 
     <!-- ============ TOP NAV ============ -->
     <nav class="topnav" id="topnav">
-      <a href="index.html" class="brand" aria-label="Alfie and Lorna home">
+      <a href="/" class="brand" aria-label="Alfie and Lorna home">
         <svg viewBox="0 0 140 60" width="140" height="60">
           <text x="70" y="44" text-anchor="middle" font-family="Italiana, serif" font-size="44" fill="currentColor" letter-spacing="2">A<tspan fill="#c97e7e" font-family="Pinyon Script, cursive" font-size="36" dx="6" dy="-4">&amp;</tspan><tspan dx="6" dy="4">L</tspan></text>
         </svg>
@@ -120,41 +120,45 @@
         <span></span><span></span><span></span>
       </button>
       <ul id="nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="day.html">The Day</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/day">The Day</a></li>
         <li class="nav-dropdown">
           <button type="button" class="nav-drop-btn" id="nav-drop-btn" aria-expanded="false" aria-haspopup="true">
             Info
             <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M5 9 L12 16 L19 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <ul class="nav-drop-menu" id="nav-drop-menu" hidden>
-            <li><a href="venue.html">Venue</a></li>
-            <li><a href="travel.html">Travel &amp; Stay</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="dress.html">Dress Code</a></li>
-            <li><a href="faq.html">FAQs</a></li>
+            <li><a href="/venue">Venue</a></li>
+            <li><a href="/travel">Travel &amp; Stay</a></li>
+            <li><a href="/gallery">Gallery</a></li>
+            <li><a href="/dress">Dress Code</a></li>
+            <li><a href="/faq">FAQs</a></li>
           </ul>
         </li>
-        <li><a href="rsvp.html" class="nav-rsvp">RSVP</a></li>
+        <li><a href="/rsvp" class="nav-rsvp">RSVP</a></li>
       </ul>
     </nav>
 
 <!-- ============ GALLERY ============ -->
+    <div class="tartan-stripe" aria-hidden="true"></div>
     <section id="gallery" class="section section-sage">
       <p class="section-eyebrow reveal">Moments</p>
       <h2 class="reveal">A few of our favourites</h2>
-      <p class="lead reveal">Photographs from our adventures so far. We'll keep adding to it as the day approaches.</p>
+      <p class="lead reveal">Photographs from our adventures so far. Tap any photo to see it bigger.</p>
 
-      <div class="gallery">
-        <div class="gal-item reveal" style="--i:1"><div class="gal-placeholder"><span>Photo 1</span></div></div>
-        <div class="gal-item reveal" style="--i:2"><div class="gal-placeholder gal-tall"><span>Photo 2</span></div></div>
-        <div class="gal-item reveal" style="--i:3"><div class="gal-placeholder"><span>Photo 3</span></div></div>
-        <div class="gal-item reveal" style="--i:4"><div class="gal-placeholder gal-wide"><span>Photo 4</span></div></div>
-        <div class="gal-item reveal" style="--i:5"><div class="gal-placeholder"><span>Photo 5</span></div></div>
-        <div class="gal-item reveal" style="--i:6"><div class="gal-placeholder"><span>Photo 6</span></div></div>
+      <div class="gallery" id="gallery-grid"></div>
+      <p class="gallery-empty" id="gallery-empty" hidden>Photos coming soon.</p>
+
+      <div class="lightbox" id="lightbox" hidden>
+        <button type="button" class="lb-close" id="lb-close" aria-label="Close">&#215;</button>
+        <button type="button" class="lb-prev" id="lb-prev" aria-label="Previous photo">&#8249;</button>
+        <img id="lb-img" alt="" />
+        <p class="lb-caption" id="lb-caption"></p>
+        <button type="button" class="lb-next" id="lb-next" aria-label="Next photo">&#8250;</button>
       </div>
-      <p class="gallery-note reveal">Drop your photos into the <code>/images</code> folder and update <code>index.html</code> to swap in the real shots.</p>
     </section>
+
+    <div class="tartan-stripe tartan-stripe-groomsmen" aria-hidden="true"></div>
 
 <!-- ============ FOOTER ============ -->
     <footer class="site-footer">
@@ -168,12 +172,13 @@
       </div>
       <p class="footer-line">Alfie &amp; Lorna · Fruin Farm · 15 May 2027</p>
       <p class="muted">Questions? <a href="mailto:hello@alfieandlorna.co.uk">hello@alfieandlorna.co.uk</a></p>
-      <p class="footer-credit">Made with love in the Scottish hills.<span class="saltire sm" aria-label="Scotland"></span></p>
+      <p class="footer-credit"><span class="saltire" aria-label="Scotland" title="Scotland"></span></p>
       <p class="footer-by">Website by <a href="https://autoeight.ai/" target="_blank" rel="noopener">Autoeight AI</a></p>
     </footer>
   </main>
 
+  <script src="gallery-photos.js?v=1"></script>
   <script src="guests.js?v=20260727-1"></script>
-  <script src="app.js?v=20260727-6"></script>
+  <script src="app.js?v=20260727-7"></script>
 </body>
 </html>

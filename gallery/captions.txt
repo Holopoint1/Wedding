@@ -1,0 +1,5 @@
+# Captions for gallery photos.  filename = caption
+# Lines starting with # are ignored. Leave blank for no caption.
+
+alflormainjpeg.jpeg = A wedding in the park
+alfnlorna.jpg = Us

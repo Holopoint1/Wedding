@@ -175,36 +175,56 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   /* Hint to the compositor that this layer animates — keeps it on the GPU. */
   contain: strict;
 }
+/* A real-looking leaf: asymmetric blade, midrib, side veins and a stem.
+   The span falls slowly; its ::before sways like a leaf on the air.
+   Everything stays transform/opacity-only for compositing. */
 .leaf {
   position: absolute;
-  top: -10%;
-  width: 24px;
-  height: 30px;
+  top: -8%;
+  width: 22px;
+  height: 28px;
   opacity: 0;
-  background: no-repeat center / contain;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 30'><path d='M12 2 Q22 14 12 28 Q2 14 12 2 Z M12 2 V28' fill='%237d8a6b' stroke='%235a6b4d' stroke-width='0.5'/></svg>");
-  animation: drift 22s linear infinite;
-  /* Force GPU compositor layer; only `transform` and `opacity` animate from here on. */
+  animation: leafFall var(--fall, 40s) linear infinite;
+  animation-delay: var(--delay, 0s);
   will-change: transform, opacity;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
 }
-/* Custom property carries the per-leaf scale into the keyframes so the
-   element's `transform` stays a single composited matrix the whole way down. */
-.leaf-1 { left: 10%; animation-delay: 0s;  --leaf-scale: 1;    }
-.leaf-2 { left: 30%; animation-delay: 4s;  --leaf-scale: 0.8;  }
-.leaf-3 { left: 50%; animation-delay: 8s;  --leaf-scale: 1.1;  }
-.leaf-4 { left: 70%; animation-delay: 2s;  --leaf-scale: 0.9;  }
-.leaf-5 { left: 85%; animation-delay: 6s;  --leaf-scale: 0.7;  }
-.leaf-6 { left: 20%; animation-delay: 12s; --leaf-scale: 1.05; }
+.leaf::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scale(var(--leaf-scale, 1));
+  background: no-repeat center / contain;
+  /* Real leaf photos (cut to transparency) */
+  background-image: url("brand_assets/leaf_cut.png");
+  animation: leafSway var(--sway, 5.4s) ease-in-out infinite alternate;
+}
+/* Two autumn maple leaves among the green */
+.leaf-2::before,
+.leaf-5::before {
+  background-image: url("brand_assets/leaf2_cut.png");
+}
 
-/* Fully transform-based — never animates `top`, so the browser doesn't relayout
-   the whole document every frame (the previous version's main perf bug). */
-@keyframes drift {
-  0%   { transform: translate3d(0, 0, 0)        scale(var(--leaf-scale, 1)) rotate(0deg);   opacity: 0;   }
-  10%  { opacity: 0.6; }
-  90%  { opacity: 0.6; }
-  100% { transform: translate3d(120px, 120vh, 0) scale(var(--leaf-scale, 1)) rotate(540deg); opacity: 0;   }
+.leaf-1 { left: 12%; --delay: 0s;  --fall: 38s; --sway: 5.1s; --leaf-scale: 1;    }
+.leaf-2 { left: 32%; --delay: 14s; --fall: 46s; --sway: 6.2s; --leaf-scale: 0.8;  }
+.leaf-3 { left: 52%; --delay: 27s; --fall: 42s; --sway: 4.8s; --leaf-scale: 1.05; }
+.leaf-4 { left: 72%; --delay: 7s;  --fall: 50s; --sway: 5.8s; --leaf-scale: 0.9;  }
+.leaf-5 { left: 86%; --delay: 21s; --fall: 44s; --sway: 5.5s; --leaf-scale: 0.7;  }
+.leaf-6 { left: 22%; --delay: 34s; --fall: 52s; --sway: 6.6s; --leaf-scale: 0.95; }
+
+/* Slow fall straight down the compositor; gentle horizontal wander built
+   into the sway. Subtle: barely-there opacity, no full rotations. */
+@keyframes leafFall {
+  0%   { transform: translate3d(0, -4vh, 0); opacity: 0; }
+  6%   { opacity: 0.3; }
+  82%  { opacity: 0.3; }
+  100% { transform: translate3d(4vw, 112vh, 0); opacity: 0; }
+}
+@keyframes leafSway {
+  0%   { transform: scale(var(--leaf-scale, 1)) rotate(-34deg) translateX(-12px); }
+  100% { transform: scale(var(--leaf-scale, 1)) rotate(28deg) translateX(12px); }
 }
 
 /* Pause the animation entirely when the tab is hidden — saves CPU/battery. */

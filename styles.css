@@ -119,25 +119,6 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   color: var(--blush-deep);
   font-weight: 400;
   margin: 0 0.18em;
-  /* Subtle gold shimmer that sweeps bottom-left -> top-right every so often */
-  background-image: linear-gradient(45deg, currentColor 45%, var(--gold) 50%, currentColor 55%);
-  background-size: 300% 300%;
-  background-position: 0% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: ampGoldSweep 15s ease-in-out infinite;
-}
-@keyframes ampGoldSweep {
-  0%, 60%   { background-position: 0% 100%; }
-  80%, 100% { background-position: 100% 0%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .amp {
-    animation: none;
-    background: none;
-    -webkit-text-fill-color: currentColor;
-  }
 }
 
 /* =========================================================
@@ -3212,31 +3193,12 @@ body.lb-open {
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
 }
 
-/* The ampersand catches a slow, subtle gold shimmer that drifts
-   diagonally from bottom-left to top-right, resting most of the cycle.
-   No entrance animation. */
+/* Static ampersand, no animation. */
 .home .amp {
-  background-image: linear-gradient(45deg,
-    #eec3bb 44%,  #e6c583 48%,  #fff3cf 50%,  #e6c583 52%,  #eec3bb 56%);
-  background-size: 300% 300%;
-  background-position: 0% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: none;
+  color: #eec3bb;
+  -webkit-text-fill-color: #eec3bb;
+  background: none;
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
-  animation: ampGoldSweep 15s ease-in-out infinite;
-  will-change: background-position;
-}
-@media (prefers-reduced-motion: reduce) {
-  .home .amp {
-    animation: none;
-    background: none;
-    -webkit-text-fill-color: #eec3bb;
-    color: #eec3bb;
-  }
 }
 
 /* =========================================================

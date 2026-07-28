@@ -1234,16 +1234,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
    FOOTER
    ========================================================= */
 .site-footer {
-  /* Simple faded Scottish Saltire: light-blue field with faint white cross. */
-  background-color: #5c83a0;
-  background-image:
-    /* pale wash so the whole flag reads faded */
-    linear-gradient(rgba(236, 240, 244, 0.18), rgba(236, 240, 244, 0.18)),
-    /* white saltire lines, corner to corner */
-    linear-gradient(to top right,   transparent 45%, rgba(255, 255, 255, 0.32) 47.5%, rgba(255, 255, 255, 0.32) 52.5%, transparent 55%),
-    linear-gradient(to bottom right, transparent 45%, rgba(255, 255, 255, 0.32) 47.5%, rgba(255, 255, 255, 0.32) 52.5%, transparent 55%);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background: var(--forest);
   color: var(--cream);
   text-align: center;
   padding: 4rem 1.5rem 3rem;

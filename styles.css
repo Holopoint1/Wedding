@@ -2605,11 +2605,14 @@ html { scroll-snap-type: y proximity; }
 .sv-photo-letter span { font-family: 'Italiana', serif; font-size: 2.4rem; color: #3a4632; }
 .sv-branches { display: block; width: 100%; height: 44px; margin-bottom: -2px; }
 .sv-branches path { fill: none; stroke: #7d8a6b; stroke-width: 1.4; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
-/* Snaking timeline: milestones alternate left / right and a curvy dashed
-   line weaves down between them, echoing the desktop path. */
+/* Timeline: a straight central dashed line with a dot at each milestone
+   (dots sit exactly on the line), and the cards alternate left / right. */
 .sv-list {
   list-style: none; margin: 0; padding: 0; position: relative;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 180' preserveAspectRatio='none'%3E%3Cpath d='M20 0 C28 7 28 13 20 20 C12 27 12 33 20 40 C28 47 28 53 20 60 C12 67 12 73 20 80 C28 87 28 93 20 100 C12 107 12 113 20 120 C28 127 28 133 20 140 C12 147 12 153 20 160 C28 167 28 173 20 180' fill='none' stroke='%237d8a6b' stroke-width='1.4' stroke-dasharray='3 3' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+}
+.sv-list::before {
+  content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+  top: 6px; bottom: 6px; border-left: 2px dashed #7d8a6b;
 }
 .sv-list li {
   position: relative; width: 50%; box-sizing: border-box;
@@ -2622,8 +2625,9 @@ html { scroll-snap-type: y proximity; }
   content: ""; position: absolute; top: 0.5rem;
   width: 11px; height: 11px; border-radius: 50%; background: #c97e7e; border: 2px solid #fffaf1;
 }
-.sv-list li:nth-child(odd)::before { right: -6.5px; }
-.sv-list li:nth-child(even)::before { left: -6.5px; }
+/* Centre each dot exactly on the line (the inner edge of the card = 50%) */
+.sv-list li:nth-child(odd)::before { left: 100%; transform: translateX(-50%); }
+.sv-list li:nth-child(even)::before { left: 0; transform: translateX(-50%); }
 .sv-date {
   display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
   color: #3a4632; background: #fffaf1; border: 2px solid #7d8a6b; border-radius: 20px; padding: 0.25rem 0.95rem;

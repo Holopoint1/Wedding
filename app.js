@@ -433,7 +433,7 @@ function launchAcceptFireworks(frame) {
   helper.setAttribute("viewBox", "0 0 40 180");
   helper.setAttribute("style", "position:fixed;left:-9999px;top:0;width:40px;height:180px;opacity:0;pointer-events:none");
   const snake = document.createElementNS(SVGNS, "path");
-  snake.setAttribute("d", "M20 0 C28 7 28 13 20 20 C12 27 12 33 20 40 C28 47 28 53 20 60 C12 67 12 73 20 80 C28 87 28 93 20 100 C12 107 12 113 20 120 C28 127 28 133 20 140 C12 147 12 153 20 160 C28 167 28 173 20 180");
+  snake.setAttribute("d", "M20 0 L20 180"); // straight down the central dashed line
   helper.appendChild(snake);
   document.body.appendChild(helper);
   const lenM = snake.getTotalLength();

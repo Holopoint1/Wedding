@@ -294,6 +294,28 @@ function launchAcceptFireworks(frame) {
   });
 })();
 
+/* ---------- Story timeline spark ----------
+   Kicks off the SVG spark sequence when the timeline scrolls into view;
+   the rest of the animation chains off it via SMIL syncbase timing. */
+(function initStorySpark() {
+  const svg = document.querySelector(".story-svg");
+  const start = document.getElementById("tl-motA");
+  if (!svg || !start || typeof start.beginElement !== "function") return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let playing = false;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting && !playing) {
+        playing = true;
+        try { start.beginElement(); } catch (err) { /* SMIL unsupported */ }
+      } else if (!e.isIntersecting) {
+        playing = false; // let it replay next time it scrolls into view
+      }
+    });
+  }, { threshold: 0.35 });
+  io.observe(svg);
+})();
+
 /* ---------- Intro fade ---------- */
 window.addEventListener("load", () => {
   const intro = document.getElementById("intro");

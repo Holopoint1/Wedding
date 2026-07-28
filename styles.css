@@ -43,8 +43,6 @@ html, body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-/* Positioned so the drifting-leaves layer can span the whole document */
-body { position: relative; }
 
 /* Subtle paper texture */
 body::before {
@@ -169,21 +167,20 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
    DRIFTING LEAVES
    ========================================================= */
 .leaves {
-  /* Anchored to the page (not the viewport) and spanning the whole document,
-     so leaves scroll with the page and appear the whole way down. */
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 2;
   overflow: hidden;
-  contain: layout paint;
+  /* Hint to the compositor that this layer animates — keeps it on the GPU. */
+  contain: strict;
 }
 /* A real-looking leaf: asymmetric blade, midrib, side veins and a stem.
    The span falls slowly; its ::before sways like a leaf on the air.
    Everything stays transform/opacity-only for compositing. */
 .leaf {
   position: absolute;
-  top: var(--ty, -8%);
+  top: -10%;
   width: 22px;
   height: 28px;
   opacity: 0;
@@ -208,17 +205,22 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 /* A second leaf shape (transparent sycamore) mixed among the green */
 .leaf-2::before,
 .leaf-4::before,
-.leaf-6::before {
+.leaf-6::before,
+.leaf-8::before {
   background-image: url("brand_assets/pngtree-sycamore-leaf-wide-and-lobed-isolated-on-transparent-background-png-image_21221949.png");
 }
 
-/* --ty spreads the leaves down the full page so some are always in view */
-.leaf-1 { left: 12%; --ty: -6%; --delay: 0s;  --fall: 26s; --sway: 5.1s; --leaf-scale: 1;    }
-.leaf-2 { left: 32%; --ty: 14%; --delay: 9s;  --fall: 32s; --sway: 6.2s; --leaf-scale: 0.8;  }
-.leaf-3 { left: 52%; --ty: 30%; --delay: 18s; --fall: 29s; --sway: 4.8s; --leaf-scale: 1.05; }
-.leaf-4 { left: 72%; --ty: 48%; --delay: 5s;  --fall: 34s; --sway: 5.8s; --leaf-scale: 0.9;  }
-.leaf-5 { left: 86%; --ty: 64%; --delay: 14s; --fall: 30s; --sway: 5.5s; --leaf-scale: 0.7;  }
-.leaf-6 { left: 22%; --ty: 82%; --delay: 22s; --fall: 36s; --sway: 6.6s; --leaf-scale: 0.95; }
+/* Staggered delays keep several leaves falling top→bottom at any moment,
+   with varied speed, size and sway for a natural look. */
+.leaf-1 { left: 8%;  --delay: 0s;  --fall: 22s; --sway: 5.1s; --leaf-scale: 1;    }
+.leaf-2 { left: 20%; --delay: 12s; --fall: 27s; --sway: 6.2s; --leaf-scale: 0.8;  }
+.leaf-3 { left: 33%; --delay: 5s;  --fall: 24s; --sway: 4.8s; --leaf-scale: 1.05; }
+.leaf-4 { left: 46%; --delay: 17s; --fall: 29s; --sway: 5.8s; --leaf-scale: 0.9;  }
+.leaf-5 { left: 58%; --delay: 8s;  --fall: 25s; --sway: 5.5s; --leaf-scale: 0.7;  }
+.leaf-6 { left: 70%; --delay: 20s; --fall: 31s; --sway: 6.6s; --leaf-scale: 0.95; }
+.leaf-7 { left: 82%; --delay: 3s;  --fall: 23s; --sway: 5.3s; --leaf-scale: 1.1;  }
+.leaf-8 { left: 92%; --delay: 15s; --fall: 28s; --sway: 6.0s; --leaf-scale: 0.75; }
+.leaf-9 { left: 26%; --delay: 24s; --fall: 33s; --sway: 5.7s; --leaf-scale: 0.85; }
 
 /* Slow fall straight down the compositor; gentle horizontal wander built
    into the sway. Subtle: barely-there opacity, no full rotations. */
@@ -3249,11 +3251,14 @@ body:not(.home) #site-view { padding-top: 104px; }
    small. Nothing crosses the middle of the screen on any device.
    ========================================================= */
 .leaf-1 { left: 6%;  }
-.leaf-2 { left: 24%; }
-.leaf-3 { left: 42%; }
-.leaf-4 { left: 60%; }
-.leaf-5 { left: 78%; }
-.leaf-6 { left: 92%; }
+.leaf-2 { left: 18%; }
+.leaf-3 { left: 31%; }
+.leaf-4 { left: 44%; }
+.leaf-5 { left: 57%; }
+.leaf-6 { left: 70%; }
+.leaf-7 { left: 82%; }
+.leaf-8 { left: 92%; }
+.leaf-9 { left: 26%; }
 
 @keyframes leafFall {
   0%   { transform: translate3d(0, -6vh, 0); opacity: 0; }
@@ -3411,3 +3416,6 @@ body.lb-open {
 .leaf-4 { --sway: 24s; }
 .leaf-5 { --sway: 19s; }
 .leaf-6 { --sway: 20s; }
+.leaf-7 { --sway: 18s; }
+.leaf-8 { --sway: 21s; }
+.leaf-9 { --sway: 16s; }

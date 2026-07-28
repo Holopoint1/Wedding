@@ -444,7 +444,6 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   display: inline-block;
 }
 .couple-names > span:nth-child(2) { color: var(--blush-deep); font-family: var(--script); font-size: 0.7em; align-self: center; }
-@keyframes nameRise { to { opacity: 1; transform: translateY(0); } }
 
 .hero-divider {
   display: flex;
@@ -3207,36 +3206,20 @@ body.lb-open {
    (a text-shadow would show through the transparent glyphs).
    ========================================================= */
 .home .hero-mini {
-  background-image: linear-gradient(100deg,
-    #fdfaf3 0%,   #fdfaf3 38%,
-    #e6c583 45%,  #fff3cf 50%,  #e6c583 55%,
-    #fdfaf3 62%,  #fdfaf3 100%);
-  background-size: 260% 100%;
-  background-repeat: no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: none;
-  filter: drop-shadow(0 1px 10px rgba(0, 0, 0, 0.45));
-  animation: heroShimmer 9s ease-in-out infinite;
-  will-change: background-position;
-}
-@keyframes heroShimmer {
-  0%   { background-position: 135% 0; }
-  28%  { background-position: -35% 0; }
-  100% { background-position: -35% 0; }
+  color: #fdfaf3;
+  -webkit-text-fill-color: #fdfaf3;
+  background: none;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
 }
 
-/* The ampersand catches the same gold, offset so the two shimmers
-   don't fire together. It keeps its entrance animation, so both are
-   listed here (the shorthand would otherwise drop nameRise). */
+/* The ampersand catches a slow, subtle gold shimmer that drifts
+   diagonally from bottom-left to top-right, resting most of the cycle.
+   No entrance animation. */
 .home .amp {
-  background-image: linear-gradient(100deg,
-    #eec3bb 0%,   #eec3bb 38%,
-    #e6c583 45%,  #fff3cf 50%,  #e6c583 55%,
-    #eec3bb 62%,  #eec3bb 100%);
-  background-size: 260% 100%;
+  background-image: linear-gradient(45deg,
+    #eec3bb 44%,  #e6c583 48%,  #fff3cf 50%,  #e6c583 52%,  #eec3bb 56%);
+  background-size: 300% 300%;
+  background-position: 0% 100%;
   background-repeat: no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
@@ -3244,9 +3227,16 @@ body.lb-open {
   color: transparent;
   text-shadow: none;
   filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
-  animation: nameRise 1.2s ease-out 2.1s forwards,
-             heroShimmer 9s ease-in-out 3.6s infinite;
+  animation: ampGoldSweep 15s ease-in-out infinite;
   will-change: background-position;
+}
+@media (prefers-reduced-motion: reduce) {
+  .home .amp {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #eec3bb;
+    color: #eec3bb;
+  }
 }
 
 /* =========================================================

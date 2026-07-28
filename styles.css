@@ -2701,8 +2701,8 @@ body.lb-open { overflow: hidden; }
 /* =========================================================
    TARTAN BREAKERS
    ========================================================= */
-.tartan-stripe-groomsmen {
-  background-image: url("brand_assets/groomsmen_tartan.jpg");
+.tartan-stripe-footer {
+  background-image: url("brand_assets/tartan3.jpg");
   background-size: 220px auto;
 }
 
@@ -3164,8 +3164,8 @@ body.lb-open {
   to   { background-position-x: 280px; }
 }
 
-/* Groomsmen stripe: 220px tile */
-.tartan-stripe-groomsmen:hover { animation: tartanDrift220 22s linear infinite; }
+/* Footer stripe: 220px tile */
+.tartan-stripe-footer:hover { animation: tartanDrift220 22s linear infinite; }
 @keyframes tartanDrift220 {
   from { background-position-x: 0; }
   to   { background-position-x: 220px; }

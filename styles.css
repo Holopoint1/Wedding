@@ -3180,3 +3180,7 @@ body.lb-open {
   from { background-position-x: 0; }
   to   { background-position-x: 200px; }
 }
+
+/* Smaller credit line in the footer */
+.footer-by { font-size: 0.62rem; letter-spacing: 0.16em; opacity: 0.75; }
+.footer-by a { font-size: inherit; }

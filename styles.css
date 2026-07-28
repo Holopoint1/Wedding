@@ -983,8 +983,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   pointer-events: none;
   opacity: 0;
 }
-/* Accept runs the full-page canvas celebration instead of the SVG border
-   runner, so only Decline uses the in-frame runner + sparks below. */
+.rsvp-frame.is-accepted .rsvp-fx,
 .rsvp-frame.is-declined .rsvp-fx { opacity: 1; }
 
 .rsvp-frame.is-accepted { --fx: #2fae57; --fx-glow: rgba(47, 174, 87, 0.85); }
@@ -1007,6 +1006,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   stroke-dashoffset: 100;
   filter: drop-shadow(0 0 3px var(--fx-glow)) drop-shadow(0 0 8px var(--fx-glow));
 }
+.rsvp-frame.is-accepted .rsvp-fx-runner,
 .rsvp-frame.is-declined .rsvp-fx-runner { animation: rsvpRocket 1s linear 3; }
 @keyframes rsvpRocket {
   from { stroke: var(--fx); stroke-dashoffset: 100; }
@@ -1023,6 +1023,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   box-shadow: 0 0 7px 1px var(--fx-glow);
   opacity: 0;
 }
+.rsvp-frame.is-accepted .rsvp-spark,
 .rsvp-frame.is-declined .rsvp-spark { animation: rsvpSpark 1s ease-out 3; }
 @keyframes rsvpSpark {
   0%   { opacity: 0; transform: translate(0, 0) scale(0.3); }
@@ -1032,13 +1033,6 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 @media (prefers-reduced-motion: reduce) {
   .rsvp-fx-runner,
   .rsvp-spark { animation: none !important; }
-}
-/* Full-page spark shower canvas for an accepted RSVP */
-.rsvp-fx-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
 }
 
 .rsvp-form { margin-top: 2rem; }
@@ -1277,7 +1271,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   .gallery { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .topnav { padding: 1rem 1.2rem; }
   .topnav.scrolled { padding: 0.6rem 1.2rem; }
   .nav-toggle { display: block; position: relative; z-index: 101; }
@@ -1317,11 +1311,13 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
     transition: opacity .32s ease,
                 transform .34s cubic-bezier(.21, 1.02, .45, 1),
                 visibility .34s;
+    pointer-events: none;  /* closed menu can never capture taps through the page */
   }
   .topnav ul.is-open {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
+    pointer-events: auto;
   }
   /* Larger tap targets + staggered entrance for each item */
   .topnav ul li {
@@ -1350,6 +1346,9 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
     .nav-backdrop { transition-duration: .01ms; }
     .topnav ul.is-open li { transition-delay: 0s; }
   }
+}
+
+@media (max-width: 720px) {
   .section { padding: 5rem 1.2rem; }
   .rsvp-frame { padding: 2.5rem 1.6rem; }
   .schedule li { grid-template-columns: 40px 1fr; gap: 1rem; }
@@ -3293,17 +3292,16 @@ body.lb-open {
   transform-origin: 52% 38%;   /* nearer the stem, so it pivots like a real leaf */
 }
 
-/* One full turn per cycle, with the swing easing at each extreme.
-   Ends where it began so the loop is invisible. */
+/* Mostly a gentle side-to-side rock while the leaf drifts down; it only
+   flips over occasionally (one slow turn late in each long cycle), so the
+   motion reads as a leaf settling on the breeze rather than spinning. */
 @keyframes leafTumble {
-  0%   { transform: scale(var(--leaf-scale, 1)) rotateY(0deg)   rotateZ(-38deg) translateX(-8px); }
-  14%  { transform: scale(var(--leaf-scale, 1)) rotateY(95deg)  rotateZ(-8deg)  translateX(-3px); }
-  28%  { transform: scale(var(--leaf-scale, 1)) rotateY(180deg) rotateZ(22deg)  translateX(5px); }
-  42%  { transform: scale(var(--leaf-scale, 1)) rotateY(265deg) rotateZ(44deg)  translateX(8px); }
-  56%  { transform: scale(var(--leaf-scale, 1)) rotateY(360deg) rotateZ(16deg)  translateX(3px); }
-  70%  { transform: scale(var(--leaf-scale, 1)) rotateY(450deg) rotateZ(-14deg) translateX(-4px); }
-  85%  { transform: scale(var(--leaf-scale, 1)) rotateY(560deg) rotateZ(-36deg) translateX(-8px); }
-  100% { transform: scale(var(--leaf-scale, 1)) rotateY(720deg) rotateZ(-38deg) translateX(-8px); }
+  0%   { transform: scale(var(--leaf-scale, 1)) rotateY(0deg)   rotateZ(-5deg) translateX(-4px); }
+  25%  { transform: scale(var(--leaf-scale, 1)) rotateY(0deg)   rotateZ(5deg)  translateX(4px); }
+  48%  { transform: scale(var(--leaf-scale, 1)) rotateY(0deg)   rotateZ(-3deg) translateX(-3px); }
+  60%  { transform: scale(var(--leaf-scale, 1)) rotateY(180deg) rotateZ(3deg)  translateX(3px); }
+  74%  { transform: scale(var(--leaf-scale, 1)) rotateY(360deg) rotateZ(-2deg) translateX(-2px); }
+  100% { transform: scale(var(--leaf-scale, 1)) rotateY(360deg) rotateZ(-5deg) translateX(-4px); }
 }
 
 /* The descent is no longer a straight glide: it stalls slightly where
@@ -3321,9 +3319,10 @@ body.lb-open {
 }
 
 /* Vary the tumble rate per leaf so no two fall alike */
-.leaf-1 { --sway: 6.4s; }
-.leaf-2 { --sway: 8.1s; }
-.leaf-3 { --sway: 5.6s; }
-.leaf-4 { --sway: 9.2s; }
-.leaf-5 { --sway: 7.3s; }
-.leaf-6 { --sway: 6.9s; }
+/* Long cycles so a full flip is a rare event; the rest is gentle drift. */
+.leaf-1 { --sway: 17s; }
+.leaf-2 { --sway: 22s; }
+.leaf-3 { --sway: 15s; }
+.leaf-4 { --sway: 24s; }
+.leaf-5 { --sway: 19s; }
+.leaf-6 { --sway: 20s; }

@@ -2623,12 +2623,26 @@ html { scroll-snap-type: y proximity; }
 .sv-photo { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; border: 2.5px solid #7d8a6b; background: #fffaf1; display: grid; place-items: center; }
 .sv-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .sv-photo-letter span { font-family: 'Italiana', serif; font-size: 2.4rem; color: #3a4632; }
-.sv-list { list-style: none; margin: 0; padding: 0 0 0 1.5rem; border-left: 2px dashed #7d8a6b; display: flex; flex-direction: column; gap: 1.7rem; }
-.sv-list li { position: relative; }
+/* Snaking timeline: milestones alternate left / right of a central dashed
+   line, so the eye zigzags down the page as the story progresses. */
+.sv-list { list-style: none; margin: 0; padding: 0; position: relative; }
+.sv-list::before {
+  content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+  top: 6px; bottom: 6px; border-left: 2px dashed #7d8a6b;
+}
+.sv-list li {
+  position: relative; width: 50%; box-sizing: border-box;
+  margin-bottom: 1.9rem; padding: 0 1rem;
+}
+.sv-list li:last-child { margin-bottom: 0; }
+.sv-list li:nth-child(odd) { text-align: right; }
+.sv-list li:nth-child(even) { margin-left: 50%; text-align: left; }
 .sv-list li::before {
-  content: ""; position: absolute; left: calc(-1.5rem - 7px); top: 0.5rem;
+  content: ""; position: absolute; top: 0.5rem;
   width: 11px; height: 11px; border-radius: 50%; background: #c97e7e; border: 2px solid #fffaf1;
 }
+.sv-list li:nth-child(odd)::before { right: -6.5px; }
+.sv-list li:nth-child(even)::before { left: -6.5px; }
 .sv-date {
   display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
   color: #3a4632; background: #fffaf1; border: 2px solid #7d8a6b; border-radius: 20px; padding: 0.25rem 0.95rem;

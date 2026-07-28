@@ -201,15 +201,12 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   background-image: url("brand_assets/leaf_cut.png");
   animation: leafSway var(--sway, 5.4s) ease-in-out infinite alternate;
 }
-/* Two autumn maple leaves among the green */
+/* A second leaf shape (transparent sycamore) mixed among the green */
 .leaf-2::before,
-.leaf-5::before {
-  background-image: url("brand_assets/leaf2_cut.png");
+.leaf-4::before,
+.leaf-6::before {
+  background-image: url("brand_assets/pngtree-sycamore-leaf-wide-and-lobed-isolated-on-transparent-background-png-image_21221949.png");
 }
-/* Oak, sycamore and hazel leaves in the mix */
-.leaf-3::before { background-image: url("brand_assets/oakleaf.jpg"); }
-.leaf-4::before { background-image: url("brand_assets/sycamoreleaf.avif"); }
-.leaf-6::before { background-image: url("brand_assets/hazelleaf.webp"); }
 
 .leaf-1 { left: 12%; --delay: 0s;  --fall: 38s; --sway: 5.1s; --leaf-scale: 1;    }
 .leaf-2 { left: 32%; --delay: 14s; --fall: 46s; --sway: 6.2s; --leaf-scale: 0.8;  }
@@ -986,7 +983,8 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   pointer-events: none;
   opacity: 0;
 }
-.rsvp-frame.is-accepted .rsvp-fx,
+/* Accept runs the full-page canvas celebration instead of the SVG border
+   runner, so only Decline uses the in-frame runner + sparks below. */
 .rsvp-frame.is-declined .rsvp-fx { opacity: 1; }
 
 .rsvp-frame.is-accepted { --fx: #2fae57; --fx-glow: rgba(47, 174, 87, 0.85); }
@@ -1009,7 +1007,6 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   stroke-dashoffset: 100;
   filter: drop-shadow(0 0 3px var(--fx-glow)) drop-shadow(0 0 8px var(--fx-glow));
 }
-.rsvp-frame.is-accepted .rsvp-fx-runner,
 .rsvp-frame.is-declined .rsvp-fx-runner { animation: rsvpRocket 1s linear 3; }
 @keyframes rsvpRocket {
   from { stroke: var(--fx); stroke-dashoffset: 100; }
@@ -1026,7 +1023,6 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   box-shadow: 0 0 7px 1px var(--fx-glow);
   opacity: 0;
 }
-.rsvp-frame.is-accepted .rsvp-spark,
 .rsvp-frame.is-declined .rsvp-spark { animation: rsvpSpark 1s ease-out 3; }
 @keyframes rsvpSpark {
   0%   { opacity: 0; transform: translate(0, 0) scale(0.3); }
@@ -1036,6 +1032,13 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 @media (prefers-reduced-motion: reduce) {
   .rsvp-fx-runner,
   .rsvp-spark { animation: none !important; }
+}
+/* Full-page spark shower canvas for an accepted RSVP */
+.rsvp-fx-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
 }
 
 .rsvp-form { margin-top: 2rem; }

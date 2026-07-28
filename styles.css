@@ -244,7 +244,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 
 /* Drop two leaves on small screens — fewer composited layers, smoother scroll. */
 @media (max-width: 720px) {
-  .leaf-5, .leaf-6 { display: none; }
+  .leaf-4, .leaf-5, .leaf-6, .leaf-7, .leaf-8, .leaf-9 { display: none; }
 }
 
 /* =========================================================
@@ -1313,7 +1313,13 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 
 @media (max-width: 900px) {
   .topnav { padding: 1rem 1.2rem; }
-  .topnav.scrolled { padding: 0.6rem 1.2rem; }
+  /* Drop the expensive backdrop blur on mobile — it causes scroll jank */
+  .topnav.scrolled {
+    padding: 0.6rem 1.2rem;
+    background: rgba(246, 239, 228, 0.97);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
   .nav-toggle { display: block; position: relative; z-index: 101; }
 
   /* Dim, blurred scrim behind the menu — tap anywhere on it to dismiss */
@@ -1982,6 +1988,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   overflow-y: auto;
 }
 body.is-locked { overflow: hidden; }
+body.nav-open { overflow: hidden; }
 body.is-locked #site-view { visibility: hidden; }
 
 .gate-card {
@@ -3080,7 +3087,8 @@ body.lb-open { overflow: hidden; }
     transform-origin: top right;
     transition: opacity .3s ease, transform .32s cubic-bezier(.21, 1.02, .45, 1), visibility .32s;
   }
-  #nav-menu.is-open { opacity: 1; visibility: visible; transform: none; }
+  #nav-menu { pointer-events: none; z-index: 105; }
+  #nav-menu.is-open { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
 
   #nav-menu > li {
     width: 100%;

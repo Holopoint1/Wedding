@@ -680,6 +680,7 @@ if (navToggle && navMenu) {
     navMenu.classList.toggle("is-open", open);
     navToggle.classList.toggle("is-open", open);
     if (navBackdrop) navBackdrop.classList.toggle("is-open", open);
+    document.body.classList.toggle("nav-open", open); // lock scroll so a tap can't scroll-close it
     navToggle.setAttribute("aria-expanded", String(open));
     navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   };

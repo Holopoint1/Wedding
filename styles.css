@@ -3144,3 +3144,39 @@ body.lb-open {
   width: 100%;
   overflow: hidden;
 }
+
+/* =========================================================
+   TARTAN — drifts slowly sideways on hover
+   Each variant travels exactly one tile width per cycle, so the
+   weave slides continuously with no visible jump on repeat.
+   ========================================================= */
+.tartan-stripe,
+.tartan-swatch,
+.tartan-tile { transition: filter .4s ease; }
+
+.tartan-stripe:hover,
+.tartan-swatch:hover,
+.tartan-tile:hover { filter: saturate(1.08); }
+
+/* Robertson Hunting Ancient: 280px tile */
+.tartan-stripe:hover,
+.tartan-swatch:hover,
+.tartan-tile:hover { animation: tartanDrift280 26s linear infinite; }
+@keyframes tartanDrift280 {
+  from { background-position-x: 0; }
+  to   { background-position-x: 280px; }
+}
+
+/* Groomsmen stripe: 220px tile */
+.tartan-stripe-groomsmen:hover { animation: tartanDrift220 22s linear infinite; }
+@keyframes tartanDrift220 {
+  from { background-position-x: 0; }
+  to   { background-position-x: 220px; }
+}
+
+/* Groomsmen swatch on the dress page: 200px tile */
+.tartan-swatch-groomsmen:hover { animation: tartanDrift200 20s linear infinite; }
+@keyframes tartanDrift200 {
+  from { background-position-x: 0; }
+  to   { background-position-x: 200px; }
+}

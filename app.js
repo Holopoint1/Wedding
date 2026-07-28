@@ -482,15 +482,18 @@ function launchAcceptFireworks(frame) {
     if (lr.width > 0) {
       const toX = (px) => lr.left + (px / 40) * lr.width;
       const toY = (py) => lr.top + (py / 180) * lr.height;
-      const startX = toX(20), startY = toY(0);
-      const photos = document.querySelectorAll(".sv-photos .sv-photo");
+      const branchSvg = document.querySelector(".sv-branches");
+      const branchPaths = branchSvg ? branchSvg.querySelectorAll("path") : [];
 
-      if (t < P1 && photos.length >= 2) {
+      if (t < P1 && branchPaths.length >= 2) {
+        // ride along the two visible branch lines down to their meeting point
+        const br = branchSvg.getBoundingClientRect();
         const u = t / P1;
-        [photos[0], photos[1]].forEach((ph) => {
-          const pr = ph.getBoundingClientRect();
-          const px = pr.left + pr.width / 2, py = pr.top + pr.height / 2;
-          const x = px + (startX - px) * u, y = py + (startY - py) * u;
+        branchPaths.forEach((bp) => {
+          const len = bp.getTotalLength();
+          const p = bp.getPointAtLength(u * len);
+          const x = br.left + (p.x / 100) * br.width;
+          const y = br.top + (p.y / 60) * br.height;
           drawLight(x, y, 13, 1); if (active) emit(x, y, 0.28);
         });
       } else if (t < P1 + P2) {

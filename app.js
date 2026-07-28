@@ -108,11 +108,17 @@ let rsvpGuest = null;
     const q = norm(input.value);
     rsvpGuest = findGuest(input.value);
     if (note && !rsvpGuest) {
-      note.textContent = "Choose your name from the list so we know who's replying.";
+      note.textContent = "Start typing your name and pick it from the suggestions so we know who's replying.";
       note.classList.remove("is-found");
     }
-    if (!q) { hide(); return; }
-    matches = ALL_NAMES.filter(n => norm(n).includes(q)).slice(0, 8);
+    // Don't reveal the guest list: only suggest once they've typed enough
+    // to identify themselves, and match from the start of a name so typing
+    // a first name recommends the full name (surname included).
+    if (q.length < 2) { hide(); return; }
+    matches = ALL_NAMES.filter(n => {
+      const full = norm(n);
+      return full.startsWith(q) || full.split(" ").some(w => w.startsWith(q));
+    }).slice(0, 8);
     if (!matches.length || (matches.length === 1 && norm(matches[0]) === q)) { hide(); return; }
     active = -1;
     list.innerHTML = "";

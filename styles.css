@@ -983,56 +983,28 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   pointer-events: none;
   opacity: 0;
 }
-.rsvp-frame.is-accepted .rsvp-fx,
-.rsvp-frame.is-declined .rsvp-fx { opacity: 1; }
-
 .rsvp-frame.is-accepted { --fx: #2fae57; --fx-glow: rgba(47, 174, 87, 0.85); }
-.rsvp-frame.is-declined { --fx: #d8433f; --fx-glow: rgba(216, 67, 63, 0.85); }
+.rsvp-frame.is-declined { --fx: #d8433f; }
 
-/* The border lights up and stays lit for the chosen answer */
-.rsvp-frame.is-accepted,
-.rsvp-frame.is-declined {
+/* Accept: green glow on the frame while the canvas comet circles it. */
+.rsvp-frame.is-accepted {
   border-color: var(--fx);
   box-shadow: var(--shadow-soft), 0 0 18px -2px var(--fx-glow);
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
-
-.rsvp-fx-line { display: block; width: 100%; height: 100%; overflow: visible; }
-.rsvp-fx-runner {
-  stroke: transparent;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 20 80;
-  stroke-dashoffset: 100;
-  filter: drop-shadow(0 0 3px var(--fx-glow)) drop-shadow(0 0 8px var(--fx-glow));
-}
-.rsvp-frame.is-accepted .rsvp-fx-runner,
-.rsvp-frame.is-declined .rsvp-fx-runner { animation: rsvpRocket 1s linear 3; }
-@keyframes rsvpRocket {
-  from { stroke: var(--fx); stroke-dashoffset: 100; }
-  to   { stroke: var(--fx); stroke-dashoffset: 0; }
+/* Decline: simply a red outline on the container. */
+.rsvp-frame.is-declined {
+  border-color: var(--fx);
+  box-shadow: var(--shadow-soft), inset 0 0 0 1px var(--fx);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-.rsvp-spark {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  margin: -2.5px 0 0 -2.5px;
-  border-radius: 50%;
-  background: var(--fx);
-  box-shadow: 0 0 7px 1px var(--fx-glow);
-  opacity: 0;
-}
-.rsvp-frame.is-accepted .rsvp-spark,
-.rsvp-frame.is-declined .rsvp-spark { animation: rsvpSpark 1s ease-out 3; }
-@keyframes rsvpSpark {
-  0%   { opacity: 0; transform: translate(0, 0) scale(0.3); }
-  40%  { opacity: 1; transform: translate(calc(var(--dx) * 0.6), calc(var(--dy) * 0.6)) scale(1); }
-  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .rsvp-fx-runner,
-  .rsvp-spark { animation: none !important; }
+/* Full-page canvas the Accept comet + green sparks draw onto */
+.rsvp-fx-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
 }
 
 .rsvp-form { margin-top: 2rem; }
@@ -1207,7 +1179,16 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
    FOOTER
    ========================================================= */
 .site-footer {
-  background: var(--forest);
+  /* A faded, weathered Scottish Saltire: muted blue field with a soft
+     white corner-to-corner cross and gentle uneven shading, kept low
+     contrast so the cream text stays readable. */
+  background-color: #274054;
+  background-image:
+    linear-gradient(to top right,   transparent 46.5%, rgba(240, 241, 236, 0.16) 49.3%, rgba(240, 241, 236, 0.16) 50.7%, transparent 53.5%),
+    linear-gradient(to bottom right, transparent 46.5%, rgba(240, 241, 236, 0.16) 49.3%, rgba(240, 241, 236, 0.16) 50.7%, transparent 53.5%),
+    radial-gradient(130% 150% at 50% 15%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.28) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   color: var(--cream);
   text-align: center;
   padding: 4rem 1.5rem 3rem;

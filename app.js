@@ -153,9 +153,132 @@ let rsvpGuest = null;
   });
 })();
 
-/* ---------- RSVP accept / decline celebration ----------
-   Choosing Accepts lights the frame green; Declines lights it red. A bright
-   segment rockets around the border with sparks flying off the edges. */
+/* ---------- RSVP accept / decline ----------
+   Decline just puts a red outline on the frame. Accept lights the frame
+   green and launches a canvas comet that circles the frame once, shedding
+   green sparks, with a light green spark shower over the page. */
+let rsvpFxRun = 0;
+
+function launchAcceptFireworks(frame) {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const myRun = ++rsvpFxRun;
+  document.querySelectorAll(".rsvp-fx-canvas").forEach((c) => c.remove());
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "rsvp-fx-canvas";
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0;
+  const resize = () => {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  resize();
+  window.addEventListener("resize", resize);
+
+  const greens = ["#2fae57", "#5ed67e", "#a8f0b6", "#e2ffe9"];
+  const particles = [];
+  const addSpark = (x, y, o) => {
+    o = o || {};
+    particles.push({
+      x, y,
+      vx: o.vx != null ? o.vx : (Math.random() - 0.5) * 3,
+      vy: o.vy != null ? o.vy : (Math.random() - 0.5) * 3,
+      g: o.g != null ? o.g : 0.06,
+      size: o.size != null ? o.size : 1.4 + Math.random() * 2,
+      life: 1,
+      decay: o.decay != null ? o.decay : 0.012 + Math.random() * 0.02,
+      color: greens[(Math.random() * greens.length) | 0],
+    });
+  };
+
+  // Rectangle perimeter geometry (viewport coords, matches the fixed canvas)
+  const rect = frame.getBoundingClientRect();
+  const L = rect.left, T = rect.top, Wd = rect.width, Hd = rect.height;
+  const per = 2 * (Wd + Hd);
+  const pointAt = (d) => {
+    if (d < Wd) return [L + d, T];
+    d -= Wd;
+    if (d < Hd) return [L + Wd, T + d];
+    d -= Hd;
+    if (d < Wd) return [L + Wd - d, T + Hd];
+    d -= Wd;
+    return [L, T + Hd - d];
+  };
+
+  const cometDur = 2400;              // one lap around the border
+  const rainUntil = cometDur + 1100;  // keep raining a little after the lap
+  let start = null, emitAcc = 0, rainAcc = 0;
+
+  const step = (ts) => {
+    if (myRun !== rsvpFxRun) { window.removeEventListener("resize", resize); canvas.remove(); return; }
+    if (start == null) start = ts;
+    const t = ts - start;
+
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "lighter";
+
+    // Comet head + trail sparks
+    const prog = t / cometDur;
+    if (prog < 1) {
+      const [cx, cy] = pointAt(prog * per);
+      const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 15);
+      grd.addColorStop(0, "rgba(226,255,233,0.95)");
+      grd.addColorStop(0.4, "rgba(94,214,126,0.6)");
+      grd.addColorStop(1, "rgba(47,174,87,0)");
+      ctx.fillStyle = grd;
+      ctx.beginPath(); ctx.arc(cx, cy, 15, 0, Math.PI * 2); ctx.fill();
+      emitAcc += 16;
+      while (emitAcc > 18) {
+        emitAcc -= 18;
+        addSpark(cx, cy, {
+          vx: (Math.random() - 0.5) * 3.8,
+          vy: (Math.random() - 0.5) * 3.8 - 0.4,
+          g: 0.08, size: 1.4 + Math.random() * 2.2, decay: 0.014 + Math.random() * 0.02,
+        });
+      }
+    }
+
+    // Page-wide falling sparks
+    if (t < rainUntil) {
+      rainAcc += 16;
+      while (rainAcc > 42) {
+        rainAcc -= 42;
+        addSpark(Math.random() * W, -8, {
+          vx: (Math.random() - 0.5) * 1.2, vy: 1 + Math.random() * 2,
+          g: 0.05, size: 1.4 + Math.random() * 2.4, decay: 0.005 + Math.random() * 0.008,
+        });
+      }
+    }
+
+    // Update + draw particles
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.vy += p.g; p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+      if (p.life <= 0 || p.y > H + 24) { particles.splice(i, 1); continue; }
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.life;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = p.life * 0.45;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 2.4, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+
+    if (t > rainUntil && particles.length === 0) {
+      window.removeEventListener("resize", resize);
+      canvas.remove();
+      return;
+    }
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
 (function initRsvpFx() {
   const frame = document.querySelector(".rsvp-frame");
   if (!frame) return;
@@ -163,8 +286,10 @@ let rsvpGuest = null;
   radios.forEach((r) => {
     r.addEventListener("change", () => {
       frame.classList.remove("is-accepted", "is-declined");
-      void frame.offsetWidth; // reflow so the CSS animations restart each time
-      frame.classList.add(r.value === "yes" ? "is-accepted" : "is-declined");
+      void frame.offsetWidth; // reflow so the state restarts each time
+      const accepted = r.value === "yes";
+      frame.classList.add(accepted ? "is-accepted" : "is-declined");
+      if (accepted) launchAcceptFireworks(frame);
     });
   });
 })();

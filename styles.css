@@ -2610,6 +2610,35 @@ html { scroll-snap-type: y proximity; }
 .story-spark-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
 @media (prefers-reduced-motion: reduce) { .tl-spark { display: none; } }
 
+/* ===== Vertical timeline for narrow screens (scroll up/down, no sideways) ===== */
+.story-vertical { display: none; }
+@media (max-width: 640px) {
+  .story-svg { display: none; }
+  .story-tree { overflow-x: visible; min-width: 0; }
+  .story-vertical { display: block; max-width: 420px; margin: 0 auto; }
+}
+.sv-photos { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: 1.6rem; }
+.sv-figure { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.sv-name { font-family: 'Pinyon Script', cursive; font-size: 1.4rem; color: #a85f5f; }
+.sv-photo { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; border: 2.5px solid #7d8a6b; background: #fffaf1; display: grid; place-items: center; }
+.sv-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sv-photo-letter span { font-family: 'Italiana', serif; font-size: 2.4rem; color: #3a4632; }
+.sv-list { list-style: none; margin: 0; padding: 0 0 0 1.5rem; border-left: 2px dashed #7d8a6b; display: flex; flex-direction: column; gap: 1.7rem; }
+.sv-list li { position: relative; }
+.sv-list li::before {
+  content: ""; position: absolute; left: calc(-1.5rem - 7px); top: 0.5rem;
+  width: 11px; height: 11px; border-radius: 50%; background: #c97e7e; border: 2px solid #fffaf1;
+}
+.sv-date {
+  display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
+  color: #3a4632; background: #fffaf1; border: 2px solid #7d8a6b; border-radius: 20px; padding: 0.25rem 0.95rem;
+}
+.sv-cap { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: #a85f5f; margin-top: 0.45rem; }
+.sv-sub { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: #a85f5f; margin-top: 0.15rem; }
+.sv-wed .sv-date { background: #f7ecd8; border-color: #b89968; }
+.sv-us { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin-top: 1.9rem; }
+.sv-us .sv-photo-us { width: 170px; height: 170px; border-width: 4px; border-color: #b89968; }
+
 /* Countdown: clearer numerals, colour-coded units fading green -> red */
 .nav-countdown b {
   font-family: var(--sans);

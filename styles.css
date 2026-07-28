@@ -2600,10 +2600,10 @@ html { scroll-snap-type: y proximity; }
 .sv-photos { display: flex; justify-content: center; gap: 1.4rem; margin-bottom: 0.2rem; }
 .sv-figure { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
 .sv-name { font-family: 'Pinyon Script', cursive; font-size: 1.4rem; color: #a85f5f; }
-.sv-photo { width: 88px; height: 88px; border-radius: 50%; overflow: hidden; border: 2.5px solid #7d8a6b; background: #fffaf1; display: grid; place-items: center; }
+.sv-photo { width: 76px; height: 76px; border-radius: 50%; overflow: hidden; border: 2.5px solid #7d8a6b; background: #fffaf1; display: grid; place-items: center; }
 .sv-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.sv-photo-letter span { font-family: 'Italiana', serif; font-size: 2.4rem; color: #3a4632; }
-.sv-branches { display: block; width: 100%; height: 44px; margin-bottom: -2px; }
+.sv-photo-letter span { font-family: 'Italiana', serif; font-size: 2.1rem; color: #3a4632; }
+.sv-branches { display: block; width: 100%; height: 32px; margin-bottom: -2px; }
 .sv-branches path { fill: none; stroke: #7d8a6b; stroke-width: 1.4; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
 /* Timeline: a snaking dashed line (drawn by JS through every dot) with the
    cards alternating left / right. The dots sit ON the line. */
@@ -2621,7 +2621,7 @@ html { scroll-snap-type: y proximity; }
 }
 .sv-list li {
   position: relative; width: 100%; box-sizing: border-box;
-  margin-bottom: 1.9rem;
+  margin-bottom: 1rem;
 }
 .sv-list li:last-child { margin-bottom: 0; }
 /* Cards sit on the OUTER sides; the snake weaves in the central band between
@@ -2640,11 +2640,11 @@ html { scroll-snap-type: y proximity; }
   display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
   color: #3a4632; background: #fffaf1; border: 2px solid #7d8a6b; border-radius: 20px; padding: 0.25rem 0.95rem;
 }
-.sv-cap { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: #a85f5f; margin-top: 0.45rem; }
-.sv-sub { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; color: #a85f5f; margin-top: 0.15rem; }
+.sv-cap { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; line-height: 1.3; color: #a85f5f; margin-top: 0.3rem; }
+.sv-sub { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85rem; line-height: 1.25; color: #a85f5f; margin-top: 0.1rem; }
 .sv-wed .sv-date { background: #f7ecd8; border-color: #b89968; }
-.sv-us { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; margin-top: 1.9rem; }
-.sv-us .sv-photo-us { width: 170px; height: 170px; border-width: 4px; border-color: #b89968; }
+.sv-us { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; margin-top: 1.1rem; }
+.sv-us .sv-photo-us { width: 148px; height: 148px; border-width: 4px; border-color: #b89968; }
 
 /* Countdown: clearer numerals, colour-coded units fading green -> red */
 .nav-countdown b {

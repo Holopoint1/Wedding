@@ -981,11 +981,14 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   font-size: 1.15rem;
   color: var(--forest);
   margin-bottom: 0.7rem;
+  width: 100%;
+  text-align: center;
 }
 .radio-group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
+  justify-content: center;
 }
 .radio-stack { flex-direction: column; }
 .radio-pill {

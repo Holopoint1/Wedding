@@ -1205,14 +1205,21 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
    FOOTER
    ========================================================= */
 .site-footer {
-  /* A faded, weathered Scottish Saltire: muted blue field with a soft
-     white corner-to-corner cross and gentle uneven shading, kept low
-     contrast so the cream text stays readable. */
-  background-color: #274054;
+  /* A faded, weathered Scottish Saltire painted on wooden planks: muted
+     blue field, a soft white corner-to-corner cross, horizontal plank
+     seams and faint grain, all kept low contrast so the cream text and
+     gold links stay readable. */
+  background-color: #294860;
   background-image:
-    linear-gradient(to top right,   transparent 46.5%, rgba(240, 241, 236, 0.16) 49.3%, rgba(240, 241, 236, 0.16) 50.7%, transparent 53.5%),
-    linear-gradient(to bottom right, transparent 46.5%, rgba(240, 241, 236, 0.16) 49.3%, rgba(240, 241, 236, 0.16) 50.7%, transparent 53.5%),
-    radial-gradient(130% 150% at 50% 15%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.28) 100%);
+    /* painted white saltire, corner to corner */
+    linear-gradient(to top right,   transparent 43%, rgba(238, 240, 235, 0.20) 47%, rgba(238, 240, 235, 0.20) 53%, transparent 57%),
+    linear-gradient(to bottom right, transparent 43%, rgba(238, 240, 235, 0.20) 47%, rgba(238, 240, 235, 0.20) 53%, transparent 57%),
+    /* faint vertical wood grain */
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 4px, rgba(0, 0, 0, 0.03) 4px 9px),
+    /* horizontal wooden plank seams */
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0 2px, rgba(255, 255, 255, 0.02) 2px 3px, transparent 3px 46px),
+    /* weathered, uneven lighting */
+    radial-gradient(150% 170% at 50% 8%, rgba(255, 255, 255, 0.07) 0%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.36) 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   color: var(--cream);

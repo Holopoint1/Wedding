@@ -992,11 +992,37 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   box-shadow: var(--shadow-soft), 0 0 18px -2px var(--fx-glow);
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
-/* Decline: simply a red outline on the container. */
+/* Decline: a faded red outline with a soft neon glow that gently breathes
+   and fades outward into the page. */
 .rsvp-frame.is-declined {
-  border-color: var(--fx);
-  box-shadow: var(--shadow-soft), inset 0 0 0 1px var(--fx);
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  border-color: rgba(216, 67, 63, 0.5);
+  transition: border-color 0.5s ease;
+  animation: rsvpDeclineNeon 3.2s ease-in-out infinite;
+}
+@keyframes rsvpDeclineNeon {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(216, 67, 63, 0.40),
+      0 0 12px 2px rgba(216, 67, 63, 0.30),
+      0 0 30px 8px rgba(216, 67, 63, 0.15),
+      0 0 62px 22px rgba(216, 67, 63, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(216, 67, 63, 0.55),
+      0 0 18px 3px rgba(216, 67, 63, 0.42),
+      0 0 44px 12px rgba(216, 67, 63, 0.22),
+      0 0 80px 30px rgba(216, 67, 63, 0.10);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-frame.is-declined {
+    animation: none;
+    box-shadow:
+      0 0 0 1px rgba(216, 67, 63, 0.45),
+      0 0 26px 6px rgba(216, 67, 63, 0.20),
+      0 0 60px 20px rgba(216, 67, 63, 0.07);
+  }
 }
 
 /* Full-page canvas the Accept comet + green sparks draw onto */

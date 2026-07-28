@@ -416,6 +416,38 @@ function launchAcceptFireworks(frame) {
     });
   }, { threshold: 0 });
   io.observe(svg);
+
+  // ----- Click controls: names restart the spark; a date resumes from there -----
+  const seek = (targetT) => {
+    t0 = performance.now() - targetT;
+    active = true;
+    if (!raf) raf = requestAnimationFrame(step);
+  };
+  const nearestFrac = (px, py) => {
+    let best = 0, bestD = Infinity;
+    const N = 260;
+    for (let i = 0; i <= N; i++) {
+      const q = pMain.getPointAtLength((i / N) * lenM);
+      const d = (q.x - px) ** 2 + (q.y - py) ** 2;
+      if (d < bestD) { bestD = d; best = i / N; }
+    }
+    return best;
+  };
+  const nodes = [...svg.querySelectorAll(".tl-node")];
+  nodes.forEach((node, i) => {
+    const rect = node.querySelector("rect");
+    const dot = node.querySelector('circle[r="7"]');
+    if (rect && dot) {
+      // a date node → resume the spark from this point on the trail
+      const frac = nearestFrac(+dot.getAttribute("cx"), +dot.getAttribute("cy"));
+      node.style.cursor = "pointer";
+      node.addEventListener("click", () => seek(P1 + frac * P2));
+    } else if (i < 2) {
+      // Alfie / Lorna photo → restart the whole animation
+      node.style.cursor = "pointer";
+      node.addEventListener("click", () => seek(0));
+    }
+  });
 })();
 
 /* ---------- Story timeline light (mobile vertical) ----------
@@ -429,9 +461,10 @@ function launchAcceptFireworks(frame) {
   const snakePath = document.querySelector(".sv-snake path");
   if (!list || !wrap || !snakePath) return;
 
-  // Draw the snaking dashed line THROUGH every dot (dots alternate 32%/68%).
+  // Draw the snaking dashed line THROUGH every dot (dots alternate 42%/58%).
   const svg = snakePath.parentNode;
   let svW = 0, svH = 0;
+  let dotFracs = []; // path fraction of each milestone dot (for click-to-resume)
   const buildSnake = () => {
     const w = wrap.clientWidth, h = wrap.clientHeight;
     if (!w || !h) return;
@@ -451,6 +484,18 @@ function launchAcceptFireworks(frame) {
     }
     svg.setAttribute("viewBox", "0 0 " + w + " " + h);
     snakePath.setAttribute("d", d);
+    // fraction of the path nearest each dot (skip the start/end helper points)
+    const total = snakePath.getTotalLength();
+    dotFracs = pts.slice(1, pts.length - 1).map(([px, py]) => {
+      let best = 0, bestD = Infinity;
+      const N = 160;
+      for (let i = 0; i <= N; i++) {
+        const q = snakePath.getPointAtLength((i / N) * total);
+        const dd = (q.x - px) ** 2 + (q.y - py) ** 2;
+        if (dd < bestD) { bestD = dd; best = i / N; }
+      }
+      return best;
+    });
   };
   buildSnake();
   window.addEventListener("resize", buildSnake);
@@ -562,6 +607,24 @@ function launchAcceptFireworks(frame) {
     });
   }, { threshold: 0 });
   io.observe(list);
+
+  // ----- Click controls: names restart; a date resumes the spark from there -----
+  const seek = (targetT) => {
+    t0 = performance.now() - targetT;
+    active = true;
+    if (!raf) raf = requestAnimationFrame(step);
+  };
+  document.querySelectorAll(".sv-photos .sv-figure").forEach((fig) => {
+    fig.style.cursor = "pointer";
+    fig.addEventListener("click", () => seek(0));
+  });
+  list.querySelectorAll(".sv-date").forEach((d, i) => {
+    d.style.cursor = "pointer";
+    d.addEventListener("click", () => {
+      const f = (dotFracs[i] != null) ? dotFracs[i] : (i / Math.max(dotFracs.length, 1));
+      seek(P1 + f * P2);
+    });
+  });
 })();
 
 (function initRsvpFx() {

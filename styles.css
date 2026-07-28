@@ -1166,7 +1166,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 }
 .footer-by {
   margin-top: 0.6rem;
-  font-size: 0.78rem;
+  font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -3182,5 +3182,105 @@ body.lb-open {
 }
 
 /* Smaller credit line in the footer */
-.footer-by { font-size: 0.62rem; letter-spacing: 0.16em; opacity: 0.75; }
+.footer-by { font-size: 0.52rem; letter-spacing: 0.16em; opacity: 0.75; }
 .footer-by a { font-size: inherit; }
+
+/* =========================================================
+   HERO EYEBROW — occasional gold shimmer
+   A band of gold sweeps across the words, then rests before the
+   next pass. The text is painted through a moving gradient, so the
+   drop shadow is applied as a filter rather than a text-shadow
+   (a text-shadow would show through the transparent glyphs).
+   ========================================================= */
+.home .hero-mini {
+  background-image: linear-gradient(100deg,
+    #fdfaf3 0%,   #fdfaf3 38%,
+    #e6c583 45%,  #fff3cf 50%,  #e6c583 55%,
+    #fdfaf3 62%,  #fdfaf3 100%);
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 1px 10px rgba(0, 0, 0, 0.45));
+  animation: heroShimmer 9s ease-in-out infinite;
+  will-change: background-position;
+}
+@keyframes heroShimmer {
+  0%   { background-position: 135% 0; }
+  28%  { background-position: -35% 0; }
+  100% { background-position: -35% 0; }
+}
+
+/* The ampersand catches the same gold, offset so the two shimmers
+   don't fire together. It keeps its entrance animation, so both are
+   listed here (the shorthand would otherwise drop nameRise). */
+.home .amp {
+  background-image: linear-gradient(100deg,
+    #eec3bb 0%,   #eec3bb 38%,
+    #e6c583 45%,  #fff3cf 50%,  #e6c583 55%,
+    #eec3bb 62%,  #eec3bb 100%);
+  background-size: 260% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.4));
+  animation: nameRise 1.2s ease-out 2.1s forwards,
+             heroShimmer 9s ease-in-out 3.6s infinite;
+  will-change: background-position;
+}
+
+/* =========================================================
+   LEAVES — a more convincing fall
+   A falling leaf does three things at once: it descends unevenly,
+   swings like a pendulum, and turns over so you glimpse its back.
+   The outer span carries the descent, the inner painted leaf does
+   the tumbling, and the perspective on the span makes the turn read
+   as depth rather than a flat squash.
+   ========================================================= */
+.leaf { perspective: 600px; }
+
+.leaf::before {
+  animation: leafTumble var(--sway, 5.4s) ease-in-out infinite;
+  transform-origin: 52% 38%;   /* nearer the stem, so it pivots like a real leaf */
+}
+
+/* One full turn per cycle, with the swing easing at each extreme.
+   Ends where it began so the loop is invisible. */
+@keyframes leafTumble {
+  0%   { transform: scale(var(--leaf-scale, 1)) rotateY(0deg)   rotateZ(-38deg) translateX(-8px); }
+  14%  { transform: scale(var(--leaf-scale, 1)) rotateY(95deg)  rotateZ(-8deg)  translateX(-3px); }
+  28%  { transform: scale(var(--leaf-scale, 1)) rotateY(180deg) rotateZ(22deg)  translateX(5px); }
+  42%  { transform: scale(var(--leaf-scale, 1)) rotateY(265deg) rotateZ(44deg)  translateX(8px); }
+  56%  { transform: scale(var(--leaf-scale, 1)) rotateY(360deg) rotateZ(16deg)  translateX(3px); }
+  70%  { transform: scale(var(--leaf-scale, 1)) rotateY(450deg) rotateZ(-14deg) translateX(-4px); }
+  85%  { transform: scale(var(--leaf-scale, 1)) rotateY(560deg) rotateZ(-36deg) translateX(-8px); }
+  100% { transform: scale(var(--leaf-scale, 1)) rotateY(720deg) rotateZ(-38deg) translateX(-8px); }
+}
+
+/* The descent is no longer a straight glide: it stalls slightly where
+   the leaf turns broadside and quickens as it slips edge-on. */
+@keyframes leafFall {
+  0%   { transform: translate3d(0, -6vh, 0);        opacity: 0;    }
+  7%   {                                            opacity: 0.3;  }
+  18%  { transform: translate3d(0.9vw, 20vh, 0);    opacity: 0.34; }
+  33%  { transform: translate3d(-0.5vw, 36vh, 0);   opacity: 0.3;  }
+  47%  { transform: translate3d(1.1vw, 55vh, 0);    opacity: 0.34; }
+  62%  { transform: translate3d(-0.4vw, 70vh, 0);   opacity: 0.3;  }
+  78%  { transform: translate3d(1vw, 88vh, 0);      opacity: 0.32; }
+  88%  {                                            opacity: 0.26; }
+  100% { transform: translate3d(0.3vw, 114vh, 0);   opacity: 0;    }
+}
+
+/* Vary the tumble rate per leaf so no two fall alike */
+.leaf-1 { --sway: 6.4s; }
+.leaf-2 { --sway: 8.1s; }
+.leaf-3 { --sway: 5.6s; }
+.leaf-4 { --sway: 9.2s; }
+.leaf-5 { --sway: 7.3s; }
+.leaf-6 { --sway: 6.9s; }

@@ -1209,21 +1209,24 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
      blue field, a soft white corner-to-corner cross, horizontal plank
      seams and faint grain, all kept low contrast so the cream text and
      gold links stay readable. */
-  background-color: #445f74;
+  background-color: #46617a;
   background-image:
     /* pale wash so the whole flag reads faded */
-    linear-gradient(rgba(236, 232, 222, 0.14), rgba(236, 232, 222, 0.14)),
-    /* grime / worn patches (fractal noise → dark mottling) */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.7 0.7 0.7 0 -0.82'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23w)' opacity='0.5'/%3E%3C/svg%3E"),
-    /* sun-bleached patches (fractal noise → light mottling) */
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.021' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.6 0.6 0.6 0 -0.72'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23b)' opacity='0.4'/%3E%3C/svg%3E"),
+    linear-gradient(rgba(234, 230, 220, 0.12), rgba(234, 230, 220, 0.12)),
     /* white saltire, corner to corner — soft, aged white */
     linear-gradient(to top right,   transparent 43%, rgba(240, 240, 232, 0.40) 47%, rgba(240, 240, 232, 0.40) 53%, transparent 57%),
     linear-gradient(to bottom right, transparent 43%, rgba(240, 240, 232, 0.40) 47%, rgba(240, 240, 232, 0.40) 53%, transparent 57%),
+    /* horizontal wooden plank seams — soft brown, with a faint highlight */
+    repeating-linear-gradient(180deg,
+      transparent 0px, transparent 44px,
+      rgba(36, 23, 11, 0.16) 45px, rgba(36, 23, 11, 0.20) 46px,
+      rgba(255, 244, 224, 0.05) 47px, transparent 48px),
+    /* fine horizontal wood grain (anisotropic noise → grain lines) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.05' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.28 0 0 0 0 0.18 0 0 0 0 0.09 0.45 0.45 0.45 0 -0.5'/%3E%3C/filter%3E%3Crect width='400' height='200' filter='url(%23g)' opacity='0.35'/%3E%3C/svg%3E"),
     /* uneven, weathered lighting */
-    radial-gradient(150% 170% at 50% 8%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.34) 100%);
-  background-repeat: no-repeat, repeat, repeat, no-repeat, no-repeat, no-repeat;
-  background-size: 100% 100%, 300px 300px, 240px 240px, 100% 100%, 100% 100%, 100% 100%;
+    radial-gradient(150% 170% at 50% 8%, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, 0.30) 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
   color: var(--cream);
   text-align: center;
   padding: 4rem 1.5rem 3rem;
@@ -2563,6 +2566,7 @@ html { scroll-snap-type: y proximity; }
   cursor: default;
 }
 .story-svg .tl-node:hover { transform: scale(1.07); }
+.story-spark-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
 @media (prefers-reduced-motion: reduce) { .tl-spark { display: none; } }
 
 /* Countdown: clearer numerals, colour-coded units fading green -> red */

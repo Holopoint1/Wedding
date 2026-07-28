@@ -279,6 +279,82 @@ function launchAcceptFireworks(frame) {
   requestAnimationFrame(step);
 }
 
+/* ---------- Story light: sheds a few small sparks that fall down the page ----------
+   Reads the travelling SVG light's live screen position each frame and spawns
+   small, low-key sparks that drift down and fade. Runs only while the timeline
+   is on screen. */
+(function initStoryLightSparks() {
+  const svg = document.querySelector(".story-svg");
+  const light = document.getElementById("tl-light");
+  if (!svg || !light) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "story-spark-canvas";
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0;
+  const resize = () => {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  resize();
+  window.addEventListener("resize", resize);
+
+  const parts = [];
+  let raf = null, active = false, emitAcc = 0;
+  const step = () => {
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "lighter";
+
+    const r = light.getBoundingClientRect();
+    const lx = r.left + r.width / 2, ly = r.top + r.height / 2;
+    if (active && ly > -20 && ly < H + 20) {
+      emitAcc += 1;
+      if (emitAcc >= 9) { // low-key: only occasionally
+        emitAcc = 0;
+        parts.push({
+          x: lx + (Math.random() - 0.5) * 6,
+          y: ly + (Math.random() - 0.5) * 6,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: 0.3 + Math.random() * 0.8,
+          g: 0.03,
+          size: 0.9 + Math.random() * 1.5,
+          life: 1,
+          decay: 0.005 + Math.random() * 0.007,
+        });
+      }
+    }
+
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.vy += p.g; p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+      if (p.life <= 0 || p.y > H + 20) { parts.splice(i, 1); continue; }
+      ctx.fillStyle = "#ffe9a8";
+      ctx.globalAlpha = Math.max(p.life, 0) * 0.9;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = Math.max(p.life, 0) * 0.3;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 2.4, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+
+    if (active || parts.length) { raf = requestAnimationFrame(step); }
+    else { raf = null; }
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      active = e.isIntersecting;
+      if (active && !raf) raf = requestAnimationFrame(step);
+    });
+  }, { threshold: 0 });
+  io.observe(svg);
+})();
+
 (function initRsvpFx() {
   const frame = document.querySelector(".rsvp-frame");
   if (!frame) return;

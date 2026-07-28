@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260728-19" />
+  <link rel="stylesheet" href="styles.css?v=20260728-20" />
 
   <script type="application/ld+json">
   {
@@ -332,27 +332,19 @@
             <text x="705" y="975" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="36" fill="#a85f5f">Us</text>
           </g>
 
-          <!-- ===== Story spark: a spark leaves each photo and flows along the
-                    green line all the way to the "Us" photo, on a loop.
-                    Layered circles give the glow (no SVG filter, so the
-                    photo stays sharp). ===== -->
-          <g class="tl-spark">
-            <circle r="9" fill="#f4d488" opacity="0.22"/>
-            <circle r="5.5" fill="#f2cf82" opacity="0.5"/>
-            <circle r="3" fill="#fff7e2"/>
-            <animateMotion dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.42 0 0.28 1" rotate="0">
+          <!-- ===== Story light: a bright light drifts slowly from the photos
+                    along the green line to the "Us" photo, on a loop. Layered
+                    circles give the glow (no SVG filter, so the photo stays
+                    sharp); JS sheds small sparks that fall down the page. ===== -->
+          <g class="tl-spark" id="tl-light">
+            <circle r="14" fill="#fff2b8" opacity="0.16"/>
+            <circle r="9"  fill="#ffe79a" opacity="0.32"/>
+            <circle r="5"  fill="#fff6d6" opacity="0.8"/>
+            <circle r="2.6" fill="#ffffff"/>
+            <animateMotion dur="26s" begin="0s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.3 1" rotate="0">
               <mpath href="#tl-path-a" xlink:href="#tl-path-a"/>
             </animateMotion>
-            <animate attributeName="opacity" dur="7s" begin="0s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.05;0.9;1"/>
-          </g>
-          <g class="tl-spark">
-            <circle r="9" fill="#f4d488" opacity="0.22"/>
-            <circle r="5.5" fill="#f2cf82" opacity="0.5"/>
-            <circle r="3" fill="#fff7e2"/>
-            <animateMotion dur="7s" begin="0s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.42 0 0.28 1" rotate="0">
-              <mpath href="#tl-path-l" xlink:href="#tl-path-l"/>
-            </animateMotion>
-            <animate attributeName="opacity" dur="7s" begin="0s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.05;0.9;1"/>
+            <animate attributeName="opacity" dur="26s" begin="0s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.03;0.95;1"/>
           </g>
         </svg>
       </div>
@@ -379,6 +371,6 @@
   </main>
 
   <script src="guests.js?v=20260727-2"></script>
-  <script src="app.js?v=20260728-8"></script>
+  <script src="app.js?v=20260728-9"></script>
 </body>
 </html>

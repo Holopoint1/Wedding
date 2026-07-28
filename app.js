@@ -418,6 +418,129 @@ function launchAcceptFireworks(frame) {
   io.observe(svg);
 })();
 
+/* ---------- Story timeline light (mobile vertical) ----------
+   Same look and speed as desktop but following the mobile layout: two lights
+   leave the photos, meet where the snake starts, then one light travels the
+   snake down to the "Us" photo, shedding sparks; the border lights up on
+   arrival. Runs only while the mobile timeline is on screen. */
+(function initStoryLightMobile() {
+  const list = document.querySelector(".sv-list");
+  if (!list) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const SVGNS = "http://www.w3.org/2000/svg";
+  const helper = document.createElementNS(SVGNS, "svg");
+  helper.setAttribute("viewBox", "0 0 40 180");
+  helper.setAttribute("style", "position:fixed;left:-9999px;top:0;width:40px;height:180px;opacity:0;pointer-events:none");
+  const snake = document.createElementNS(SVGNS, "path");
+  snake.setAttribute("d", "M20 0 C28 7 28 13 20 20 C12 27 12 33 20 40 C28 47 28 53 20 60 C12 67 12 73 20 80 C28 87 28 93 20 100 C12 107 12 113 20 120 C28 127 28 133 20 140 C12 147 12 153 20 160 C28 167 28 173 20 180");
+  helper.appendChild(snake);
+  document.body.appendChild(helper);
+  const lenM = snake.getTotalLength();
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "story-spark-canvas";
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let W = 0, H = 0;
+  const resize = () => {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  resize();
+  window.addEventListener("resize", resize);
+
+  const P1 = 5000, P2 = 36000, ARR = 2800, GAP = 2600, CYCLE = P1 + P2 + ARR + GAP;
+  const parts = [];
+  let raf = null, active = false, t0 = null;
+
+  const drawLight = (x, y, glow, ca) => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, glow);
+    g.addColorStop(0, "rgba(255,255,255," + (0.9 * ca) + ")");
+    g.addColorStop(0.3, "rgba(255,231,154," + (0.5 * ca) + ")");
+    g.addColorStop(1, "rgba(255,215,120,0)");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, glow, 0, Math.PI * 2); ctx.fill();
+  };
+  const emit = (x, y, rate) => {
+    if (Math.random() < rate) parts.push({
+      x: x + (Math.random() - 0.5) * 6, y: y + (Math.random() - 0.5) * 6,
+      vx: (Math.random() - 0.5) * 0.5, vy: 0.25 + Math.random() * 0.8,
+      g: 0.03, size: 0.9 + Math.random() * 1.5, life: 1, decay: 0.005 + Math.random() * 0.007,
+    });
+  };
+
+  const step = (ts) => {
+    if (t0 == null) t0 = ts;
+    const t = (ts - t0) % CYCLE;
+    const lr = list.getBoundingClientRect();
+    ctx.clearRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "lighter";
+
+    if (lr.width > 0) {
+      const toX = (px) => lr.left + (px / 40) * lr.width;
+      const toY = (py) => lr.top + (py / 180) * lr.height;
+      const startX = toX(20), startY = toY(0);
+      const photos = document.querySelectorAll(".sv-photos .sv-photo");
+
+      if (t < P1 && photos.length >= 2) {
+        const u = t / P1;
+        [photos[0], photos[1]].forEach((ph) => {
+          const pr = ph.getBoundingClientRect();
+          const px = pr.left + pr.width / 2, py = pr.top + pr.height / 2;
+          const x = px + (startX - px) * u, y = py + (startY - py) * u;
+          drawLight(x, y, 13, 1); if (active) emit(x, y, 0.28);
+        });
+      } else if (t < P1 + P2) {
+        const u = (t - P1) / P2;
+        const glow = 15 + 5 * Math.min(u / 0.05, 1);
+        const p = snake.getPointAtLength(u * lenM);
+        const x = toX(p.x), y = toY(p.y);
+        drawLight(x, y, glow, 1); if (active) emit(x, y, 0.5);
+      } else if (t < P1 + P2 + ARR) {
+        const a = Math.sin(Math.min((t - P1 - P2) / ARR, 1) * Math.PI);
+        const us = document.querySelector(".sv-us .sv-photo-us");
+        if (us) {
+          const ur = us.getBoundingClientRect();
+          const cx = ur.left + ur.width / 2, cy = ur.top + ur.height / 2, rr = ur.width / 2 + 3;
+          ctx.strokeStyle = "#ffe6a0";
+          ctx.lineWidth = 3; ctx.globalAlpha = a * 0.30;
+          ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
+          ctx.lineWidth = 11; ctx.globalAlpha = a * 0.12;
+          ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      }
+    }
+
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.vy += p.g; p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+      if (p.life <= 0 || p.y > H + 20) { parts.splice(i, 1); continue; }
+      ctx.fillStyle = "#ffe9a8";
+      ctx.globalAlpha = Math.max(p.life, 0) * 0.9;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+      ctx.globalAlpha = Math.max(p.life, 0) * 0.3;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 2.4, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+
+    if (active || parts.length) { raf = requestAnimationFrame(step); }
+    else { raf = null; }
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting && !active) { active = true; t0 = null; if (!raf) raf = requestAnimationFrame(step); }
+      else if (!e.isIntersecting) { active = false; }
+    });
+  }, { threshold: 0 });
+  io.observe(list);
+})();
+
 (function initRsvpFx() {
   const frame = document.querySelector(".rsvp-frame");
   if (!frame) return;

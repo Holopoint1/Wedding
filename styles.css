@@ -2605,29 +2605,36 @@ html { scroll-snap-type: y proximity; }
 .sv-photo-letter span { font-family: 'Italiana', serif; font-size: 2.4rem; color: #3a4632; }
 .sv-branches { display: block; width: 100%; height: 44px; margin-bottom: -2px; }
 .sv-branches path { fill: none; stroke: #7d8a6b; stroke-width: 1.4; stroke-dasharray: 3 3; vector-effect: non-scaling-stroke; }
-/* Timeline: a straight central dashed line with a dot at each milestone
-   (dots sit exactly on the line), and the cards alternate left / right. */
-.sv-list {
-  list-style: none; margin: 0; padding: 0; position: relative;
+/* Timeline: a snaking dashed line (drawn by JS through every dot) with the
+   cards alternating left / right. The dots sit ON the line. */
+.sv-listwrap { position: relative; }
+.sv-snake {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: visible; z-index: 0;
 }
-.sv-list::before {
-  content: ""; position: absolute; left: 50%; transform: translateX(-50%);
-  top: 6px; bottom: 6px; border-left: 2px dashed #7d8a6b;
+.sv-snake path {
+  fill: none; stroke: #7d8a6b; stroke-width: 1.4;
+  stroke-dasharray: 3 3; vector-effect: non-scaling-stroke;
+}
+.sv-list {
+  list-style: none; margin: 0; padding: 0; position: relative; z-index: 1;
 }
 .sv-list li {
-  position: relative; width: 50%; box-sizing: border-box;
-  margin-bottom: 1.9rem; padding: 0 1rem;
+  position: relative; width: 100%; box-sizing: border-box;
+  margin-bottom: 1.9rem;
 }
 .sv-list li:last-child { margin-bottom: 0; }
-.sv-list li:nth-child(odd) { text-align: right; }
-.sv-list li:nth-child(even) { margin-left: 50%; text-align: left; }
+/* Card sits beside its dot: dot at 32% (odd) / 68% (even) of the full width */
+.sv-list li:nth-child(odd)  { padding-left: 38%;  text-align: left; }
+.sv-list li:nth-child(even) { padding-right: 38%; text-align: right; }
 .sv-list li::before {
   content: ""; position: absolute; top: 0.5rem;
   width: 11px; height: 11px; border-radius: 50%; background: #c97e7e; border: 2px solid #fffaf1;
+  z-index: 2;
 }
-/* Centre each dot exactly on the line (the inner edge of the card = 50%) */
-.sv-list li:nth-child(odd)::before { left: 100%; transform: translateX(-50%); }
-.sv-list li:nth-child(even)::before { left: 0; transform: translateX(-50%); }
+/* Dots sit on the snake's bends (JS draws the line through these same points) */
+.sv-list li:nth-child(odd)::before  { left: 32%; transform: translateX(-50%); }
+.sv-list li:nth-child(even)::before { left: 68%; transform: translateX(-50%); }
 .sv-date {
   display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
   color: #3a4632; background: #fffaf1; border: 2px solid #7d8a6b; border-radius: 20px; padding: 0.25rem 0.95rem;

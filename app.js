@@ -425,18 +425,38 @@ function launchAcceptFireworks(frame) {
    arrival. Runs only while the mobile timeline is on screen. */
 (function initStoryLightMobile() {
   const list = document.querySelector(".sv-list");
-  if (!list) return;
-  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const wrap = document.querySelector(".sv-listwrap");
+  const snakePath = document.querySelector(".sv-snake path");
+  if (!list || !wrap || !snakePath) return;
 
-  const SVGNS = "http://www.w3.org/2000/svg";
-  const helper = document.createElementNS(SVGNS, "svg");
-  helper.setAttribute("viewBox", "0 0 40 180");
-  helper.setAttribute("style", "position:fixed;left:-9999px;top:0;width:40px;height:180px;opacity:0;pointer-events:none");
-  const snake = document.createElementNS(SVGNS, "path");
-  snake.setAttribute("d", "M20 0 L20 180"); // straight down the central dashed line
-  helper.appendChild(snake);
-  document.body.appendChild(helper);
-  const lenM = snake.getTotalLength();
+  // Draw the snaking dashed line THROUGH every dot (dots alternate 32%/68%).
+  const svg = snakePath.parentNode;
+  let svW = 0, svH = 0;
+  const buildSnake = () => {
+    const w = wrap.clientWidth, h = wrap.clientHeight;
+    if (!w || !h) return;
+    svW = w; svH = h;
+    const lis = list.querySelectorAll("li");
+    const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    const pts = [[w / 2, 0]];
+    lis.forEach((li, i) => {
+      pts.push([((i % 2 === 0) ? 0.32 : 0.68) * w, li.offsetTop + 0.5 * rootFont + 7.5]);
+    });
+    pts.push([w / 2, h]);
+    let d = "M" + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);
+    for (let i = 1; i < pts.length; i++) {
+      const my = ((pts[i - 1][1] + pts[i][1]) / 2).toFixed(1);
+      d += " C" + pts[i - 1][0].toFixed(1) + " " + my + " " + pts[i][0].toFixed(1) + " " + my +
+           " " + pts[i][0].toFixed(1) + " " + pts[i][1].toFixed(1);
+    }
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+    snakePath.setAttribute("d", d);
+  };
+  buildSnake();
+  window.addEventListener("resize", buildSnake);
+  window.addEventListener("load", buildSnake);
+
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const canvas = document.createElement("canvas");
   canvas.className = "story-spark-canvas";
@@ -475,46 +495,46 @@ function launchAcceptFireworks(frame) {
   const step = (ts) => {
     if (t0 == null) t0 = ts;
     const t = (ts - t0) % CYCLE;
-    const lr = list.getBoundingClientRect();
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = "lighter";
 
-    if (lr.width > 0) {
-      const toX = (px) => lr.left + (px / 40) * lr.width;
-      const toY = (py) => lr.top + (py / 180) * lr.height;
+    if (t < P1) {
+      // ride along the two branch lines down to their meeting point
       const branchSvg = document.querySelector(".sv-branches");
       const branchPaths = branchSvg ? branchSvg.querySelectorAll("path") : [];
-
-      if (t < P1 && branchPaths.length >= 2) {
-        // ride along the two visible branch lines down to their meeting point
+      if (branchPaths.length >= 2) {
         const br = branchSvg.getBoundingClientRect();
         const u = t / P1;
         branchPaths.forEach((bp) => {
-          const len = bp.getTotalLength();
-          const p = bp.getPointAtLength(u * len);
+          const p = bp.getPointAtLength(u * bp.getTotalLength());
           const x = br.left + (p.x / 100) * br.width;
           const y = br.top + (p.y / 60) * br.height;
           drawLight(x, y, 13, 1); if (active) emit(x, y, 0.28);
         });
-      } else if (t < P1 + P2) {
+      }
+    } else if (t < P1 + P2) {
+      // travel the snake, mapping its path coords onto the list-wrap on screen
+      const wr = wrap.getBoundingClientRect();
+      if (wr.width > 0 && svW > 0) {
         const u = (t - P1) / P2;
         const glow = 15 + 5 * Math.min(u / 0.05, 1);
-        const p = snake.getPointAtLength(u * lenM);
-        const x = toX(p.x), y = toY(p.y);
+        const p = snakePath.getPointAtLength(u * snakePath.getTotalLength());
+        const x = wr.left + p.x * (wr.width / svW);
+        const y = wr.top + p.y * (wr.height / svH);
         drawLight(x, y, glow, 1); if (active) emit(x, y, 0.5);
-      } else if (t < P1 + P2 + ARR) {
-        const a = Math.sin(Math.min((t - P1 - P2) / ARR, 1) * Math.PI);
-        const us = document.querySelector(".sv-us .sv-photo-us");
-        if (us) {
-          const ur = us.getBoundingClientRect();
-          const cx = ur.left + ur.width / 2, cy = ur.top + ur.height / 2, rr = ur.width / 2 + 3;
-          ctx.strokeStyle = "#ffe6a0";
-          ctx.lineWidth = 3; ctx.globalAlpha = a * 0.30;
-          ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
-          ctx.lineWidth = 11; ctx.globalAlpha = a * 0.12;
-          ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
-          ctx.globalAlpha = 1;
-        }
+      }
+    } else if (t < P1 + P2 + ARR) {
+      const a = Math.sin(Math.min((t - P1 - P2) / ARR, 1) * Math.PI);
+      const us = document.querySelector(".sv-us .sv-photo-us");
+      if (us) {
+        const ur = us.getBoundingClientRect();
+        const cx = ur.left + ur.width / 2, cy = ur.top + ur.height / 2, rr = ur.width / 2 + 3;
+        ctx.strokeStyle = "#ffe6a0";
+        ctx.lineWidth = 3; ctx.globalAlpha = a * 0.30;
+        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
+        ctx.lineWidth = 11; ctx.globalAlpha = a * 0.12;
+        ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
+        ctx.globalAlpha = 1;
       }
     }
 
@@ -537,7 +557,7 @@ function launchAcceptFireworks(frame) {
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
-      if (e.isIntersecting && !active) { active = true; t0 = null; if (!raf) raf = requestAnimationFrame(step); }
+      if (e.isIntersecting && !active) { active = true; t0 = null; buildSnake(); if (!raf) raf = requestAnimationFrame(step); }
       else if (!e.isIntersecting) { active = false; }
     });
   }, { threshold: 0 });

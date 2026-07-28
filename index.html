@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260728-17" />
+  <link rel="stylesheet" href="styles.css?v=20260728-18" />
 
   <script type="application/ld+json">
   {
@@ -245,21 +245,10 @@
       <p class="lead reveal">The road to Fruin Farm so far, with more chapters and photos to come.</p>
 
       <div class="story-tree reveal">
-        <svg class="story-svg" viewBox="0 0 1000 1075" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Timeline of Alfie and Lorna's story from meeting in 2022 to marrying in 2027">
+        <svg class="story-svg" viewBox="0 0 1000 1075" role="img" aria-label="Timeline of Alfie and Lorna's story from meeting in 2022 to marrying in 2027">
           <defs>
             <clipPath id="clip-lorna"><circle cx="235" cy="108" r="55"/></clipPath>
             <clipPath id="clip-us"><circle cx="500" cy="898" r="145"/></clipPath>
-            <filter id="tl-spark-glow" x="-150%" y="-150%" width="400%" height="400%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4.5" result="glow"/>
-              <feMerge>
-                <feMergeNode in="glow"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-            <!-- Full-journey motion paths: from each photo, down the join line and
-                 along the whole tree to the "Us" photo (not drawn, motion only) -->
-            <path id="tl-path-a" d="M80 166 C84 196 104 224 110 252 L118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760"/>
-            <path id="tl-path-l" d="M235 166 C222 200 154 216 118 250 L118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760"/>
           </defs>
 
           <g class="tl-node">
@@ -273,10 +262,9 @@
             <text x="235" y="36" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="28" fill="#a85f5f">Lorna</text>
           </g>
 
-          <path id="tl-join-a" d="M80 166 C84 196 104 224 110 252" fill="none" stroke="#7d8a6b" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
-          <path id="tl-join-l" d="M235 166 C222 200 154 216 118 250" fill="none" stroke="#7d8a6b" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
+          <path d="M80 166 C84 196 104 224 110 252 M235 166 C222 200 154 216 118 250" fill="none" stroke="#7d8a6b" stroke-width="2" stroke-dasharray="6 6" stroke-linecap="round"/>
 
-          <path id="tl-main" d="M118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760" fill="none" stroke="#7d8a6b" stroke-width="2.2" stroke-dasharray="7 7" stroke-linecap="round"/>
+          <path d="M118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760" fill="none" stroke="#7d8a6b" stroke-width="2.2" stroke-dasharray="7 7" stroke-linecap="round"/>
 
           <g class="tl-node">
             <rect x="125" y="208" width="150" height="40" rx="20" fill="#fffaf1" stroke="#7d8a6b" stroke-width="2"/>
@@ -311,13 +299,13 @@
             </g>
           <g class="tl-node">
             <rect x="125" y="408" width="150" height="40" rx="20" fill="#fffaf1" stroke="#7d8a6b" stroke-width="2"/>
-            <text x="200" y="435" text-anchor="middle" font-size="22" font-family="'Cormorant Garamond', serif" fill="#3a4632">Summer 2024</text>
+            <text x="200" y="435" text-anchor="middle" font-size="22" font-family="'Cormorant Garamond', serif" fill="#3a4632">August 2024</text>
             <circle cx="200" cy="470" r="7" fill="#c97e7e" stroke="#fffaf1" stroke-width="2"/>
             <text x="200" y="516" text-anchor="middle" font-size="25" font-family="'Cormorant Garamond', serif" font-style="italic" fill="#a85f5f">A month in the Balkans</text>
             </g>
           <g class="tl-node">
             <rect x="125" y="608" width="150" height="40" rx="20" fill="#fffaf1" stroke="#7d8a6b" stroke-width="2"/>
-            <text x="200" y="635" text-anchor="middle" font-size="22" font-family="'Cormorant Garamond', serif" fill="#3a4632">2025</text>
+            <text x="200" y="635" text-anchor="middle" font-size="22" font-family="'Cormorant Garamond', serif" fill="#3a4632">August 2025</text>
             <circle cx="200" cy="670" r="7" fill="#c97e7e" stroke="#fffaf1" stroke-width="2"/>
             <text x="200" y="716" text-anchor="middle" font-size="25" font-family="'Cormorant Garamond', serif" font-style="italic" fill="#a85f5f">A month touring Scotland</text>
             </g>
@@ -340,24 +328,6 @@
             <text x="705" y="975" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="36" fill="#a85f5f">Us</text>
           </g>
 
-          <!-- ===== Story spark: a spark leaves each photo and follows the
-                    green line all the way down to the "Us" photo ===== -->
-          <g class="tl-spark" opacity="0" filter="url(#tl-spark-glow)">
-            <circle r="7" fill="#f2cf82" opacity="0.55"/>
-            <circle r="3.2" fill="#fff7e2"/>
-            <animateMotion id="tl-motA" begin="indefinite" dur="7s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.42 0 0.28 1" rotate="0">
-              <mpath href="#tl-path-a" xlink:href="#tl-path-a"/>
-            </animateMotion>
-            <animate attributeName="opacity" begin="tl-motA.begin" dur="7s" values="0;1;1;0" keyTimes="0;0.04;0.94;1" fill="freeze"/>
-          </g>
-          <g class="tl-spark" opacity="0" filter="url(#tl-spark-glow)">
-            <circle r="7" fill="#f2cf82" opacity="0.55"/>
-            <circle r="3.2" fill="#fff7e2"/>
-            <animateMotion begin="tl-motA.begin" dur="7s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.42 0 0.28 1" rotate="0">
-              <mpath href="#tl-path-l" xlink:href="#tl-path-l"/>
-            </animateMotion>
-            <animate attributeName="opacity" begin="tl-motA.begin" dur="7s" values="0;1;1;0" keyTimes="0;0.04;0.94;1" fill="freeze"/>
-          </g>
         </svg>
       </div>
     </section>
@@ -383,6 +353,6 @@
   </main>
 
   <script src="guests.js?v=20260727-2"></script>
-  <script src="app.js?v=20260728-7"></script>
+  <script src="app.js?v=20260728-8"></script>
 </body>
 </html>

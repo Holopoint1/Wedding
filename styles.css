@@ -206,6 +206,10 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .leaf-5::before {
   background-image: url("brand_assets/leaf2_cut.png");
 }
+/* Oak, sycamore and hazel leaves in the mix */
+.leaf-3::before { background-image: url("brand_assets/oakleaf.jpg"); }
+.leaf-4::before { background-image: url("brand_assets/sycamoreleaf.avif"); }
+.leaf-6::before { background-image: url("brand_assets/hazelleaf.webp"); }
 
 .leaf-1 { left: 12%; --delay: 0s;  --fall: 38s; --sway: 5.1s; --leaf-scale: 1;    }
 .leaf-2 { left: 32%; --delay: 14s; --fall: 46s; --sway: 6.2s; --leaf-scale: 0.8;  }
@@ -967,7 +971,72 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 }
 .rsvp-frame::before { top: 12px; left: 12px; border-right: none; border-bottom: none; }
 .rsvp-frame::after { bottom: 12px; right: 12px; border-left: none; border-top: none; }
-.rsvp-frame .section-eyebrow { font-size: 1.6rem; }
+.rsvp-frame .section-eyebrow {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+}
+
+/* ===== RSVP accept / decline celebration ===== */
+.rsvp-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+}
+.rsvp-frame.is-accepted .rsvp-fx,
+.rsvp-frame.is-declined .rsvp-fx { opacity: 1; }
+
+.rsvp-frame.is-accepted { --fx: #2fae57; --fx-glow: rgba(47, 174, 87, 0.85); }
+.rsvp-frame.is-declined { --fx: #d8433f; --fx-glow: rgba(216, 67, 63, 0.85); }
+
+/* The border lights up and stays lit for the chosen answer */
+.rsvp-frame.is-accepted,
+.rsvp-frame.is-declined {
+  border-color: var(--fx);
+  box-shadow: var(--shadow-soft), 0 0 18px -2px var(--fx-glow);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.rsvp-fx-line { display: block; width: 100%; height: 100%; overflow: visible; }
+.rsvp-fx-runner {
+  stroke: transparent;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 20 80;
+  stroke-dashoffset: 100;
+  filter: drop-shadow(0 0 3px var(--fx-glow)) drop-shadow(0 0 8px var(--fx-glow));
+}
+.rsvp-frame.is-accepted .rsvp-fx-runner,
+.rsvp-frame.is-declined .rsvp-fx-runner { animation: rsvpRocket 1s linear 3; }
+@keyframes rsvpRocket {
+  from { stroke: var(--fx); stroke-dashoffset: 100; }
+  to   { stroke: var(--fx); stroke-dashoffset: 0; }
+}
+
+.rsvp-spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--fx);
+  box-shadow: 0 0 7px 1px var(--fx-glow);
+  opacity: 0;
+}
+.rsvp-frame.is-accepted .rsvp-spark,
+.rsvp-frame.is-declined .rsvp-spark { animation: rsvpSpark 1s ease-out 3; }
+@keyframes rsvpSpark {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.3); }
+  40%  { opacity: 1; transform: translate(calc(var(--dx) * 0.6), calc(var(--dy) * 0.6)) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-fx-runner,
+  .rsvp-spark { animation: none !important; }
+}
 
 .rsvp-form { margin-top: 2rem; }
 .rsvp-form fieldset {
@@ -1155,6 +1224,43 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .footer-line { font-family: var(--serif); font-style: italic; font-size: 1.1rem; margin: 0.4rem 0; }
 .site-footer .muted { color: rgba(246, 239, 228, 0.7); font-size: 0.95rem; margin: 0.4rem 0; }
 .site-footer a { color: var(--cream); text-decoration-color: var(--gold); }
+
+/* Botanicals flanking the footer, revealed with a gentle rise + sway
+   as they scroll into view (the .reveal class drives the entrance). */
+.footer-bloom {
+  position: absolute;
+  bottom: 0;
+  width: clamp(84px, 11vw, 150px);
+  pointer-events: none;
+  z-index: 0;
+}
+.footer-bloom-left  { left: 1.2rem; }
+.footer-bloom-right { right: 1.2rem; }
+.footer-bloom img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: bottom center;
+  animation: bloomSway 6s ease-in-out infinite alternate;
+}
+.footer-bloom-right img { animation-delay: -3s; }
+/* The rose/thistle is an opaque photo, so frame it so it reads as intentional */
+.footer-bloom-left img {
+  border-radius: 10px;
+  border: 1px solid rgba(184, 153, 104, 0.55);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+@keyframes bloomSway {
+  from { transform: rotate(-2.5deg); }
+  to   { transform: rotate(2.5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-bloom img { animation: none; }
+}
+/* Keep the footer text clear on small screens */
+@media (max-width: 680px) {
+  .footer-bloom { display: none; }
+}
 .footer-credit {
   margin-top: 1.5rem;
   font-family: var(--script);
@@ -2306,11 +2412,13 @@ html { scroll-snap-type: y proximity; }
    ========================================================= */
 .widget-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.6rem;
-  max-width: 1150px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.4rem;
+  max-width: 1280px;
   margin: 0 auto;
 }
+@media (max-width: 1024px) { .widget-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px)  { .widget-grid { grid-template-columns: 1fr; } }
 .widget-card {
   display: flex;
   flex-direction: column;
@@ -2703,7 +2811,12 @@ body.lb-open { overflow: hidden; }
    ========================================================= */
 .tartan-stripe-footer {
   background-image: url("brand_assets/tartan3.jpg");
-  background-size: 220px auto;
+  /* Same tile size as the top stripe (both source images are 542x542), and
+     show a centred slice of the sett so the weave reads properly rather than
+     a squashed top edge. */
+  background-size: 280px auto;
+  background-position: center;
+  height: 30px;
 }
 
 /* =========================================================
@@ -3155,28 +3268,23 @@ body.lb-open {
 .tartan-swatch:hover,
 .tartan-tile:hover { filter: saturate(1.08); }
 
-/* Robertson Hunting Ancient: 280px tile */
+/* The weave drifts while hovered and FREEZES in place when the mouse
+   leaves — pausing the animation instead of removing it, so it no longer
+   jolts back to the start. Each variant travels exactly one tile width
+   per cycle, so the loop itself has no visible jump. */
+.tartan-stripe,
+.tartan-swatch,
+.tartan-tile {
+  animation: tartanDrift280 26s linear infinite;
+  animation-play-state: paused;
+}
+.tartan-swatch-groomsmen { animation-name: tartanDrift200; animation-duration: 20s; }
 .tartan-stripe:hover,
 .tartan-swatch:hover,
-.tartan-tile:hover { animation: tartanDrift280 26s linear infinite; }
-@keyframes tartanDrift280 {
-  from { background-position-x: 0; }
-  to   { background-position-x: 280px; }
-}
+.tartan-tile:hover { animation-play-state: running; }
 
-/* Footer stripe: 220px tile */
-.tartan-stripe-footer:hover { animation: tartanDrift220 22s linear infinite; }
-@keyframes tartanDrift220 {
-  from { background-position-x: 0; }
-  to   { background-position-x: 220px; }
-}
-
-/* Groomsmen swatch on the dress page: 200px tile */
-.tartan-swatch-groomsmen:hover { animation: tartanDrift200 20s linear infinite; }
-@keyframes tartanDrift200 {
-  from { background-position-x: 0; }
-  to   { background-position-x: 200px; }
-}
+@keyframes tartanDrift280 { from { background-position-x: 0; } to { background-position-x: 280px; } }
+@keyframes tartanDrift200 { from { background-position-x: 0; } to { background-position-x: 200px; } }
 
 /* Smaller credit line in the footer */
 .footer-by { font-size: 0.52rem; letter-spacing: 0.16em; opacity: 0.75; }

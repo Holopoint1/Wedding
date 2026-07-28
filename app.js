@@ -111,15 +111,19 @@ let rsvpGuest = null;
       note.textContent = "Start typing your name and pick it from the suggestions so we know who's replying.";
       note.classList.remove("is-found");
     }
-    // Don't reveal the guest list: only suggest once they've typed enough
-    // to identify themselves, and match from the start of a name so typing
-    // a first name recommends the full name (surname included).
-    if (q.length < 2) { hide(); return; }
+    // Don't reveal the guest list: let people type most of their name
+    // before we suggest anything, and only surface names that genuinely
+    // match what they've typed (from the start of a first name or surname),
+    // so typing a first name recommends the full name (surname included).
     matches = ALL_NAMES.filter(n => {
       const full = norm(n);
       return full.startsWith(q) || full.split(" ").some(w => w.startsWith(q));
-    }).slice(0, 8);
-    if (!matches.length || (matches.length === 1 && norm(matches[0]) === q)) { hide(); return; }
+    }).slice(0, 6);
+    // Wait until they've typed enough that only a few relevant names remain.
+    const enoughTyped = q.length >= 4;
+    const narrowedDown = matches.length > 0 && matches.length <= 4;
+    if (!enoughTyped || !narrowedDown) { hide(); return; }
+    if (matches.length === 1 && norm(matches[0]) === q) { hide(); return; }
     active = -1;
     list.innerHTML = "";
     matches.forEach(name => {
@@ -146,6 +150,22 @@ let rsvpGuest = null;
     else if (e.key === "ArrowUp") { e.preventDefault(); highlight(Math.max(active - 1, 0)); }
     else if (e.key === "Enter" && active >= 0) { e.preventDefault(); choose(matches[active]); }
     else if (e.key === "Escape") hide();
+  });
+})();
+
+/* ---------- RSVP accept / decline celebration ----------
+   Choosing Accepts lights the frame green; Declines lights it red. A bright
+   segment rockets around the border with sparks flying off the edges. */
+(function initRsvpFx() {
+  const frame = document.querySelector(".rsvp-frame");
+  if (!frame) return;
+  const radios = document.querySelectorAll('input[name="attending"]');
+  radios.forEach((r) => {
+    r.addEventListener("change", () => {
+      frame.classList.remove("is-accepted", "is-declined");
+      void frame.offsetWidth; // reflow so the CSS animations restart each time
+      frame.classList.add(r.value === "yes" ? "is-accepted" : "is-declined");
+    });
   });
 })();
 

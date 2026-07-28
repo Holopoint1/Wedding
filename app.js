@@ -440,7 +440,7 @@ function launchAcceptFireworks(frame) {
     const rootFont = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
     const pts = [[w / 2, 0]];
     lis.forEach((li, i) => {
-      pts.push([((i % 2 === 0) ? 0.32 : 0.68) * w, li.offsetTop + 0.5 * rootFont + 7.5]);
+      pts.push([((i % 2 === 0) ? 0.42 : 0.58) * w, li.offsetTop + 0.5 * rootFont + 7.5]);
     });
     pts.push([w / 2, h]);
     let d = "M" + pts[0][0].toFixed(1) + " " + pts[0][1].toFixed(1);

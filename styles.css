@@ -2624,17 +2624,18 @@ html { scroll-snap-type: y proximity; }
   margin-bottom: 1.9rem;
 }
 .sv-list li:last-child { margin-bottom: 0; }
-/* Card sits beside its dot: dot at 32% (odd) / 68% (even) of the full width */
-.sv-list li:nth-child(odd)  { padding-left: 38%;  text-align: left; }
-.sv-list li:nth-child(even) { padding-right: 38%; text-align: right; }
+/* Cards sit on the OUTER sides; the snake weaves in the central band between
+   the dots (42%–58%), so text never overlaps the line. */
+.sv-list li:nth-child(odd)  { padding-right: 60%; text-align: right; }
+.sv-list li:nth-child(even) { padding-left: 60%;  text-align: left; }
 .sv-list li::before {
   content: ""; position: absolute; top: 0.5rem;
   width: 11px; height: 11px; border-radius: 50%; background: #c97e7e; border: 2px solid #fffaf1;
   z-index: 2;
 }
 /* Dots sit on the snake's bends (JS draws the line through these same points) */
-.sv-list li:nth-child(odd)::before  { left: 32%; transform: translateX(-50%); }
-.sv-list li:nth-child(even)::before { left: 68%; transform: translateX(-50%); }
+.sv-list li:nth-child(odd)::before  { left: 42%; transform: translateX(-50%); }
+.sv-list li:nth-child(even)::before { left: 58%; transform: translateX(-50%); }
 .sv-date {
   display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
   color: #3a4632; background: #fffaf1; border: 2px solid #7d8a6b; border-radius: 20px; padding: 0.25rem 0.95rem;

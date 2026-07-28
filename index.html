@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260728-16" />
+  <link rel="stylesheet" href="styles.css?v=20260728-17" />
 
   <script type="application/ld+json">
   {
@@ -256,6 +256,10 @@
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
+            <!-- Full-journey motion paths: from each photo, down the join line and
+                 along the whole tree to the "Us" photo (not drawn, motion only) -->
+            <path id="tl-path-a" d="M80 166 C84 196 104 224 110 252 L118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760"/>
+            <path id="tl-path-l" d="M235 166 C222 200 154 216 118 250 L118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760"/>
           </defs>
 
           <g class="tl-node">
@@ -336,46 +340,24 @@
             <text x="705" y="975" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="36" fill="#a85f5f">Us</text>
           </g>
 
-          <!-- ===== Story spark: two sparks leave the photos, meet, brighten,
-                    then travel the whole tree down to the "Us" photo ===== -->
-          <!-- Alfie's spark -->
+          <!-- ===== Story spark: a spark leaves each photo and follows the
+                    green line all the way down to the "Us" photo ===== -->
           <g class="tl-spark" opacity="0" filter="url(#tl-spark-glow)">
             <circle r="7" fill="#f2cf82" opacity="0.55"/>
-            <circle r="3" fill="#fff7e2"/>
-            <animateMotion id="tl-motA" begin="indefinite" dur="1.9s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1" rotate="0">
-              <mpath href="#tl-join-a" xlink:href="#tl-join-a"/>
+            <circle r="3.2" fill="#fff7e2"/>
+            <animateMotion id="tl-motA" begin="indefinite" dur="7s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.42 0 0.28 1" rotate="0">
+              <mpath href="#tl-path-a" xlink:href="#tl-path-a"/>
             </animateMotion>
-            <animate attributeName="opacity" begin="tl-motA.begin" dur="1.9s" values="0;1;1;0" keyTimes="0;0.14;0.9;1" fill="freeze"/>
+            <animate attributeName="opacity" begin="tl-motA.begin" dur="7s" values="0;1;1;0" keyTimes="0;0.04;0.94;1" fill="freeze"/>
           </g>
-          <!-- Lorna's spark (synced with Alfie's) -->
           <g class="tl-spark" opacity="0" filter="url(#tl-spark-glow)">
             <circle r="7" fill="#f2cf82" opacity="0.55"/>
-            <circle r="3" fill="#fff7e2"/>
-            <animateMotion begin="tl-motA.begin" dur="1.9s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.4 0 0.2 1" rotate="0">
-              <mpath href="#tl-join-l" xlink:href="#tl-join-l"/>
+            <circle r="3.2" fill="#fff7e2"/>
+            <animateMotion begin="tl-motA.begin" dur="7s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.42 0 0.28 1" rotate="0">
+              <mpath href="#tl-path-l" xlink:href="#tl-path-l"/>
             </animateMotion>
-            <animate attributeName="opacity" begin="tl-motA.begin" dur="1.9s" values="0;1;1;0" keyTimes="0;0.14;0.9;1" fill="freeze"/>
+            <animate attributeName="opacity" begin="tl-motA.begin" dur="7s" values="0;1;1;0" keyTimes="0;0.04;0.94;1" fill="freeze"/>
           </g>
-          <!-- The link-up flash where they meet -->
-          <circle class="tl-spark" cx="114" cy="251" r="4" fill="#fff7e2" opacity="0" filter="url(#tl-spark-glow)">
-            <animate attributeName="r" begin="tl-motA.end" dur="0.6s" values="4;20;10" keyTimes="0;0.5;1" fill="freeze"/>
-            <animate attributeName="opacity" begin="tl-motA.end" dur="0.6s" values="0.95;0.5;0" keyTimes="0;0.5;1" fill="freeze"/>
-          </circle>
-          <!-- The merged, brighter spark travels the whole tree -->
-          <g class="tl-spark" opacity="0" filter="url(#tl-spark-glow)">
-            <circle r="11" fill="#f4d488" opacity="0.5"/>
-            <circle r="6" fill="#f2cf82" opacity="0.7"/>
-            <circle r="4.5" fill="#fffbe9"/>
-            <animateMotion id="tl-motMain" begin="tl-motA.end" dur="6.5s" fill="freeze" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.25 1" rotate="0">
-              <mpath href="#tl-main" xlink:href="#tl-main"/>
-            </animateMotion>
-            <animate attributeName="opacity" begin="tl-motA.end" dur="6.5s" values="0;1;1;0.9" keyTimes="0;0.05;0.92;1" fill="freeze"/>
-          </g>
-          <!-- Arrival glow around the "Us" photo -->
-          <circle class="tl-spark" cx="500" cy="898" r="30" fill="none" stroke="#f2cf82" stroke-width="3" opacity="0" filter="url(#tl-spark-glow)">
-            <animate attributeName="r" begin="tl-motMain.end" dur="1s" values="30;150;150" keyTimes="0;0.7;1" fill="freeze"/>
-            <animate attributeName="opacity" begin="tl-motMain.end" dur="1s" values="0.85;0.25;0" keyTimes="0;0.6;1" fill="freeze"/>
-          </circle>
         </svg>
       </div>
     </section>
@@ -401,6 +383,6 @@
   </main>
 
   <script src="guests.js?v=20260727-2"></script>
-  <script src="app.js?v=20260728-6"></script>
+  <script src="app.js?v=20260728-7"></script>
 </body>
 </html>

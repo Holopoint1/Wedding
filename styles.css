@@ -1211,6 +1211,8 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
      gold links stay readable. */
   background-color: #294860;
   background-image:
+    /* wash that fades the whole flag graphic out ~70% */
+    linear-gradient(rgba(41, 72, 96, 0.7), rgba(41, 72, 96, 0.7)),
     /* painted white saltire, corner to corner — kept very faint */
     linear-gradient(to top right,   transparent 43%, rgba(238, 240, 235, 0.09) 47%, rgba(238, 240, 235, 0.09) 53%, transparent 57%),
     linear-gradient(to bottom right, transparent 43%, rgba(238, 240, 235, 0.09) 47%, rgba(238, 240, 235, 0.09) 53%, transparent 57%),

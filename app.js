@@ -279,15 +279,30 @@ function launchAcceptFireworks(frame) {
   requestAnimationFrame(step);
 }
 
-/* ---------- Story light: sheds a few small sparks that fall down the page ----------
-   Reads the travelling SVG light's live screen position each frame and spawns
-   small, low-key sparks that drift down and fade. Runs only while the timeline
-   is on screen. */
-(function initStoryLightSparks() {
+/* ---------- Story timeline light ----------
+   A canvas engine drawn over the story SVG. Two lights leave the photos,
+   travel down the join lines and MEET on the main trail; they merge into one
+   slightly larger light that drifts slowly all the way to the "Us" photo,
+   shedding small sparks that fall down the page. On arrival the photo border
+   lights up low-key in the same warm colour. Loops. No SVG blur filter, so the
+   photo stays sharp. */
+(function initStoryLight() {
   const svg = document.querySelector(".story-svg");
-  const light = document.getElementById("tl-light");
-  if (!svg || !light) return;
+  if (!svg) return;
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const SVGNS = "http://www.w3.org/2000/svg";
+  const mkPath = (d) => {
+    const p = document.createElementNS(SVGNS, "path");
+    p.setAttribute("d", d); p.setAttribute("fill", "none"); p.setAttribute("stroke", "none");
+    svg.appendChild(p); // attached + invisible so getPointAtLength is reliable
+    return p;
+  };
+  const pJoinA = mkPath("M80 166 C84 196 104 224 110 252");
+  const pJoinL = mkPath("M235 166 C222 200 154 216 118 250");
+  const pMain = mkPath("M118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760");
+  const lenA = pJoinA.getTotalLength(), lenL = pJoinL.getTotalLength(), lenM = pMain.getTotalLength();
+  const IMG = { cx: 500, cy: 898, r: 145 };
 
   const canvas = document.createElement("canvas");
   canvas.className = "story-spark-canvas";
@@ -304,31 +319,79 @@ function launchAcceptFireworks(frame) {
   resize();
   window.addEventListener("resize", resize);
 
+  // Phase timings (ms) — slow
+  const P1 = 6000;    // two lights travel to the meeting point
+  const P2 = 46000;   // merged light drifts the whole trail (very slow)
+  const ARR = 2800;   // arrival border glow
+  const GAP = 2600;   // pause before looping
+  const CYCLE = P1 + P2 + ARR + GAP;
+
   const parts = [];
-  let raf = null, active = false, emitAcc = 0;
-  const step = () => {
+  let raf = null, active = false, t0 = null;
+
+  const drawLight = (x, y, glow, coreAlpha) => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, glow);
+    g.addColorStop(0, "rgba(255,255,255," + (0.9 * coreAlpha) + ")");
+    g.addColorStop(0.3, "rgba(255,231,154," + (0.5 * coreAlpha) + ")");
+    g.addColorStop(1, "rgba(255,215,120,0)");
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x, y, glow, 0, Math.PI * 2); ctx.fill();
+  };
+
+  const emit = (x, y, rate) => {
+    if (Math.random() < rate) {
+      parts.push({
+        x: x + (Math.random() - 0.5) * 6, y: y + (Math.random() - 0.5) * 6,
+        vx: (Math.random() - 0.5) * 0.5, vy: 0.25 + Math.random() * 0.8,
+        g: 0.03, size: 0.9 + Math.random() * 1.5, life: 1,
+        decay: 0.005 + Math.random() * 0.007,
+      });
+    }
+  };
+
+  const step = (ts) => {
+    if (t0 == null) t0 = ts;
+    let t = (ts - t0) % CYCLE;
+    const r = svg.getBoundingClientRect();
+    const s = r.width / 1000;               // uniform scale of the SVG
+    const SX = (x) => r.left + x * s, SY = (y) => r.top + y * s;
+
     ctx.clearRect(0, 0, W, H);
     ctx.globalCompositeOperation = "lighter";
 
-    const r = light.getBoundingClientRect();
-    const lx = r.left + r.width / 2, ly = r.top + r.height / 2;
-    if (active && ly > -20 && ly < H + 20) {
-      emitAcc += 1;
-      if (emitAcc >= 9) { // low-key: only occasionally
-        emitAcc = 0;
-        parts.push({
-          x: lx + (Math.random() - 0.5) * 6,
-          y: ly + (Math.random() - 0.5) * 6,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: 0.3 + Math.random() * 0.8,
-          g: 0.03,
-          size: 0.9 + Math.random() * 1.5,
-          life: 1,
-          decay: 0.005 + Math.random() * 0.007,
-        });
-      }
+    if (t < P1) {
+      // two lights heading to the meeting point
+      const u = t / P1;
+      const a = pJoinA.getPointAtLength(u * lenA);
+      const l = pJoinL.getPointAtLength(u * lenL);
+      const ax = SX(a.x), ay = SY(a.y), lx = SX(l.x), ly = SY(l.y);
+      drawLight(ax, ay, 13, 1); drawLight(lx, ly, 13, 1);
+      if (active) { emit(ax, ay, 0.28); emit(lx, ly, 0.28); }
+    } else if (t < P1 + P2) {
+      // merged, slightly larger light drifting the whole trail
+      const u = (t - P1) / P2;
+      const grow = Math.min(u / 0.05, 1);   // grows in over the first bit
+      const glow = 15 + 5 * grow;
+      const m = pMain.getPointAtLength(u * lenM);
+      const mx = SX(m.x), my = SY(m.y);
+      drawLight(mx, my, glow, 1);
+      if (active) emit(mx, my, 0.5);         // a few more sparks
+    } else if (t < P1 + P2 + ARR) {
+      // arrival: low-key border glow around the "Us" photo
+      const at = (t - P1 - P2) / ARR;
+      const a = Math.sin(Math.min(at, 1) * Math.PI); // 0→1→0
+      const cx = SX(IMG.cx), cy = SY(IMG.cy), rr = IMG.r * s;
+      ctx.strokeStyle = "#ffe6a0";
+      ctx.lineWidth = 3;
+      ctx.globalAlpha = a * 0.30;
+      ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
+      ctx.lineWidth = 11;
+      ctx.globalAlpha = a * 0.12;
+      ctx.beginPath(); ctx.arc(cx, cy, rr, 0, Math.PI * 2); ctx.stroke();
+      ctx.globalAlpha = 1;
     }
 
+    // update + draw falling sparks
     for (let i = parts.length - 1; i >= 0; i--) {
       const p = parts[i];
       p.vy += p.g; p.x += p.vx; p.y += p.vy; p.life -= p.decay;
@@ -348,8 +411,8 @@ function launchAcceptFireworks(frame) {
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => {
-      active = e.isIntersecting;
-      if (active && !raf) raf = requestAnimationFrame(step);
+      if (e.isIntersecting && !active) { active = true; t0 = null; if (!raf) raf = requestAnimationFrame(step); }
+      else if (!e.isIntersecting) { active = false; }
     });
   }, { threshold: 0 });
   io.observe(svg);
@@ -375,6 +438,17 @@ window.addEventListener("load", () => {
   const intro = document.getElementById("intro");
   if (!intro) return;
   setTimeout(() => intro.classList.add("is-done"), 3500);
+});
+
+/* ---------- Names flame sweep on first load (home only) ---------- */
+window.addEventListener("load", () => {
+  const names = document.querySelector("body.home .couple-names");
+  if (!names) return;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  setTimeout(() => {
+    names.classList.add("flame");
+    setTimeout(() => names.classList.remove("flame"), 3600);
+  }, 3900); // after the intro overlay has faded
 });
 
 /* ---------- Sticky nav style on scroll ---------- */

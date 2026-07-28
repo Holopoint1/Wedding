@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260728-20" />
+  <link rel="stylesheet" href="styles.css?v=20260728-21" />
 
   <script type="application/ld+json">
   {
@@ -249,10 +249,6 @@
           <defs>
             <clipPath id="clip-lorna"><circle cx="235" cy="108" r="55"/></clipPath>
             <clipPath id="clip-us"><circle cx="500" cy="898" r="145"/></clipPath>
-            <!-- Full-journey motion paths: photo → down the join line → whole tree
-                 → the "Us" photo (motion only, not drawn, NO filter) -->
-            <path id="tl-path-a" d="M80 166 C84 196 104 224 110 252 L118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760"/>
-            <path id="tl-path-l" d="M235 166 C222 200 154 216 118 250 L118 246 C112 258 110 263 110 270 C140 262 170 262 200 270 C250 281 450 259 500 270 C550 281 750 259 800 270 C818 274 834 272 845 270 A55 55 0 0 1 900 325 V415 A55 55 0 0 1 845 470 C834 472 818 476 800 470 C750 459 550 481 500 470 C450 459 250 481 200 470 C182 466 166 468 155 470 A55 55 0 0 0 100 525 V615 A55 55 0 0 0 155 670 C175 664 185 665 200 670 C250 680 450 660 500 670 C550 680 760 662 810 670 C832 673 856 671 880 670 C948 670 956 738 880 762 C790 790 600 782 528 760"/>
           </defs>
 
           <g class="tl-node">
@@ -331,21 +327,6 @@
             <circle cx="500" cy="898" r="145" fill="none" stroke="#b89968" stroke-width="4.5"/>
             <text x="705" y="975" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="36" fill="#a85f5f">Us</text>
           </g>
-
-          <!-- ===== Story light: a bright light drifts slowly from the photos
-                    along the green line to the "Us" photo, on a loop. Layered
-                    circles give the glow (no SVG filter, so the photo stays
-                    sharp); JS sheds small sparks that fall down the page. ===== -->
-          <g class="tl-spark" id="tl-light">
-            <circle r="14" fill="#fff2b8" opacity="0.16"/>
-            <circle r="9"  fill="#ffe79a" opacity="0.32"/>
-            <circle r="5"  fill="#fff6d6" opacity="0.8"/>
-            <circle r="2.6" fill="#ffffff"/>
-            <animateMotion dur="26s" begin="0s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.3 1" rotate="0">
-              <mpath href="#tl-path-a" xlink:href="#tl-path-a"/>
-            </animateMotion>
-            <animate attributeName="opacity" dur="26s" begin="0s" repeatCount="indefinite" values="0;1;1;0" keyTimes="0;0.03;0.95;1"/>
-          </g>
         </svg>
       </div>
     </section>
@@ -371,6 +352,6 @@
   </main>
 
   <script src="guests.js?v=20260727-2"></script>
-  <script src="app.js?v=20260728-9"></script>
+  <script src="app.js?v=20260728-10"></script>
 </body>
 </html>

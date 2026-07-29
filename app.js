@@ -949,7 +949,7 @@ function showRsvpThanks(accepted, name) {
   flip.classList.add("flipped"); // the card flips over to its back
   flip.scrollIntoView({ behavior: "smooth", block: "center" });
   const msg = accepted
-    ? "Thank you, we are so excited to see you at our wedding."
+    ? "Thank you, we are so excited to see you at our wedding!"
     : "Thank you for letting us know. You will be dearly missed.";
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   setTimeout(() => writeCalligraphy(line, msg), reduce ? 0 : 950); // once the flip has landed

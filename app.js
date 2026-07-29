@@ -934,20 +934,31 @@ window.alfieLornaExport = function () {
   zout.addEventListener("click", () => setZoom(zoom - 1));
 })();
 
-/* ---------- Info dropdown in the nav ---------- */
+/* ---------- Info dropdown in the nav ----------
+   Desktop: a click-to-open dropdown. Mobile (<=900px, inside the burger drawer):
+   the submenu is just a plain always-open list, and none of the dropdown JS runs
+   — otherwise it fights the taps and the Venue/Travel/etc links don't work. */
 (function initNavDropdown() {
   const btn  = document.getElementById("nav-drop-btn");
   const menu = document.getElementById("nav-drop-menu");
   if (!btn || !menu) return;
   const li = btn.closest("li");
+  const mobile = window.matchMedia("(max-width: 900px)");
   const setOpen = (o) => {
     li.classList.toggle("open", o);
     menu.hidden = !o;
     btn.setAttribute("aria-expanded", String(o));
   };
-  btn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(menu.hidden); });
-  document.addEventListener("click", (e) => { if (!li.contains(e.target)) setOpen(false); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+  const applyMode = () => {
+    if (mobile.matches) { menu.hidden = false; li.classList.remove("open"); } // always-open plain list
+    else { setOpen(false); }                                                  // collapsed dropdown
+  };
+  applyMode();
+  (mobile.addEventListener ? mobile.addEventListener.bind(mobile, "change") : mobile.addListener.bind(mobile))(applyMode);
+
+  btn.addEventListener("click", (e) => { if (mobile.matches) return; e.stopPropagation(); setOpen(menu.hidden); });
+  document.addEventListener("click", (e) => { if (!mobile.matches && !li.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (!mobile.matches && e.key === "Escape") setOpen(false); });
 })();
 
 /* ---------- Gallery: render photos + lightbox ---------- */

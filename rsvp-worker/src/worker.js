@@ -182,11 +182,16 @@ export default {
     if (path === "/reset" && request.method === "POST") {
       const unauth = requireAuth(request, env);
       if (unauth) return unauth;
-      let name = "";
-      try { name = ((await request.formData()).get("name") || "").toString(); } catch { name = ""; }
+      let name = "", pw = "";
+      try {
+        const form = await request.formData();
+        name = (form.get("name") || "").toString();
+        pw = (form.get("pw") || "").toString();
+      } catch { name = ""; }
       const all = await readAll(env);
       if (name === "__all__") {
-        await env.RSVPS.put(KV_KEY, "{}");
+        // full wipe needs the separate reset password
+        if (pw && pw === (env.RESET_PASSWORD || "")) await env.RSVPS.put(KV_KEY, "{}");
       } else if (name) {
         delete all[norm(name)];
         await env.RSVPS.put(KV_KEY, JSON.stringify(all));
@@ -282,8 +287,10 @@ function dashboard(all) {
     <input class="filter" id="filter" placeholder="Search a name…" oninput="filt()">
     <a href="/export.csv">Download CSV</a>
     <a href="/" onclick="location.reload();return false;">Refresh</a>
-    <form method="post" action="/reset" style="margin:0" onsubmit="return confirm('Reset ALL replies back to Awaiting? This cannot be undone.')">
-      <input type="hidden" name="name" value="__all__"><button class="rbtn danger">Reset all replies</button>
+    <form method="post" action="/reset" id="resetAllForm" style="margin:0">
+      <input type="hidden" name="name" value="__all__">
+      <input type="hidden" name="pw" id="resetAllPw">
+      <button type="button" class="rbtn danger" onclick="var p=prompt('Enter the reset-all password to wipe EVERY reply:');if(p){document.getElementById('resetAllPw').value=p;document.getElementById('resetAllForm').submit();}">Reset all replies</button>
     </form>
   </div>
   <table id="tbl">

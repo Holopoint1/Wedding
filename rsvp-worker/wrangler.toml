@@ -11,3 +11,5 @@ kv_namespaces = [
 [vars]
 ADMIN_USER = "alfie"
 ADMIN_PASSWORD = "AandL-rsvp-2027"
+# Separate password required to wipe ALL replies at once
+RESET_PASSWORD = "wipe-all-8823"

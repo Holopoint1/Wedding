@@ -3735,3 +3735,12 @@ body.lb-open {
   font-size: 1rem;
   letter-spacing: 0.02em;
 }
+
+/* Dress code page: tartans are static — no drift/hover animation at any width */
+.page-dress .tartan-stripe,
+.page-dress .tartan-swatch,
+.page-dress .tartan-swatch-groomsmen,
+.page-dress .tartan-swatch-bride,
+.page-dress .tartan-tile {
+  animation: none !important;
+}

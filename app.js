@@ -25,6 +25,9 @@ const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 (function hardenImages() {
   const handle = (img) => {
     if (!img || img.dataset.failed) return;
+    // An <img> with no src (e.g. the lightbox image before a photo is chosen)
+    // is not broken — it's just unpopulated. Never hide those.
+    if (!img.getAttribute("src")) return;
     img.dataset.failed = "1";
     img.style.visibility = "hidden";
     const wrap = img.closest(".widget-img, .gal-item");
@@ -34,7 +37,7 @@ const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
     if (e.target && e.target.tagName === "IMG") handle(e.target);
   }, true); // capture: image error events don't bubble
   const scan = () => document.querySelectorAll("img").forEach((img) => {
-    if (img.complete && img.naturalWidth === 0) handle(img);
+    if (img.getAttribute("src") && img.complete && img.naturalWidth === 0) handle(img);
   });
   if (document.readyState !== "loading") scan(); else document.addEventListener("DOMContentLoaded", scan);
   window.addEventListener("load", scan);
@@ -1080,6 +1083,9 @@ window.alfieLornaExport = function () {
   }
   function show() {
     const p = GALLERY_PHOTOS[current];
+    // Clear any stale "failed" state so the safety net can't keep it hidden
+    lbImg.style.visibility = "";
+    delete lbImg.dataset.failed;
     lbImg.src = p.src;
     lbImg.alt = p.caption || "Alfie and Lorna";
     lbCap.textContent = p.caption || "";

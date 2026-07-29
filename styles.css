@@ -344,8 +344,10 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   position: absolute;
   left: 0;
   width: 100%;
-  height: 1.5px;
+  height: 2.5px;
+  border-radius: 2px;
   background: var(--forest);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);   /* readable on any background */
   transition: transform .3s, opacity .3s, top .3s;
 }
 .nav-toggle span:nth-child(1) { top: 4px; }
@@ -2598,10 +2600,10 @@ html { scroll-snap-type: y proximity; }
 .nav-countdown {
   gap: 1rem;
   padding: 0.35rem 1.2rem;
-  border: 1px solid rgba(125, 138, 107, 0.35);
+  border: 1px solid rgba(125, 138, 107, 0.55);
   border-radius: 999px;
-  background: var(--paper);
-  box-shadow: var(--shadow-soft);
+  background: #fffdf8;                 /* solid — not washed out over the hero photo */
+  box-shadow: 0 6px 18px -8px rgba(30, 38, 26, 0.35);
   font-size: 0.66rem;
 }
 .nav-countdown b { font-size: 1.5rem; }
@@ -2660,7 +2662,7 @@ html { scroll-snap-type: y proximity; }
 .home .topnav:not(.scrolled) .brand { color: #fdfaf3; }
 .home .topnav:not(.scrolled) a { color: #fdfaf3; }
 .home .topnav:not(.scrolled) a:hover { color: #eec3bb; }
-.home .topnav:not(.scrolled) .nav-toggle span { background: #fdfaf3; }
+.home .topnav:not(.scrolled) .nav-toggle span { background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); }
 
 /* Full-width Glen Fruin band between hero and sections */
 .photo-band {
@@ -2775,20 +2777,22 @@ html { scroll-snap-type: y proximity; }
   transform: translateX(-50%);
   list-style: none;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0.4rem;
   min-width: 210px;
   width: max-content;
   background: var(--paper);
   border: 1px solid rgba(125, 138, 107, 0.3);
   border-radius: 12px;
   box-shadow: var(--shadow-lift);
+  overflow: hidden;            /* keep hover highlights inside the rounded corners */
   z-index: 200;
 }
 .nav-drop-menu li { display: block; margin: 0; }
 .nav-drop-menu[hidden] { display: none !important; }
 .nav-drop-menu li a {
   display: block;
-  padding: 0.6rem 1.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;          /* highlight is an inset pill, not a full-bleed square */
   color: var(--forest) !important;
   font-size: 0.75rem;
   letter-spacing: 0.25em;
@@ -3613,7 +3617,7 @@ body.lb-open {
   .home .hero-mini { margin-bottom: 0.4rem; }
 
   /* No venue line on mobile; date sits at the very bottom, countdown just above */
-  .home .hero-venue-min { display: none; }
+  .home .hero-venue-min { display: none !important; }
   .home .hero-date-num {
     position: static;
     top: auto;

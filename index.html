@@ -248,13 +248,14 @@
       <div class="story-tree reveal">
         <svg class="story-svg" viewBox="0 0 1000 1075" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Timeline of Alfie and Lorna's story from meeting in 2022 to marrying in 2027">
           <defs>
+            <clipPath id="clip-alfie"><circle cx="80" cy="108" r="55"/></clipPath>
             <clipPath id="clip-lorna"><circle cx="235" cy="108" r="55"/></clipPath>
             <clipPath id="clip-us"><circle cx="500" cy="898" r="145"/></clipPath>
           </defs>
 
           <g class="tl-node">
-            <circle cx="80" cy="108" r="55" fill="#fffaf1" stroke="#7d8a6b" stroke-width="2.5"/>
-            <text x="80" y="126" text-anchor="middle" font-family="Italiana, serif" font-size="50" fill="#3a4632">A</text>
+            <image href="brand_assets/alfiebaby_face.jpg" x="25" y="53" width="110" height="110" clip-path="url(#clip-alfie)" preserveAspectRatio="xMidYMin slice"/>
+            <circle cx="80" cy="108" r="55" fill="none" stroke="#7d8a6b" stroke-width="2.5"/>
             <text x="80" y="36" text-anchor="middle" font-family="'Pinyon Script', cursive" font-size="28" fill="#a85f5f">Alfie</text>
           </g>
           <g class="tl-node">
@@ -335,7 +336,7 @@
           <div class="sv-photos">
             <div class="sv-figure">
               <span class="sv-name">Alfie</span>
-              <div class="sv-photo sv-photo-letter"><span>A</span></div>
+              <div class="sv-photo"><img src="brand_assets/alfiebaby_face.jpg" alt="Young Alfie" loading="lazy"></div>
             </div>
             <div class="sv-figure">
               <span class="sv-name">Lorna</span>

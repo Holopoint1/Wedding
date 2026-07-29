@@ -3682,3 +3682,12 @@ body.lb-open {
   stroke-width: 6px;
   stroke-linejoin: round;
 }
+
+/* No tartan drift/animation on mobile (touch has no hover; keep it still) */
+@media (max-width: 900px) {
+  .tartan-stripe,
+  .tartan-swatch,
+  .tartan-swatch-groomsmen,
+  .tartan-swatch-bride,
+  .tartan-tile { animation: none !important; }
+}

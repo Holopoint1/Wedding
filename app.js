@@ -870,10 +870,11 @@ if (rsvpForm) {
     const all = readRsvps();
     delete all[norm(name)];
     store.set(RSVP_KEY, JSON.stringify(all));
-    // reset the screen + form so it can be tested again
-    const el = document.getElementById("rsvp-thanks");
-    if (el) { el.classList.remove("show"); el.hidden = true; }
-    document.body.style.overflow = "";
+    // flip the card back + reset the form so it can be tested again
+    const flip = document.getElementById("rsvp-flip");
+    if (flip) flip.classList.remove("flipped");
+    const line = document.getElementById("rsvp-thanks-line");
+    if (line) line.innerHTML = "";
     if (rsvpForm) rsvpForm.reset();
     const nameInput = document.getElementById("rsvp-name");
     if (nameInput) nameInput.value = "";
@@ -914,23 +915,23 @@ function writeCalligraphy(el, text) {
 }
 
 function showRsvpThanks(accepted, name) {
-  const el = document.getElementById("rsvp-thanks");
+  const flip = document.getElementById("rsvp-flip");
   const line = document.getElementById("rsvp-thanks-line");
-  if (!el || !line) return;
+  if (!flip || !line) return;
   document.querySelectorAll(".rsvp-fx-canvas").forEach((c) => c.remove()); // clear any comet
-  document.body.style.overflow = "hidden";
   // testing shortcut: a reset button, only for Alfie
   const resetBtn = document.getElementById("rsvp-reset");
   if (resetBtn) {
     if (norm(name) === "alfie dobson") { resetBtn.hidden = false; resetBtn.dataset.name = name; }
     else { resetBtn.hidden = true; }
   }
-  el.hidden = false;
-  requestAnimationFrame(() => el.classList.add("show"));
+  flip.classList.add("flipped"); // the card flips over to its back
+  flip.scrollIntoView({ behavior: "smooth", block: "center" });
   const msg = accepted
     ? "Thank you, we are so excited to see you at our wedding."
     : "Thank you for letting us know. You will be dearly missed.";
-  setTimeout(() => writeCalligraphy(line, msg), 800); // let the screen fade in first
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(() => writeCalligraphy(line, msg), reduce ? 0 : 950); // once the flip has landed
 }
 
 /* Let the notes box grow with long messages (capped, then it scrolls). */

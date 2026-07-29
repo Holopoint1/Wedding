@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Lato:wght@300;400;700&family=Pinyon+Script&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20260728-40" />
+  <link rel="stylesheet" href="styles.css?v=20260728-41" />
 
   <script type="application/ld+json">
   {
@@ -137,6 +137,8 @@
     <div class="tartan-stripe" aria-hidden="true"></div>
     <section id="rsvp" class="section section-blush">
       <div class="rsvp-frame reveal">
+        <div class="rsvp-flip" id="rsvp-flip">
+        <div class="rsvp-face rsvp-front">
         <div class="rsvp-fx" aria-hidden="true">
           <svg class="rsvp-fx-line" viewBox="0 0 100 100" preserveAspectRatio="none">
             <rect class="rsvp-fx-runner" x="0.7" y="0.7" width="98.6" height="98.6" fill="none"
@@ -192,14 +194,14 @@
           <button type="submit" class="primary-btn">Send RSVP</button>
           <p id="rsvp-status" class="rsvp-status" hidden></p>
         </form>
+        </div><!-- /rsvp-front -->
+        <div class="rsvp-face rsvp-back" aria-hidden="true">
+          <p class="rsvp-thanks-line" id="rsvp-thanks-line"></p>
+          <button type="button" id="rsvp-reset" class="rsvp-reset" hidden>Reset (test)</button>
+        </div>
+        </div><!-- /rsvp-flip -->
       </div>
     </section>
-
-    <!-- Full-screen calligraphy thank-you that writes itself after replying -->
-    <div id="rsvp-thanks" class="rsvp-thanks" hidden aria-hidden="true">
-      <p class="rsvp-thanks-line" id="rsvp-thanks-line"></p>
-      <button type="button" id="rsvp-reset" class="rsvp-reset" hidden>Reset (test)</button>
-    </div>
 
     <div class="tartan-stripe tartan-stripe-footer" aria-hidden="true"></div>
 
@@ -221,6 +223,6 @@
   </main>
 
   <script src="guests.js?v=20260727-2"></script>
-  <script src="app.js?v=20260729-6"></script>
+  <script src="app.js?v=20260729-7"></script>
 </body>
 </html>

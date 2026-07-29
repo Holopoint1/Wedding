@@ -1064,31 +1064,34 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   pointer-events: none;
 }
 
-/* Full-screen calligraphy thank-you that writes itself after an RSVP */
-.rsvp-thanks {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  text-align: center;
-  padding: 2rem;
-  background:
-    radial-gradient(circle at 22% 20%, rgba(184, 196, 168, 0.35), transparent 55%),
-    radial-gradient(circle at 80% 82%, rgba(243, 220, 212, 0.5), transparent 55%),
-    var(--cream);
-  opacity: 0;
-  transition: opacity 0.9s ease;
+/* The RSVP card flips over to a calligraphy thank-you that writes itself */
+.rsvp-frame { perspective: 1800px; }
+.rsvp-flip { position: relative; transform-style: preserve-3d; transition: transform 1s cubic-bezier(.2, .75, .2, 1); }
+.rsvp-flip.flipped { transform: rotateY(180deg); }
+.rsvp-front { position: relative; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.rsvp-back {
+  position: absolute; inset: 0;
+  transform: rotateY(180deg);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.6rem; text-align: center; padding: 1rem;
 }
+.rsvp-thanks-line {
+  font-family: "Pinyon Script", cursive;
+  font-size: clamp(1.7rem, 5.6vw, 3rem);
+  line-height: 1.4;
+  color: var(--forest);
+  max-width: 92%;
+  margin: 0;
+}
+.rsvp-thanks-line .ch { opacity: 0; }
+.rsvp-thanks-line .ch.on { opacity: 1; transition: opacity 0.18s ease; }
 .rsvp-reset {
   font-family: var(--sans);
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted, #6b7360);
+  color: #6b7360;
   background: transparent;
   border: 1px solid rgba(125, 138, 107, 0.5);
   border-radius: 8px;
@@ -1098,20 +1101,8 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 }
 .rsvp-reset:hover { opacity: 1; }
 .rsvp-reset[hidden] { display: none !important; }
-.rsvp-thanks[hidden] { display: none !important; } /* must not sit invisibly over the page */
-.rsvp-thanks.show { opacity: 1; }
-.rsvp-thanks-line {
-  font-family: "Pinyon Script", cursive;
-  font-size: clamp(2.2rem, 8vw, 4.6rem);
-  line-height: 1.35;
-  color: var(--forest);
-  max-width: 16ch;
-  margin: 0;
-}
-.rsvp-thanks-line .ch { opacity: 0; }
-.rsvp-thanks-line .ch.on { opacity: 1; transition: opacity 0.18s ease; }
 @media (prefers-reduced-motion: reduce) {
-  .rsvp-thanks { transition: none; }
+  .rsvp-flip { transition: none; }
 }
 
 .rsvp-form { margin-top: 2rem; }

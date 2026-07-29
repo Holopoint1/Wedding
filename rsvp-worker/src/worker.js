@@ -135,14 +135,19 @@ export default {
       const guest = GUEST_LIST.find((g) => norm(g.name) === key);
       if (key && guest) {
         const all = await readAll(env);
-        all[key] = {
-          name: guest.name,
-          invite: guest.invite,
-          attending: data.attending === "yes" ? "yes" : "no",
-          dietary: (data.dietary || "").toString().slice(0, 1000),
-          notes: (data.notes || "").toString().slice(0, 5000),
-          submittedAt: new Date().toISOString(),
-        };
+        if (data.reset === true) {
+          // testing: clear just this one person's reply
+          delete all[key];
+        } else {
+          all[key] = {
+            name: guest.name,
+            invite: guest.invite,
+            attending: data.attending === "yes" ? "yes" : "no",
+            dietary: (data.dietary || "").toString().slice(0, 1000),
+            notes: (data.notes || "").toString().slice(0, 5000),
+            submittedAt: new Date().toISOString(),
+          };
+        }
         await env.RSVPS.put(KV_KEY, JSON.stringify(all));
       }
       return new Response(JSON.stringify({ ok: true }), {

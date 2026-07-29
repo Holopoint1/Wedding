@@ -849,9 +849,40 @@ if (rsvpForm) {
       }
     }
 
-    showRsvpThanks(data.attending === "yes");
+    showRsvpThanks(data.attending === "yes", guest.name);
   });
 }
+
+/* Reset just one person's reply — a testing shortcut shown only for Alfie. */
+(function initRsvpReset() {
+  const btn = document.getElementById("rsvp-reset");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const name = btn.dataset.name || "Alfie Dobson";
+    if (REMOTE_ENDPOINT) {
+      fetch(REMOTE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, reset: true }),
+      }).catch(() => {});
+    }
+    // clear the local copy for this name
+    const all = readRsvps();
+    delete all[norm(name)];
+    store.set(RSVP_KEY, JSON.stringify(all));
+    // reset the screen + form so it can be tested again
+    const el = document.getElementById("rsvp-thanks");
+    if (el) { el.classList.remove("show"); el.hidden = true; }
+    document.body.style.overflow = "";
+    if (rsvpForm) rsvpForm.reset();
+    const nameInput = document.getElementById("rsvp-name");
+    if (nameInput) nameInput.value = "";
+    rsvpGuest = null;
+    if (rsvpStatus) { rsvpStatus.hidden = true; rsvpStatus.textContent = ""; }
+    const frame = document.querySelector(".rsvp-frame");
+    if (frame) frame.classList.remove("is-accepted", "is-declined");
+  });
+})();
 
 /* ---------- Calligraphy thank-you ----------
    A full-screen script message that writes itself out at handwriting pace. */
@@ -882,12 +913,18 @@ function writeCalligraphy(el, text) {
   tick();
 }
 
-function showRsvpThanks(accepted) {
+function showRsvpThanks(accepted, name) {
   const el = document.getElementById("rsvp-thanks");
   const line = document.getElementById("rsvp-thanks-line");
   if (!el || !line) return;
   document.querySelectorAll(".rsvp-fx-canvas").forEach((c) => c.remove()); // clear any comet
   document.body.style.overflow = "hidden";
+  // testing shortcut: a reset button, only for Alfie
+  const resetBtn = document.getElementById("rsvp-reset");
+  if (resetBtn) {
+    if (norm(name) === "alfie dobson") { resetBtn.hidden = false; resetBtn.dataset.name = name; }
+    else { resetBtn.hidden = true; }
+  }
   el.hidden = false;
   requestAnimationFrame(() => el.classList.add("show"));
   const msg = accepted

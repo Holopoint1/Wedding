@@ -224,13 +224,13 @@ function dashboard(all) {
       ? `<form method="post" action="/reset" class="rform" onsubmit="return confirm('Reset ${esc(g.name).replace(/'/g, "\\'")}\\'s reply?')"><input type="hidden" name="name" value="${esc(g.name)}"><button class="rbtn">Reset</button></form>`
       : "";
     return `<tr class="s-${status}">
-      <td>${esc(g.name)}</td>
-      <td class="inv">${esc(g.invite)}</td>
-      <td><span class="pill p-${status}">${label}</span></td>
-      <td>${esc(r ? r.dietary : "")}</td>
-      <td>${esc(r ? r.notes : "")}</td>
-      <td class="when">${esc(when)}</td>
-      <td class="act">${resetCell}</td>
+      <td class="nm" data-label="Name">${esc(g.name)}</td>
+      <td class="inv" data-label="Invite">${esc(g.invite)}</td>
+      <td data-label="Status"><span class="pill p-${status}">${label}</span></td>
+      <td data-label="Dietary">${esc(r ? r.dietary : "")}</td>
+      <td data-label="Notes">${esc(r ? r.notes : "")}</td>
+      <td class="when" data-label="Replied">${esc(when)}</td>
+      <td class="act" data-label="">${resetCell}</td>
     </tr>`;
   }).join("");
 
@@ -270,6 +270,37 @@ function dashboard(all) {
   .rbtn { font: inherit; font-size:.76rem; padding:.32rem .62rem; border:1px solid var(--line); background:var(--paper); border-radius:6px; color:var(--muted); cursor:pointer; }
   .rbtn:hover { color:var(--no); border-color:var(--no); }
   .rbtn.danger { color:var(--no); border-color:#e6c3bc; }
+
+  /* ---- Mobile: turn the table into stacked cards, no sideways scroll ---- */
+  @media (max-width: 640px) {
+    header { padding:1.1rem 1rem .3rem; }
+    h1 { font-size:1.2rem; }
+    .wrap { padding:.8rem 1rem 3rem; }
+    .cards { gap:.5rem; }
+    .card { flex:1 1 30%; min-width:0; padding:.55rem .7rem; text-align:center; }
+    .card b { font-size:1.35rem; }
+    .card span { font-size:.66rem; }
+    .bar { gap:.5rem; }
+    input.filter { min-width:0; width:100%; flex:1 1 100%; }
+    .bar a { flex:1 1 auto; text-align:center; }
+    #resetAllForm { flex:1 1 100%; }
+    #resetAllForm .rbtn { width:100%; }
+
+    table, tbody, tr, td { display:block; width:100%; }
+    thead { display:none; }
+    table { border:none; background:transparent; border-radius:0; }
+    tr { background:var(--paper); border:1px solid var(--line); border-radius:12px; margin-bottom:.7rem; padding:.35rem 0 .5rem; }
+    tr.s-yes { background:#f6fbf7; } tr.s-no { background:#fcf6f4; }
+    tr:last-child td { border-bottom:none; }
+    td { border:none; display:flex; gap:.7rem; align-items:baseline; padding:.24rem 1rem; font-size:.95rem; white-space:normal; }
+    td::before { content:attr(data-label); flex:0 0 5em; color:var(--muted); font-size:.66rem; text-transform:uppercase; letter-spacing:.04em; }
+    td:empty { display:none; }
+    td.nm { display:block; font-weight:700; font-size:1.08rem; padding:.5rem 1rem .15rem; }
+    td.nm::before { display:none; }
+    td.when { color:var(--muted); font-size:.85rem; }
+    td.act { justify-content:flex-end; padding-top:.4rem; }
+    td.act::before { display:none; }
+  }
 </style></head><body>
 <header>
   <h1>Alfie &amp; Lorna — RSVPs</h1>

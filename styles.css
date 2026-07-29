@@ -3226,6 +3226,13 @@ body.lb-open { overflow: hidden; }
   #nav-menu .nav-drop-menu li a { pointer-events: auto !important; }
   #nav-menu .nav-drop-menu li a { cursor: pointer; letter-spacing: 0.12em; }
 
+  /* CRITICAL: when the burger menu is CLOSED, the submenu must not exist as a
+     hit target. Without this it stayed display:block + pointer-events:auto and
+     its first link (Venue) sat invisibly over the hero, catching taps. */
+  #nav-menu:not(.is-open) .nav-drop-menu,
+  #nav-menu:not(.is-open) .nav-dropdown::before { display: none !important; }
+  #nav-menu:not(.is-open) { pointer-events: none !important; }
+
   /* Tap targets and always-readable colours inside the panel */
   #nav-menu a {
     display: block;

@@ -461,6 +461,38 @@ function launchAcceptFireworks(frame) {
       node.addEventListener("click", () => seek(0));
     }
   });
+
+  // ----- "Us" photo: warm sparks spray from the bottom on hover / tap -----
+  const usNode = svg.querySelector("#tl-us");
+  if (usNode) {
+    let usHover = false;
+    const usSpark = (n) => {
+      const r = svg.getBoundingClientRect();
+      const s = r.width / 1000;
+      const bx = r.left + IMG.cx * s;
+      const by = r.top + (IMG.cy + IMG.r) * s;   // bottom edge of the "Us" circle
+      const spread = IMG.r * 1.15 * s;
+      for (let k = 0; k < n; k++) {
+        parts.push({
+          x: bx + (Math.random() - 0.5) * spread,
+          y: by - Math.random() * 4,
+          vx: (Math.random() - 0.5) * 3.2,
+          vy: 0.6 + Math.random() * 2.8,          // spray down and out
+          g: 0.07, size: 0.9 + Math.random() * 1.8, life: 1,
+          decay: 0.012 + Math.random() * 0.02,
+        });
+      }
+      if (!raf) raf = requestAnimationFrame(step);
+    };
+    usNode.addEventListener("mouseenter", () => {
+      if (usHover) return;
+      usHover = true;
+      const stream = () => { if (!usHover) return; usSpark(2); requestAnimationFrame(stream); };
+      requestAnimationFrame(stream);
+    });
+    usNode.addEventListener("mouseleave", () => { usHover = false; });
+    usNode.addEventListener("click", () => usSpark(30));
+  }
 })();
 
 /* ---------- Story timeline light (mobile vertical) ----------
@@ -653,6 +685,19 @@ function launchAcceptFireworks(frame) {
       if (accepted) launchAcceptFireworks(frame);
     });
   });
+})();
+
+/* ---------- Mobile-only RSVP button in the header bar ---------- */
+(function mobileRsvpButton() {
+  const nav = document.getElementById("topnav");
+  const toggle = document.getElementById("nav-toggle");
+  if (!nav || !toggle || nav.querySelector(".nav-rsvp-mobile")) return;
+  const a = document.createElement("a");
+  a.href = "/rsvp";
+  a.className = "nav-rsvp-mobile";
+  a.textContent = "RSVP";
+  a.setAttribute("aria-label", "RSVP to the wedding");
+  nav.insertBefore(a, toggle);
 })();
 
 /* ---------- Intro fade ---------- */

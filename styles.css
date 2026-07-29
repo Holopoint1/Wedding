@@ -128,16 +128,36 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   position: fixed;
   inset: 0;
   z-index: 1000;
+  overflow: hidden;
+  pointer-events: none;            /* never blocks the site underneath */
+}
+/* Two cream panels that part like opening a book, revealing the site */
+.intro-half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;                    /* slight overlap so there's no centre seam */
   background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: introFade 1.6s 1.6s forwards;
+  will-change: transform;
+}
+.intro-left {
+  left: 0;
+  box-shadow: inset -34px 0 46px -32px rgba(58, 70, 50, 0.22);
+  animation: bookLeft 1.15s 2s cubic-bezier(0.66, 0, 0.2, 1) forwards;
+}
+.intro-right {
+  right: 0;
+  box-shadow: inset 34px 0 46px -32px rgba(58, 70, 50, 0.22);
+  animation: bookRight 1.15s 2s cubic-bezier(0.66, 0, 0.2, 1) forwards;
 }
 .intro-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 200px;
   height: 200px;
-  animation: introScale 1.6s ease-out;
+  transform: translate(-50%, -50%);
+  animation: introScale 1.6s ease-out, markOut 0.55s 1.85s ease-in forwards;
 }
 .intro-ring {
   transform-origin: center;
@@ -150,12 +170,14 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 }
 .intro.is-done { display: none; }
 
-@keyframes introFade {
-  to { opacity: 0; visibility: hidden; }
+@keyframes bookLeft  { to { transform: translateX(-100%); } }
+@keyframes bookRight { to { transform: translateX(100%); } }
+@keyframes markOut {
+  to { opacity: 0; transform: translate(-50%, -50%) scale(1.08); }
 }
 @keyframes introScale {
-  from { opacity: 0; transform: scale(0.85); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 @keyframes ringDraw {
   from { stroke-dasharray: 500; stroke-dashoffset: 500; opacity: 0; }
@@ -440,9 +462,9 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   color: transparent;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(100deg,
-    #fdfaf3 0%,  #fdfaf3 40%,
-    #e7b277 47%, #ffd8a3 50%, #e7b277 53%,
-    #fdfaf3 60%, #fdfaf3 100%);
+    #fdfaf3 0%,  #fdfaf3 42%,
+    #edcaa6 47%, #f6e3ca 50%, #edcaa6 53%,
+    #fdfaf3 58%, #fdfaf3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   background-size: 300% 100%;
@@ -3502,3 +3524,66 @@ body.lb-open {
 .leaf-7 { --sway: 18s; }
 .leaf-8 { --sway: 21s; }
 .leaf-9 { --sway: 16s; }
+
+/* =========================================================
+   MOBILE HEADER — bunched logo, compact countdown, RSVP button
+   (placed last so it wins over the base .nav-countdown rules)
+   ========================================================= */
+.nav-rsvp-mobile { display: none; }
+
+@media (max-width: 900px) {
+  .topnav {
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0.8rem 0.85rem;
+  }
+  .topnav.scrolled { padding: 0.55rem 0.85rem; }
+
+  /* Smaller initials, bunched into the top-left */
+  .topnav .brand { margin-right: 0.05rem; }
+  .topnav .brand svg { width: 74px; height: 32px; }
+  .topnav.scrolled .brand svg { width: 66px; height: 30px; }
+
+  /* Countdown nudged left, tightened up */
+  .topnav .nav-countdown {
+    margin: 0;
+    padding: 0.26rem 0.62rem;
+    gap: 0.5rem;
+    font-size: 0.5rem;
+  }
+  .topnav .nav-countdown .cd-title { display: none; }   /* label off to save room */
+  .topnav .nav-countdown .cd-units { display: inline-flex; gap: 0.42rem; }
+  .topnav .nav-countdown b { font-size: 1rem; }
+
+  /* RSVP button, right of the countdown */
+  .nav-rsvp-mobile {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--blush-deep);
+    padding: 0.46rem 0.78rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 4px 14px -8px rgba(58, 70, 50, 0.5);
+  }
+  .nav-rsvp-mobile::after { display: none; }
+  .home .topnav:not(.scrolled) .nav-rsvp-mobile { color: #fff; }
+
+  /* Burger pinned to the far right */
+  .nav-toggle { margin-left: auto; }
+}
+
+/* Very small phones: drop seconds, then minutes, so the row still fits */
+@media (max-width: 430px) {
+  .topnav .nav-countdown .cd-units span:last-child { display: none; }  /* hide seconds */
+  .topnav .brand svg { width: 66px; height: 30px; }
+}
+@media (max-width: 360px) {
+  .topnav .nav-countdown .cd-units span:nth-child(3) { display: none; } /* hide minutes */
+  .nav-rsvp-mobile { padding: 0.42rem 0.62rem; font-size: 0.56rem; }
+}

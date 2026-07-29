@@ -916,11 +916,28 @@ if (rsvpForm) {
    A full-screen script message that writes itself out at handwriting pace. */
 function writeCalligraphy(el, text) {
   el.innerHTML = "";
-  [...text].forEach((c) => {
-    const s = document.createElement("span");
-    s.className = "ch";
-    s.textContent = c === " " ? " " : c;
-    el.appendChild(s);
+  // Group each word's letters in a non-breaking wrapper so a word can never
+  // split across lines — only whole words wrap, and only at the spaces.
+  const tokens = text.match(/\S+|\s+/g) || [];
+  tokens.forEach((tok) => {
+    if (/\s/.test(tok)) {
+      [...tok].forEach(() => {
+        const s = document.createElement("span");
+        s.className = "ch ch-space";
+        s.textContent = " ";
+        el.appendChild(s);
+      });
+    } else {
+      const word = document.createElement("span");
+      word.className = "cal-word";
+      [...tok].forEach((c) => {
+        const s = document.createElement("span");
+        s.className = "ch";
+        s.textContent = c;
+        word.appendChild(s);
+      });
+      el.appendChild(word);
+    }
   });
   const spans = el.querySelectorAll(".ch");
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

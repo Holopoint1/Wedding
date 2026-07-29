@@ -1118,8 +1118,11 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   color: var(--forest);
   max-width: min(86%, 440px); /* forces wrapping onto 2-3 lines, always within the card */
   margin: 0 auto;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;      /* never break inside a word */
+  word-break: normal;
 }
+/* Each word is a non-breaking unit; lines only ever break at the spaces */
+.rsvp-thanks-line .cal-word { white-space: nowrap; }
 .rsvp-thanks-line .ch { opacity: 0; }
 .rsvp-thanks-line .ch.on { opacity: 1; transition: opacity 0.18s ease; }
 .rsvp-reset {

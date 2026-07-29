@@ -51,16 +51,8 @@ function setLocked(locked) {
 
 (function initGate() {
   if (!gate) return;
-  const wantsPreview = store.sget("alfie-lorna-preview") || /[?#]preview/.test(window.location.href);
-  setLocked(!(isUnlocked() || wantsPreview));
-
-  const previewBtn = document.getElementById("gate-preview");
-  if (previewBtn) {
-    previewBtn.addEventListener("click", () => {
-      store.sset("alfie-lorna-preview", "1");
-      setLocked(false);
-    });
-  }
+  // The password is the only way in — no preview bypass.
+  setLocked(!isUnlocked());
 
   gateForm.addEventListener("submit", (e) => {
     e.preventDefault();

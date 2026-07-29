@@ -487,11 +487,13 @@ function launchAcceptFireworks(frame) {
     usNode.addEventListener("mouseenter", () => {
       if (usHover) return;
       usHover = true;
-      const stream = () => { if (!usHover) return; usSpark(2); requestAnimationFrame(stream); };
+      let f = 0;
+      // a gentle trickle — roughly one spark every ~12 frames
+      const stream = () => { if (!usHover) return; if ((f++ % 12) === 0) usSpark(1); requestAnimationFrame(stream); };
       requestAnimationFrame(stream);
     });
     usNode.addEventListener("mouseleave", () => { usHover = false; });
-    usNode.addEventListener("click", () => usSpark(30));
+    usNode.addEventListener("click", () => usSpark(6));
   }
 })();
 

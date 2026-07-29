@@ -3604,20 +3604,25 @@ body.lb-open {
 
   .nav-toggle { justify-self: end; }
 
-  /* Names sit below the (smaller) countdown, still high over the photo */
-  .home .hero-inner { justify-content: flex-start; padding-top: 1.1rem; }
+  /* Greeting + names sit high, just under the header */
+  .home .hero-inner { justify-content: flex-start; padding-top: calc(env(safe-area-inset-top, 0px) + 3.6rem); }
   .home .hero-mini { margin-bottom: 0.4rem; }
 
-  /* Countdown pill across the top of the hero — like desktop */
+  /* Date + venue + countdown stacked at the foot of the hero */
+  .home .hero-date-num { bottom: 5.3rem; }
+  .home .hero-venue-min { bottom: 3.9rem; }
+
+  /* Countdown pill anchored at the very bottom, below the date */
   .hero-countdown {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 0.12rem;
-    align-self: center;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
+    transform: translateX(-50%);
     z-index: 6;
-    margin-top: calc(env(safe-area-inset-top, 0px) + 4.2rem);
     padding: 0.22rem 0.85rem 0.26rem;
     border-radius: 999px;
     background: rgba(255, 250, 241, 0.94);

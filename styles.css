@@ -3744,3 +3744,12 @@ body.lb-open {
 .page-dress .tartan-tile {
   animation: none !important;
 }
+
+/* Homepage: far fewer drifting leaves — keep just two */
+.home .leaf-3,
+.home .leaf-4,
+.home .leaf-5,
+.home .leaf-6,
+.home .leaf-7,
+.home .leaf-8,
+.home .leaf-9 { display: none; }

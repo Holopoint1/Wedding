@@ -3,6 +3,10 @@
    Add photos to that folder and run:  python add_photos.py  */
 
 const GALLERY_PHOTOS = [
+  { src: "gallery/1.jpeg", caption: "" },
+  { src: "gallery/2.jpeg", caption: "" },
+  { src: "gallery/3.jpeg", caption: "" },
+  { src: "gallery/4.jpeg", caption: "" },
   { src: "gallery/alflormainjpeg.jpeg", caption: "A wedding in the park" },
   { src: "gallery/alflornlift.jpg", caption: "" },
   { src: "gallery/alfnlorna.jpg", caption: "Us" },

@@ -3175,6 +3175,20 @@ body.lb-open { overflow: hidden; }
     box-shadow: none;
   }
   #nav-menu .nav-drop-menu li { width: 100%; opacity: 1; transform: none; }
+  /* Make sure the Info submenu links are genuinely tappable on mobile:
+     no leftover transform (which can create a stacking/containing-block trap),
+     explicit pointer-events, and their own stacking layer above siblings. */
+  #nav-menu li.nav-dropdown,
+  #nav-menu .nav-drop-menu,
+  #nav-menu .nav-drop-menu li { transform: none !important; }
+  #nav-menu .nav-drop-menu,
+  #nav-menu .nav-drop-menu li,
+  #nav-menu .nav-drop-menu li a {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 2;
+  }
+  #nav-menu .nav-drop-menu li a { cursor: pointer; }
 
   /* Tap targets and always-readable colours inside the panel */
   #nav-menu a {

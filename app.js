@@ -709,6 +709,15 @@ if (navToggle && navMenu) {
   // some mobile browsers treat as cancelling the click → the link "does nothing").
   navMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setTimeout(closeNav, 80)));
 
+  // Belt-and-braces for the nested Info submenu links (Venue/Travel/etc): if
+  // anything cancels the default tap, force the navigation ourselves.
+  navMenu.querySelectorAll(".nav-drop-menu a[href]").forEach((a) => {
+    a.addEventListener("click", () => {
+      const href = a.getAttribute("href");
+      if (href) setTimeout(() => { window.location.href = href; }, 30);
+    });
+  });
+
   // Tapping the scrim — or anywhere outside the menu — closes it
   if (navBackdrop) navBackdrop.addEventListener("click", closeNav);
   document.addEventListener("click", (e) => {

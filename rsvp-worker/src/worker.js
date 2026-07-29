@@ -178,6 +178,22 @@ export default {
       });
     }
 
+    // ---- Reset a reply (login required) — used by the dashboard buttons ----
+    if (path === "/reset" && request.method === "POST") {
+      const unauth = requireAuth(request, env);
+      if (unauth) return unauth;
+      let name = "";
+      try { name = ((await request.formData()).get("name") || "").toString(); } catch { name = ""; }
+      const all = await readAll(env);
+      if (name === "__all__") {
+        await env.RSVPS.put(KV_KEY, "{}");
+      } else if (name) {
+        delete all[norm(name)];
+        await env.RSVPS.put(KV_KEY, JSON.stringify(all));
+      }
+      return new Response(null, { status: 303, headers: { Location: "/" } });
+    }
+
     if (path === "/" || path === "/admin") {
       const unauth = requireAuth(request, env);
       if (unauth) return unauth;
@@ -199,6 +215,9 @@ function dashboard(all) {
       else { status = "no"; label = "Declined"; declined++; }
     } else { awaiting++; }
     const when = r && r.submittedAt ? new Date(r.submittedAt).toLocaleString("en-GB", { timeZone: "Europe/London" }) : "";
+    const resetCell = r
+      ? `<form method="post" action="/reset" class="rform" onsubmit="return confirm('Reset ${esc(g.name).replace(/'/g, "\\'")}\\'s reply?')"><input type="hidden" name="name" value="${esc(g.name)}"><button class="rbtn">Reset</button></form>`
+      : "";
     return `<tr class="s-${status}">
       <td>${esc(g.name)}</td>
       <td class="inv">${esc(g.invite)}</td>
@@ -206,6 +225,7 @@ function dashboard(all) {
       <td>${esc(r ? r.dietary : "")}</td>
       <td>${esc(r ? r.notes : "")}</td>
       <td class="when">${esc(when)}</td>
+      <td class="act">${resetCell}</td>
     </tr>`;
   }).join("");
 
@@ -240,6 +260,11 @@ function dashboard(all) {
   .pill { display:inline-block; padding:.15rem .55rem; border-radius:20px; font-size:.78rem; font-weight:600; }
   .p-yes { background:#e2f3e7; color:var(--yes); } .p-no { background:#f7e3df; color:var(--no); } .p-awaiting { background:#f4ecd6; color:var(--wait); }
   tr.s-yes { background:#f6fbf7; } tr.s-no { background:#fcf6f4; }
+  .rform { margin:0; }
+  td.act { white-space:nowrap; }
+  .rbtn { font: inherit; font-size:.76rem; padding:.32rem .62rem; border:1px solid var(--line); background:var(--paper); border-radius:6px; color:var(--muted); cursor:pointer; }
+  .rbtn:hover { color:var(--no); border-color:var(--no); }
+  .rbtn.danger { color:var(--no); border-color:#e6c3bc; }
 </style></head><body>
 <header>
   <h1>Alfie &amp; Lorna — RSVPs</h1>
@@ -257,9 +282,12 @@ function dashboard(all) {
     <input class="filter" id="filter" placeholder="Search a name…" oninput="filt()">
     <a href="/export.csv">Download CSV</a>
     <a href="/" onclick="location.reload();return false;">Refresh</a>
+    <form method="post" action="/reset" style="margin:0" onsubmit="return confirm('Reset ALL replies back to Awaiting? This cannot be undone.')">
+      <input type="hidden" name="name" value="__all__"><button class="rbtn danger">Reset all replies</button>
+    </form>
   </div>
   <table id="tbl">
-    <thead><tr><th>Name</th><th>Invite</th><th>Status</th><th>Dietary</th><th>Notes</th><th>Replied</th></tr></thead>
+    <thead><tr><th>Name</th><th>Invite</th><th>Status</th><th>Dietary</th><th>Notes</th><th>Replied</th><th></th></tr></thead>
     <tbody>${rows}</tbody>
   </table>
 </div>

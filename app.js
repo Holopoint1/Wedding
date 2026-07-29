@@ -1015,6 +1015,11 @@ window.alfieLornaExport = function () {
   btn.addEventListener("click", (e) => { if (mobile.matches) return; e.stopPropagation(); setOpen(menu.hidden); });
   document.addEventListener("click", (e) => { if (!mobile.matches && !li.contains(e.target)) setOpen(false); });
   document.addEventListener("keydown", (e) => { if (!mobile.matches && e.key === "Escape") setOpen(false); });
+
+  // Desktop: open on hover, close shortly after the pointer leaves (delay bridges the gap)
+  let hoverTimer;
+  li.addEventListener("mouseenter", () => { if (mobile.matches) return; clearTimeout(hoverTimer); setOpen(true); });
+  li.addEventListener("mouseleave", () => { if (mobile.matches) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(() => setOpen(false), 160); });
 })();
 
 /* ---------- Gallery: render photos + lightbox ---------- */

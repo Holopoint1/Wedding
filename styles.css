@@ -3562,21 +3562,23 @@ body.lb-open {
   /* Header countdown is off on mobile (shown as a pill on the hero) */
   .topnav .nav-countdown { display: none; }
 
-  /* RSVP — prominent green pill, centre column */
-  .nav-rsvp-mobile {
+  /* RSVP — prominent green pill, centre column.
+     Selector must out-rank `.topnav a` (0,1,1) or the padding is ignored. */
+  .topnav a.nav-rsvp-mobile {
     justify-self: center;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     font-family: var(--sans);
     font-weight: 700;
-    font-size: 0.66rem;
+    font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #fff;
     background: linear-gradient(135deg, #83af64 0%, #5f9146 100%);
-    padding: 0.62rem 2.2rem;
-    text-indent: 0.2em;              /* balance the trailing letter-spacing */
+    padding: 0.72rem 2.5rem;
+    text-indent: 0.22em;             /* balance the trailing letter-spacing */
     border-radius: 999px;
     white-space: nowrap;
     box-shadow: 0 7px 18px -8px rgba(70, 104, 52, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.28);
@@ -3588,8 +3590,9 @@ body.lb-open {
 
   .nav-toggle { justify-self: end; }
 
-  /* Names sit high, just under the countdown pill (off the faces) */
-  .home .hero-inner { justify-content: flex-start; padding-top: 1rem; }
+  /* Names sit high, right above the couple's heads */
+  .home .hero-inner { justify-content: flex-start; padding-top: 0.3rem; }
+  .home .hero-mini { margin-bottom: 0.4rem; }
 
   /* Countdown pill across the top of the hero — like desktop */
   .hero-countdown {
@@ -3633,8 +3636,8 @@ body.lb-open {
 
 /* Very small phones: shrink the logo a touch so nothing crowds the button */
 @media (max-width: 360px) {
-  .topnav .brand svg { width: 62px; height: 28px; }
-  .nav-rsvp-mobile { padding: 0.58rem 1.7rem; font-size: 0.62rem; }
+  .topnav .brand svg { width: 60px; height: 27px; }
+  .topnav a.nav-rsvp-mobile { padding: 0.66rem 2rem; font-size: 0.68rem; }
   .hero-countdown { padding: 0.3rem 0.95rem 0.36rem; }
   .hc-row { gap: 0.48rem; font-size: 0.6rem; }
   .hc-row b { font-size: 1rem; }

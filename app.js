@@ -683,8 +683,10 @@ if (navToggle && navMenu) {
     setNav(!isOpen());
   });
 
-  // Choosing a link closes the menu
-  navMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+  // Choosing a link closes the menu — deferred so the link's own navigation
+  // fires first (closing synchronously sets pointer-events:none mid-tap, which
+  // some mobile browsers treat as cancelling the click → the link "does nothing").
+  navMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setTimeout(closeNav, 80)));
 
   // Tapping the scrim — or anywhere outside the menu — closes it
   if (navBackdrop) navBackdrop.addEventListener("click", closeNav);

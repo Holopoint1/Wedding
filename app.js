@@ -19,6 +19,27 @@ const gateError = document.getElementById("gate-error");
 
 const norm = (s) => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
 
+/* ---------- Image safety net ----------
+   A broken/missing image must never show a broken-icon. Any <img> that fails
+   is hidden; widget thumbnails fall back to a soft tile, gallery items drop out. */
+(function hardenImages() {
+  const handle = (img) => {
+    if (!img || img.dataset.failed) return;
+    img.dataset.failed = "1";
+    img.style.visibility = "hidden";
+    const wrap = img.closest(".widget-img, .gal-item");
+    if (wrap) wrap.classList.add("img-failed");
+  };
+  document.addEventListener("error", (e) => {
+    if (e.target && e.target.tagName === "IMG") handle(e.target);
+  }, true); // capture: image error events don't bubble
+  const scan = () => document.querySelectorAll("img").forEach((img) => {
+    if (img.complete && img.naturalWidth === 0) handle(img);
+  });
+  if (document.readyState !== "loading") scan(); else document.addEventListener("DOMContentLoaded", scan);
+  window.addEventListener("load", scan);
+})();
+
 /* Storage that can never throw. Some browsers block localStorage and
    sessionStorage outright; the site must still work, it just won't
    remember the login between visits. */

@@ -2450,6 +2450,9 @@ html { scroll-snap-type: y proximity; }
   height: 185px;
   object-fit: cover;
 }
+/* Fallbacks if an image ever fails to load (no broken-icon) */
+.widget-img.img-failed { height: 185px; background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%); }
+.gal-item.img-failed { display: none; }
 .widget-body { padding: 1.3rem 1.5rem 1.7rem; display: flex; flex-direction: column; flex: 1; }
 .widget-body h3 { font-style: normal; font-family: var(--display); font-size: 1.5rem; margin-bottom: 0.4rem; }
 .widget-body p { margin: 0 0 1.2rem; font-size: 0.95rem; }

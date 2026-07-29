@@ -7,7 +7,7 @@ const WEDDING_DATE = new Date("2027-05-15T13:30:00+01:00");
 const WEDDING_MS = WEDDING_DATE.getTime();
 const RSVP_KEY = "alfie-lorna-rsvp";
 const AUTH_KEY = "alfie-lorna-auth";
-const REMOTE_ENDPOINT = ""; // Formspree / Netlify / Apps Script URL when ready
+const REMOTE_ENDPOINT = "https://alflorna-rsvp.ad5046.workers.dev/rsvp"; // RSVPs go to our Cloudflare Worker + admin dashboard
 
 /* ---------- Site login gate ----------
    One shared password (SITE_PASSWORD in guests.js) unlocks the site.

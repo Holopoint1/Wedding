@@ -1,0 +1,13 @@
+name = "alflorna-rsvp"
+main = "src/worker.js"
+compatibility_date = "2024-11-01"
+
+kv_namespaces = [
+  { binding = "RSVPS", id = "0bfe702e39e14c3d9031ad9740f4e4f1" }
+]
+
+# Admin dashboard login (browser Basic Auth prompt). Change these any time and
+# re-run `wrangler deploy`.
+[vars]
+ADMIN_USER = "alfie"
+ADMIN_PASSWORD = "AandL-rsvp-2027"

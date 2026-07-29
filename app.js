@@ -333,8 +333,8 @@ function launchAcceptFireworks(frame) {
   window.addEventListener("resize", resize);
 
   // Phase timings (ms) — slow
-  const P1 = 3040;    // two lights travel to the meeting point
-  const P2 = 16500;   // merged light drifts the whole trail (slow)
+  const P1 = 2533;    // two lights travel to the meeting point
+  const P2 = 13750;   // merged light drifts the whole trail (slow)
   const ARR = 2800;   // arrival border glow
   const GAP = 2600;   // pause before looping
   const CYCLE = P1 + P2 + ARR + GAP;
@@ -565,7 +565,7 @@ function launchAcceptFireworks(frame) {
   resize();
   window.addEventListener("resize", resize);
 
-  const P1 = 3040, P2 = 16500, ARR = 2800, GAP = 2600, CYCLE = P1 + P2 + ARR + GAP;
+  const P1 = 2533, P2 = 13750, ARR = 2800, GAP = 2600, CYCLE = P1 + P2 + ARR + GAP;
   const parts = [];
   let raf = null, active = false, t0 = null;
 

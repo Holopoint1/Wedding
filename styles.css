@@ -2129,18 +2129,21 @@ body.is-locked #site-view { visibility: hidden; }
    NAV RSVP PILL
    ========================================================= */
 .topnav a.nav-rsvp {
-  background: var(--forest);
-  color: var(--cream);
-  padding: 0.55rem 1.5rem;
+  background: linear-gradient(135deg, #83af64 0%, #5f9146 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 0.58rem 1.6rem;
   border-radius: 999px;
   letter-spacing: 0.25em;
-  transition: background .25s, transform .25s;
+  box-shadow: 0 7px 18px -8px rgba(70, 104, 52, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition: background .25s, transform .25s, box-shadow .25s;
 }
 .topnav a.nav-rsvp::after { display: none; }
 .topnav a.nav-rsvp:hover {
-  background: var(--blush-deep);
-  color: var(--cream);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #8fbb6f 0%, #6a9d50 100%);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px -8px rgba(70, 104, 52, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 /* =========================================================
@@ -3525,7 +3528,7 @@ body.lb-open {
 
 /* =========================================================
    MOBILE HEADER — logo left, RSVP centred, burger right.
-   Countdown leaves the header and sits on top of the hero.
+   Countdown becomes a pill on the hero (matching desktop).
    ========================================================= */
 .nav-rsvp-mobile { display: none; }
 .hero-countdown { display: none; }
@@ -3546,84 +3549,83 @@ body.lb-open {
   .topnav .brand svg { width: 76px; height: 34px; }
   .topnav.scrolled .brand svg { width: 68px; height: 30px; }
 
-  /* Countdown is off the header on mobile (shown on the hero instead) */
+  /* Header countdown is off on mobile (shown as a pill on the hero) */
   .topnav .nav-countdown { display: none; }
 
-  /* RSVP — a proper pill button in the centre column */
+  /* RSVP — prominent green pill, centre column */
   .nav-rsvp-mobile {
     justify-self: center;
     display: inline-flex;
     align-items: center;
-    gap: 0.45em;
     text-decoration: none;
     font-family: var(--sans);
     font-weight: 700;
     font-size: 0.66rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: #fff;
-    background: linear-gradient(135deg, #d38f8f 0%, var(--blush-deep) 100%);
-    padding: 0.56rem 1.3rem;
+    background: linear-gradient(135deg, #83af64 0%, #5f9146 100%);
+    padding: 0.56rem 1.45rem;
     border-radius: 999px;
     white-space: nowrap;
-    box-shadow: 0 6px 18px -8px rgba(160, 82, 82, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    box-shadow: 0 7px 18px -8px rgba(70, 104, 52, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.28);
     transition: transform .2s ease, box-shadow .2s ease;
   }
-  .nav-rsvp-mobile::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #fff;
-    opacity: 0.85;
-  }
   .nav-rsvp-mobile::after { display: none; }
-  .nav-rsvp-mobile:active {
-    transform: scale(0.94);
-    box-shadow: 0 3px 10px -6px rgba(160, 82, 82, 0.7);
-  }
+  .nav-rsvp-mobile:active { transform: scale(0.95); }
   .home .topnav:not(.scrolled) .nav-rsvp-mobile { color: #fff; }
 
   .nav-toggle { justify-self: end; }
 
-  /* Countdown across the top of the hero, in normal flow (can't overlap) */
-  .hero-inner { padding-top: 2rem; }
+  /* Names sit high, just under the countdown pill (off the faces) */
+  .home .hero-inner { justify-content: flex-start; padding-top: 1rem; }
+
+  /* Countdown pill across the top of the hero — like desktop */
   .hero-countdown {
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-    padding: calc(env(safe-area-inset-top, 0px) + 5.2rem) 1rem 0;
-    font-family: var(--sans);
-    font-size: 0.52rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(253, 250, 243, 0.9);
-    text-shadow: 0 1px 8px rgba(30, 38, 26, 0.5);
-  }
-  .hero-countdown span {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.2rem;
+    gap: 0.12rem;
+    align-self: center;
+    position: relative;
+    z-index: 6;
+    margin-top: calc(env(safe-area-inset-top, 0px) + 4.6rem);
+    padding: 0.42rem 1.5rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(255, 250, 241, 0.92);
+    border: 1px solid rgba(125, 138, 107, 0.4);
+    box-shadow: 0 10px 26px -14px rgba(30, 38, 26, 0.55);
   }
-  .hero-countdown b {
+  .hc-label {
     font-family: var(--sans);
-    font-weight: 700;
-    font-size: 1.7rem;
-    line-height: 1;
+    font-size: 0.46rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--sage-deeper);
   }
-  /* Keep the per-unit colours, brightened so they read over the photo */
-  .hero-countdown span:nth-child(1) b { color: #93cf7d; } /* days    - green  */
-  .hero-countdown span:nth-child(2) b { color: #e6c65f; } /* hours   - gold   */
-  .hero-countdown span:nth-child(3) b { color: #ec9a55; } /* minutes - orange */
-  .hero-countdown span:nth-child(4) b { color: #e88a80; } /* seconds - red    */
+  .hc-row {
+    display: inline-flex;
+    gap: 0.62rem;
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sage-deeper);
+  }
+  .hc-row > span { display: inline-flex; align-items: baseline; gap: 0.08em; }
+  .hc-row b { font-family: var(--sans); font-weight: 700; font-size: 1.2rem; line-height: 1; }
+  .hc-row span:nth-child(1) b { color: #4f7c42; } /* days    - green  */
+  .hc-row span:nth-child(2) b { color: #a08a2e; } /* hours   - gold   */
+  .hc-row span:nth-child(3) b { color: #c67c35; } /* minutes - orange */
+  .hc-row span:nth-child(4) b { color: #bf5546; } /* seconds - red    */
 }
 
 /* Very small phones: shrink the logo a touch so nothing crowds the button */
 @media (max-width: 360px) {
   .topnav .brand svg { width: 66px; height: 30px; }
-  .nav-rsvp-mobile { padding: 0.5rem 1rem; font-size: 0.62rem; }
-  .hero-countdown { gap: 0.85rem; }
+  .nav-rsvp-mobile { padding: 0.5rem 1.1rem; font-size: 0.62rem; }
+  .hero-countdown { padding: 0.38rem 1.15rem 0.46rem; }
+  .hc-row { gap: 0.5rem; }
 }
 
 /* Timeline captions: cream halo so the dashed path reads cleanly behind the text */

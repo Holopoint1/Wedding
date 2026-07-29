@@ -3181,14 +3181,17 @@ body.lb-open { overflow: hidden; }
   #nav-menu li.nav-dropdown,
   #nav-menu .nav-drop-menu,
   #nav-menu .nav-drop-menu li { transform: none !important; }
+  /* Keep the submenu in normal flow — the desktop rule's left:50% must NOT apply
+     (it was pushing the items off-screen), and they must stay tappable. */
+  #nav-menu .nav-drop-menu {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+  }
   #nav-menu .nav-drop-menu,
   #nav-menu .nav-drop-menu li,
-  #nav-menu .nav-drop-menu li a {
-    pointer-events: auto !important;
-    position: relative;
-    z-index: 2;
-  }
-  #nav-menu .nav-drop-menu li a { cursor: pointer; }
+  #nav-menu .nav-drop-menu li a { pointer-events: auto !important; }
+  #nav-menu .nav-drop-menu li a { cursor: pointer; letter-spacing: 0.12em; }
 
   /* Tap targets and always-readable colours inside the panel */
   #nav-menu a {

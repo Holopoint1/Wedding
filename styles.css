@@ -3608,6 +3608,10 @@ body.lb-open {
 
   .nav-toggle { justify-self: end; }
 
+  /* Fit the hero to the actually-visible screen (not 100vh, which hides the
+     bottom under the mobile toolbar) so the date + countdown show on load. */
+  .home .hero { min-height: 100vh; min-height: 100svh; }
+
   /* Greeting + names sit high, just under the header */
   .home .hero-inner {
     justify-content: flex-start;

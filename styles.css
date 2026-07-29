@@ -910,9 +910,12 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 }
 .travel-card h3 { color: var(--blush-deep); }
 .stay-tier {
-  font-family: var(--script);
-  color: var(--blush-deep);
-  font-size: 1.15rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--sage-deeper);
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
   margin: 0 0 0.4rem;
 }
 .stay-card h4 { color: var(--forest); margin-bottom: 0.5rem; }
@@ -3690,4 +3693,45 @@ body.lb-open {
   .tartan-swatch-groomsmen,
   .tartan-swatch-bride,
   .tartan-tile { animation: none !important; }
+}
+
+/* Gift / bank details block (FAQ registry card) */
+.bank-details {
+  margin: 1.4rem auto 0;
+  max-width: 340px;
+  background: var(--paper);
+  border: 1px solid var(--cream-2);
+  border-radius: 12px;
+  padding: 1.1rem 1.4rem;
+  box-shadow: var(--shadow-soft);
+}
+.bank-lead {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--sage-deeper);
+  font-size: 0.95rem;
+  margin: 0 0 0.8rem;
+}
+.bank-details dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1.1rem;
+  align-items: baseline;
+}
+.bank-details dt {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+}
+.bank-details dd {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 700;
+  color: var(--forest);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
 }

@@ -1081,6 +1081,7 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   opacity: 0;
   transition: opacity 0.9s ease;
 }
+.rsvp-thanks[hidden] { display: none !important; } /* must not sit invisibly over the page */
 .rsvp-thanks.show { opacity: 1; }
 .rsvp-thanks-line {
   font-family: "Pinyon Script", cursive;

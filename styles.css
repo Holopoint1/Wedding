@@ -1064,6 +1064,38 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   pointer-events: none;
 }
 
+/* Full-screen calligraphy thank-you that writes itself after an RSVP */
+.rsvp-thanks {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at 22% 20%, rgba(184, 196, 168, 0.35), transparent 55%),
+    radial-gradient(circle at 80% 82%, rgba(243, 220, 212, 0.5), transparent 55%),
+    var(--cream);
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.rsvp-thanks.show { opacity: 1; }
+.rsvp-thanks-line {
+  font-family: "Pinyon Script", cursive;
+  font-size: clamp(2.2rem, 8vw, 4.6rem);
+  line-height: 1.35;
+  color: var(--forest);
+  max-width: 16ch;
+  margin: 0;
+}
+.rsvp-thanks-line .ch { opacity: 0; }
+.rsvp-thanks-line .ch.on { opacity: 1; transition: opacity 0.18s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .rsvp-thanks { transition: none; }
+}
+
 .rsvp-form { margin-top: 2rem; }
 .rsvp-form fieldset {
   border: none;

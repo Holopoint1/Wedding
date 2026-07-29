@@ -139,8 +139,8 @@ export default {
           name: guest.name,
           invite: guest.invite,
           attending: data.attending === "yes" ? "yes" : "no",
-          dietary: (data.dietary || "").toString().slice(0, 500),
-          notes: (data.notes || "").toString().slice(0, 2000),
+          dietary: (data.dietary || "").toString().slice(0, 1000),
+          notes: (data.notes || "").toString().slice(0, 5000),
           submittedAt: new Date().toISOString(),
         };
         await env.RSVPS.put(KV_KEY, JSON.stringify(all));

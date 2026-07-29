@@ -849,13 +849,60 @@ if (rsvpForm) {
       }
     }
 
-    rsvpStatus.textContent = data.attending === "yes"
-      ? "Thank you, we can't wait to see you in May."
-      : "Thank you for letting us know. You'll be missed.";
-    rsvpStatus.hidden = false;
-    rsvpStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+    showRsvpThanks(data.attending === "yes");
   });
 }
+
+/* ---------- Calligraphy thank-you ----------
+   A full-screen script message that writes itself out at handwriting pace. */
+function writeCalligraphy(el, text) {
+  el.innerHTML = "";
+  [...text].forEach((c) => {
+    const s = document.createElement("span");
+    s.className = "ch";
+    s.textContent = c === " " ? " " : c;
+    el.appendChild(s);
+  });
+  const spans = el.querySelectorAll(".ch");
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    spans.forEach((s) => s.classList.add("on"));
+    return;
+  }
+  let i = 0;
+  const tick = () => {
+    if (i >= spans.length) return;
+    const ch = spans[i].textContent;
+    spans[i].classList.add("on");
+    i++;
+    let d = 58 + Math.random() * 45;        // handwriting pace
+    if (ch === " ") d = 42;            // spaces a touch quicker
+    else if (/[.,!]/.test(ch)) d = 300;     // pause at punctuation
+    setTimeout(tick, d);
+  };
+  tick();
+}
+
+function showRsvpThanks(accepted) {
+  const el = document.getElementById("rsvp-thanks");
+  const line = document.getElementById("rsvp-thanks-line");
+  if (!el || !line) return;
+  document.querySelectorAll(".rsvp-fx-canvas").forEach((c) => c.remove()); // clear any comet
+  document.body.style.overflow = "hidden";
+  el.hidden = false;
+  requestAnimationFrame(() => el.classList.add("show"));
+  const msg = accepted
+    ? "Thank you, we are so excited to see you at our wedding."
+    : "Thank you for letting us know. You will be dearly missed.";
+  setTimeout(() => writeCalligraphy(line, msg), 800); // let the screen fade in first
+}
+
+/* Let the notes box grow with long messages (capped, then it scrolls). */
+(function autoGrowNotes() {
+  document.querySelectorAll("#rsvp-form textarea").forEach((t) => {
+    const grow = () => { t.style.height = "auto"; t.style.height = Math.min(t.scrollHeight + 2, 420) + "px"; };
+    t.addEventListener("input", grow);
+  });
+})();
 
 function readRsvps() {
   try { return JSON.parse(store.get(RSVP_KEY) || "{}"); }

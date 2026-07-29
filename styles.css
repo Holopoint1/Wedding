@@ -3605,24 +3605,29 @@ body.lb-open {
   .nav-toggle { justify-self: end; }
 
   /* Greeting + names sit high, just under the header */
-  .home .hero-inner { justify-content: flex-start; padding-top: calc(env(safe-area-inset-top, 0px) + 3.6rem); }
+  .home .hero-inner {
+    justify-content: flex-start;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 3.6rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 1.4rem);
+  }
   .home .hero-mini { margin-bottom: 0.4rem; }
 
-  /* Date + venue + countdown stacked at the foot of the hero */
-  .home .hero-date-num { bottom: 5.3rem; }
-  .home .hero-venue-min { bottom: 3.9rem; }
+  /* No venue line on mobile; date sits at the very bottom, countdown just above */
+  .home .hero-venue-min { display: none; }
+  .home .hero-date-num {
+    position: static;
+    top: auto;
+    bottom: auto;
+    margin: 0.55rem 0 0;
+  }
 
-  /* Countdown pill anchored at the very bottom, below the date */
+  /* Countdown pill flows to the foot of the hero, right above the date */
   .hero-countdown {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
     gap: 0.12rem;
-    position: absolute;
-    left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 1rem);
-    transform: translateX(-50%);
-    z-index: 6;
+    margin-top: auto;                 /* pushes countdown + date to the bottom */
     padding: 0.22rem 0.85rem 0.26rem;
     border-radius: 999px;
     background: rgba(255, 250, 241, 0.94);

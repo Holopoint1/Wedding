@@ -754,17 +754,20 @@ if (navToggle && navMenu) {
     setNav(!isOpen());
   });
 
-  // Choosing a link closes the menu — deferred so the link's own navigation
-  // fires first (closing synchronously sets pointer-events:none mid-tap, which
-  // some mobile browsers treat as cancelling the click → the link "does nothing").
-  navMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setTimeout(closeNav, 80)));
-
-  // Belt-and-braces for the nested Info submenu links (Venue/Travel/etc): if
-  // anything cancels the default tap, force the navigation ourselves.
-  navMenu.querySelectorAll(".nav-drop-menu a[href]").forEach((a) => {
-    a.addEventListener("click", () => {
+  // Every menu link (top-level AND the Info submenu) closes the menu, then —
+  // on mobile only — forces the navigation itself. Closing the menu flips
+  // pointer-events mid-tap, which some mobile browsers treat as cancelling the
+  // click so the link "does nothing"; the forced nav guarantees it still goes.
+  // Guarded to plain left taps so desktop ⌘/Ctrl/middle-click still open tabs.
+  const mq = window.matchMedia("(max-width: 900px)");
+  navMenu.querySelectorAll("a[href]").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      setTimeout(closeNav, 80);
       const href = a.getAttribute("href");
-      if (href) setTimeout(() => { window.location.href = href; }, 30);
+      const plain = e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey;
+      if (mq.matches && href && plain && !e.defaultPrevented) {
+        setTimeout(() => { window.location.href = href; }, 30);
+      }
     });
   });
 

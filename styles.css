@@ -1198,7 +1198,8 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   margin-bottom: 0.4rem;
 }
 .rsvp-form input[type="text"],
-.rsvp-form textarea {
+.rsvp-form textarea,
+.rsvp-form select {
   width: 100%;
   font-family: var(--sans);
   font-size: 0.95rem;
@@ -1210,9 +1211,19 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   resize: vertical;
   transition: border-color .25s, background .25s;
 }
-.rsvp-form input:focus, .rsvp-form textarea:focus {
+.rsvp-form select {
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  /* little chevron so it reads as a dropdown */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath d='M5 9 L12 16 L19 9' fill='none' stroke='%237d8a6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.4rem;
+}
+.rsvp-form input:focus, .rsvp-form textarea:focus, .rsvp-form select:focus {
   border-color: var(--sage-deep);
-  background: var(--paper);
+  background-color: var(--paper);
 }
 
 .primary-btn {

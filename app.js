@@ -873,6 +873,17 @@ const rsvpForm   = document.getElementById("rsvp-form");
 const rsvpStatus = document.getElementById("rsvp-status");
 
 if (rsvpForm) {
+  // Show the meal choices only when someone accepts; clear + hide them on decline.
+  const mealFields = document.getElementById("meal-fields");
+  rsvpForm.querySelectorAll('input[name="attending"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      if (!mealFields) return;
+      const yes = r.value === "yes" && r.checked;
+      mealFields.hidden = !yes;
+      if (!yes) mealFields.querySelectorAll("select").forEach((s) => { s.value = ""; });
+    });
+  });
+
   rsvpForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -886,6 +897,16 @@ if (rsvpForm) {
       rsvpStatus.hidden = false;
       rsvpStatus.scrollIntoView({ behavior: "smooth", block: "center" });
       if (nameInput) nameInput.focus();
+      return;
+    }
+
+    // Must pick Accept or Decline (the radios are visually hidden, so validate
+    // here with a visible message rather than relying on native `required`).
+    const attending = rsvpForm.querySelector('input[name="attending"]:checked');
+    if (!attending) {
+      rsvpStatus.textContent = "Please choose Accept or Decline.";
+      rsvpStatus.hidden = false;
+      rsvpStatus.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 

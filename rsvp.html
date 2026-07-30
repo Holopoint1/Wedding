@@ -174,29 +174,32 @@
           <fieldset>
             <legend>Will you be joining us?</legend>
             <div class="radio-group">
-              <label class="radio-pill"><input type="radio" name="attending" value="yes" required /><span>Accept</span></label>
+              <label class="radio-pill"><input type="radio" name="attending" value="yes" /><span>Accept</span></label>
               <label class="radio-pill"><input type="radio" name="attending" value="no" /><span>Decline</span></label>
             </div>
           </fieldset>
 
-          <div class="field-row">
-            <label>Main course
-              <select name="main">
-                <option value="">Please choose…</option>
-                <option>Butternut Squash, Coconut and Mango Curry with Chilli Lime Rice</option>
-                <option>Chicken tarragon and sundried tomatoes with Baby potatoes</option>
-              </select>
-            </label>
-          </div>
+          <!-- Meal choices: only shown once someone accepts -->
+          <div id="meal-fields" hidden>
+            <div class="field-row">
+              <label>Main course
+                <select name="main">
+                  <option value="">Please choose…</option>
+                  <option>Butternut Squash, Coconut and Mango Curry with Chilli Lime Rice</option>
+                  <option>Chicken tarragon and sundried tomatoes with Baby potatoes</option>
+                </select>
+              </label>
+            </div>
 
-          <div class="field-row">
-            <label>Dessert
-              <select name="dessert">
-                <option value="">Please choose…</option>
-                <option>Lemon Posset and Ginger Crumb</option>
-                <option>Chocolate and salted caramel brownies</option>
-              </select>
-            </label>
+            <div class="field-row">
+              <label>Dessert
+                <select name="dessert">
+                  <option value="">Please choose…</option>
+                  <option>Lemon Posset and Ginger Crumb</option>
+                  <option>Chocolate and salted caramel brownies</option>
+                </select>
+              </label>
+            </div>
           </div>
 
           <div class="field-row">
@@ -242,6 +245,6 @@
   </main>
 
   <script src="guests.js?v=20260729-3"></script>
-  <script src="app.js?v=20260729-19"></script>
+  <script src="app.js?v=20260729-20"></script>
 </body>
 </html>

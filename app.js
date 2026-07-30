@@ -991,7 +991,7 @@ function showRsvpThanks(accepted, name) {
   flip.scrollIntoView({ behavior: "smooth", block: "center" });
   const msg = accepted
     ? "Thank you, we are so excited to see you at our wedding!"
-    : "Thank you for letting us know. You will be dearly missed.";
+    : "Thank you for letting us know. You will be missed.";
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   setTimeout(() => writeCalligraphy(line, msg), reduce ? 0 : 950); // once the flip has landed
 }

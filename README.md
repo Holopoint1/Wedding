@@ -82,9 +82,27 @@ the RSVPs saved on **that device only** — a fallback, not a real solution.
 
 ## Hosting / deploying
 
-Plain HTML/CSS/JS — no build step. Deployed via **Cloudflare Pages** from the
-GitHub repo (`Holopoint1/Wedding`); pushing to the default branch redeploys.
-`CNAME` holds `www.alflorna.com`.
+Plain HTML/CSS/JS — no build step. Deployed via **GitHub Pages** from
+`Holopoint1/Wedding`; pushing to the default branch redeploys. `CNAME` holds
+`www.alflorna.com`.
+
+**Caching, and why a change can look like it "didn't deploy":** GitHub Pages
+serves HTML with `Cache-Control: max-age=600`, which is not configurable, and
+sits behind a Fastly cache. After a push, a page can look unchanged for up to
+10 minutes on a device that has already visited it — phones are the worst for
+this. When that happens you can get *old HTML asking for old `?v=` CSS/JS*, so
+the site appears half-updated rather than simply stale. To check a change
+immediately, open the page in a private tab.
+
+The `_headers` file in this repo does nothing — it's a Cloudflare Pages /
+Netlify convention. See the comments inside it.
+
+**When you edit `styles.css` or `app.js`, bump the `?v=` on every page** or
+returning visitors keep the old file:
+
+```bash
+for f in *.html; do sed -i 's/styles\.css?v=OLD/styles.css?v=NEW/g' "$f"; done
+```
 
 ## Customising
 

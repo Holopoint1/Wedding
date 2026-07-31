@@ -1,16 +1,29 @@
-# Cloudflare Pages headers
+# NOTE: this file currently does NOTHING.
+#
+# www.alflorna.com is served by GitHub Pages (confirmed: `Server: GitHub.com`),
+# and _headers is a Cloudflare Pages / Netlify convention that GitHub Pages
+# ignores. Jekyll also skips underscore-prefixed files, which is why
+# https://www.alflorna.com/_headers returns 404 rather than the file itself.
+#
+# Consequence to remember when testing: GitHub Pages serves HTML with
+# `Cache-Control: max-age=600` and that is not configurable. A page can be up
+# to 10 minutes stale in the browser (and in GitHub's Fastly cache) after a
+# push. The ?v= query on styles.css / app.js only helps once the HTML has
+# refreshed. Use a private tab if you need to see a change immediately.
+#
+# Kept here, corrected, so it works if the site ever moves to Cloudflare Pages.
 
+# Was `/*.html`, which never matched anything: Pages serves clean URLs
+# (/rsvp, not /rsvp.html), so that rule missed every real page. On /* instead.
 /*
   X-Robots-Tag: noindex, nofollow, noarchive, noimageindex
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=0, must-revalidate
 
-# Photos and other assets can be cached hard; the HTML must not be.
+# Photos and other assets are fine to cache hard.
 /brand_assets/*
   Cache-Control: public, max-age=31536000, immutable
 
 /gallery/*
   Cache-Control: public, max-age=31536000, immutable
-
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate

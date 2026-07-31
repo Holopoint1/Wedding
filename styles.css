@@ -1383,12 +1383,16 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 /* =========================================================
    SCROLL REVEAL
    ========================================================= */
-.reveal {
+/* Only hide these once we know the script that reveals them is running.
+   <html class="js"> is set by an inline script in each page's <head>. If the
+   JS ever fails to load, .reveal content stays visible and tappable instead
+   of sitting there invisible and offset by 28px. */
+.js .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity .9s ease-out, transform .9s ease-out;
 }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.js .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -3794,6 +3798,13 @@ body.lb-open {
 /* In the FAQ answer it should sit in the flow of the paragraph, left aligned */
 .faq-item .bank-details { margin-left: 0; margin-right: 0; text-align: left; }
 
+/* The dress-code page opens on the Robertson Ancient (the groomsmen's cloth)
+   rather than the Macbeth used as the breaker everywhere else, so the page
+   about the tartans leads with a Robertson. Footer breaker stays Macbeth. */
+.page-dress .tartan-stripe:not(.tartan-stripe-footer) {
+  background-image: url("brand_assets/groomsmen_tartan.jpg");
+}
+
 /* Dress code page: tartans are static — no drift/hover animation at any width */
 .page-dress .tartan-stripe,
 .page-dress .tartan-swatch,
@@ -3811,3 +3822,84 @@ body.lb-open {
 .home .leaf-7,
 .home .leaf-8,
 .home .leaf-9 { display: none; }
+
+/* =========================================================
+   TOUCH DEVICES — never emulate hover
+   ---------------------------------------------------------
+   iOS applies :hover on the FIRST tap of any element that has hover styles,
+   so the link needs a second tap to actually follow. Where the hover also
+   MOVES the element — translateY on the homepage widget cards, the venue,
+   travel, taxi, fact and gallery cards, the RSVP buttons — that first tap
+   slides it out from under your finger and the second tap misses as well.
+   That is why the homepage widgets and the header RSVP felt dead on iPhone
+   while the same links were fine with a mouse.
+
+   26 hover rules moved something and there was no (hover: hover) guard
+   anywhere, so this switches the movement off wherever there is no real
+   pointer, and gives a plain press state instead.
+   ========================================================= */
+@media (hover: none), (pointer: coarse) {
+  .topnav .brand:hover,
+  .topnav a.nav-rsvp:hover,
+  .topnav a.nav-rsvp-mobile:hover,
+  .cd-block:hover,
+  .hero-rsvp:hover,
+  .hero-quicklinks a:hover,
+  .tl-content:hover,
+  .story-svg .tl-node:hover,
+  .venue-illustration:hover,
+  .venue-card:hover,
+  .travel-card:hover,
+  .stay-card:hover,
+  .thing:hover,
+  .taxi-card:hover,
+  .fact-card:hover,
+  .widget-card:hover,
+  .gal-item:hover,
+  .swatch:hover,
+  .primary-btn:hover,
+  .rail-rsvp:hover,
+  .map-zoom button:hover,
+  .lightbox button:hover { transform: none !important; }
+
+  /* These two are vertically centred BY their base transform — keep that half
+     and drop only the hover scale, or they'd jump to the top on tap. */
+  .lb-prev:hover,
+  .lb-next:hover { transform: translateY(-50%) !important; }
+
+  /* Child elements that animate on the parent's hover */
+  .hero-rsvp:hover svg,
+  .schedule li:hover .sch-icon,
+  .venue-card:hover .card-icon,
+  .thing:hover .thing-icon,
+  .gallery .gal-item:hover img { transform: none !important; }
+
+  /* Sheens that sweep across on hover must not fire on a tap */
+  .hero-rsvp:hover::before,
+  .primary-btn:hover::before,
+  .gal-item:hover .gal-placeholder::after { transform: translateX(-100%) !important; }
+
+  /* No lift, so the hit area never shifts mid-tap */
+  .widget-card:hover,
+  .venue-card:hover,
+  .travel-card:hover,
+  .stay-card:hover,
+  .taxi-card:hover,
+  .fact-card:hover,
+  .gal-item:hover { box-shadow: var(--shadow-soft); }
+
+  /* Give a real press state back, since hover is gone */
+  .widget-card:active,
+  .venue-card:active,
+  .travel-card:active,
+  .stay-card:active,
+  .taxi-card:active,
+  .fact-card:active,
+  .gal-item:active,
+  .hero-quicklinks a:active { opacity: .72; transition: opacity .1s; }
+
+  /* Comfortable tap targets on the cards and their buttons */
+  .widget-card .widget-btn,
+  .primary-btn,
+  .hero-rsvp { min-height: 44px; display: inline-flex; align-items: center; }
+}

@@ -795,17 +795,44 @@ if (navToggle && navMenu) {
 /* The right-rail navigator was removed from the markup; its toggle code went
    with it (#rail / #rail-toggle exist on no page). */
 
-/* ---------- Scroll reveal ---------- */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add("is-visible");
-      io.unobserve(e.target);
-    }
+/* ---------- Scroll reveal ----------
+   .reveal starts invisible and offset 28px, so anything that fails to be
+   revealed is both unreadable AND 28px away from where its tap target looks
+   like it is. Every path here fails OPEN: no IntersectionObserver, an error,
+   a bfcache restore or a stalled observer all end with the content shown. */
+const revealNow = el => el.classList.add("is-visible");
+const revealAll = () => document.querySelectorAll(".reveal:not(.is-visible)").forEach(revealNow);
+// Anything in or near the viewport, used as the fallback and on bfcache restore
+const revealInView = () => {
+  document.querySelectorAll(".reveal:not(.is-visible)").forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 1.15 && r.bottom > -120) revealNow(el);
   });
-}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+};
 
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+if (!("IntersectionObserver" in window)) {
+  revealAll();                                   // old browser: just show everything
+} else {
+  try {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { revealNow(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    // Safety nets: a scroll fallback, and a last-resort sweep if the observer
+    // never fired (it has happened on iOS when the page is restored or the
+    // tab was backgrounded during load).
+    window.addEventListener("scroll", revealInView, { passive: true });
+    window.addEventListener("load", revealInView);
+    setTimeout(revealInView, 1200);
+    setTimeout(revealAll, 6000);
+  } catch (err) {
+    revealAll();
+  }
+}
+// Coming back via the back button can restore a page mid-animation
+window.addEventListener("pageshow", (e) => { if (e.persisted) revealInView(); });
 
 /* Stagger nested reveals inside grids */
 document.querySelectorAll(".timeline, .schedule, .venue-grid, .travel-grid, .stay-grid, .things-grid, .gallery, .faq, .dress-grid").forEach(group => {

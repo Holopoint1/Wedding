@@ -3725,45 +3725,55 @@ body.lb-open {
 }
 
 /* Gift / bank details block (FAQ registry card) */
+/* Bank details — deliberately understated. This should read as a quiet
+   footnote in the surrounding copy, not a card asking to be noticed: no
+   panel, no border, no shadow, and type at body weight and size. */
 .bank-details {
-  margin: 1.4rem auto 0;
-  max-width: 340px;
-  background: var(--paper);
-  border: 1px solid var(--cream-2);
-  border-radius: 12px;
-  padding: 1.1rem 1.4rem;
-  box-shadow: var(--shadow-soft);
+  margin: 1rem auto 0;
+  max-width: 320px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
-.bank-lead {
-  text-align: center;
-  font-family: var(--serif);
-  font-style: italic;
+/* Beats .registry-card p, which would otherwise make this serif italic 1.15rem */
+.bank-details .bank-lead {
+  text-align: inherit;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.88rem;
+  font-weight: 400;
   color: var(--sage-deeper);
-  font-size: 0.95rem;
-  margin: 0 0 0.8rem;
+  margin: 0 0 0.3rem;
 }
 .bank-details dl {
   margin: 0;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 0.4rem 1.1rem;
+  gap: 0.1rem 0.9rem;
   align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.88rem;
 }
 .bank-details dt {
-  font-family: var(--sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--sage-deeper);
 }
 .bank-details dd {
   margin: 0;
-  font-family: var(--sans);
-  font-weight: 700;
-  color: var(--forest);
-  font-size: 1rem;
-  letter-spacing: 0.02em;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;      /* just enough to be readable when copying it down */
+  letter-spacing: normal;
+  color: var(--sage-deeper);
 }
+/* In the FAQ answer it should sit in the flow of the paragraph, left aligned */
+.faq-item .bank-details { margin-left: 0; margin-right: 0; text-align: left; }
 
 /* Dress code page: tartans are static — no drift/hover animation at any width */
 .page-dress .tartan-stripe,

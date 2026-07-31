@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="A and L">
+  <rect width="64" height="64" rx="14" fill="#f6efe4"/>
+  <circle cx="32" cy="32" r="27" fill="none" stroke="#7d8a6b" stroke-width="1.6"/>
+  <text x="32" y="43" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+        font-size="30" fill="#3a4632">A<tspan fill="#c97e7e" font-size="22" dx="1">&amp;</tspan><tspan dx="1">L</tspan></text>
+</svg>

@@ -67,7 +67,10 @@ h1, h2, h3, h4 {
   color: var(--forest);
 }
 
-h2 {
+/* .page-title is the single <h1> on the inner pages. It must render exactly
+   like an h2 — the change is document structure, not design. */
+h2,
+.page-title {
   font-family: var(--display);
   font-size: clamp(2.2rem, 5vw, 4rem);
   text-align: center;
@@ -1205,7 +1208,9 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .rsvp-form select {
   width: 100%;
   font-family: var(--sans);
-  font-size: 0.95rem;
+  /* 16px, not 0.95rem: iOS zooms the whole page in when a focused control is
+     under 16px, which threw the RSVP form off-screen mid-answer. */
+  font-size: 1rem;
   padding: 0.8rem 1rem;
   border: 1px solid var(--cream-2);
   background: var(--cream);

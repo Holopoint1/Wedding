@@ -792,16 +792,8 @@ if (navToggle && navMenu) {
   window.addEventListener("scroll", () => { if (isOpen()) closeNav(); }, { passive: true });
 }
 
-/* ---------- Rail collapse toggle ---------- */
-const rail = document.getElementById("rail");
-const railToggle = document.getElementById("rail-toggle");
-if (rail && railToggle) {
-  railToggle.addEventListener("click", () => {
-    const collapsed = rail.classList.toggle("is-collapsed");
-    document.body.classList.toggle("rail-collapsed", collapsed);
-    railToggle.setAttribute("aria-expanded", String(!collapsed));
-  });
-}
+/* The right-rail navigator was removed from the markup; its toggle code went
+   with it (#rail / #rail-toggle exist on no page). */
 
 /* ---------- Scroll reveal ---------- */
 const io = new IntersectionObserver((entries) => {

@@ -880,7 +880,7 @@ if (rsvpForm) {
       if (!mealFields) return;
       const yes = r.value === "yes" && r.checked;
       mealFields.hidden = !yes;
-      if (!yes) mealFields.querySelectorAll("select").forEach((s) => { s.value = ""; });
+      if (!yes) mealFields.querySelectorAll("select, input, textarea").forEach((s) => { s.value = ""; });
     });
   });
 

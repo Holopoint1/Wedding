@@ -145,6 +145,8 @@ export default {
             invite: guest.invite,
             attending: data.attending === "yes" ? "yes" : "no",
             main: (data.main || "").toString().slice(0, 300),
+            song: (data.song || "").toString().slice(0, 300),
+            couplenote: (data.couplenote || "").toString().slice(0, 5000),
             dietary: (data.dietary || "").toString().slice(0, 1000),
             notes: (data.notes || "").toString().slice(0, 5000),
             submittedAt: new Date().toISOString(),
@@ -162,13 +164,13 @@ export default {
       const unauth = requireAuth(request, env);
       if (unauth) return unauth;
       const all = await readAll(env);
-      const rows = [["Name", "Invite", "Status", "Main", "Dietary", "Notes", "Replied at"]];
+      const rows = [["Name", "Invite", "Status", "Main", "Song", "Note to us", "Dietary", "Notes", "Replied at"]];
       for (const g of GUEST_LIST) {
         const r = all[norm(g.name)];
         rows.push([
           g.name, g.invite,
           r ? (r.attending === "yes" ? "Accepted" : "Declined") : "Awaiting",
-          r ? (r.main || "") : "",
+          r ? (r.main || "") : "", r ? (r.song || "") : "", r ? (r.couplenote || "") : "",
           r ? r.dietary : "", r ? r.notes : "", r ? r.submittedAt : "",
         ]);
       }
@@ -231,6 +233,8 @@ function dashboard(all) {
       <td class="inv" data-label="Invite">${esc(g.invite)}</td>
       <td data-label="Status"><span class="pill p-${status}">${label}</span></td>
       <td data-label="Main">${esc(r ? (r.main || "") : "")}</td>
+      <td data-label="Song">${esc(r ? (r.song || "") : "")}</td>
+      <td data-label="Note to us">${esc(r ? (r.couplenote || "") : "")}</td>
       <td data-label="Dietary">${esc(r ? r.dietary : "")}</td>
       <td data-label="Notes">${esc(r ? r.notes : "")}</td>
       <td class="when" data-label="Replied">${esc(when)}</td>
@@ -329,7 +333,7 @@ function dashboard(all) {
     </form>
   </div>
   <table id="tbl">
-    <thead><tr><th>Name</th><th>Invite</th><th>Status</th><th>Main</th><th>Dietary</th><th>Notes</th><th>Replied</th><th></th></tr></thead>
+    <thead><tr><th>Name</th><th>Invite</th><th>Status</th><th>Main</th><th>Song</th><th>Note to us</th><th>Dietary</th><th>Notes</th><th>Replied</th><th></th></tr></thead>
     <tbody>${rows}</tbody>
   </table>
 </div>

@@ -1189,6 +1189,9 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 .radio-pill input:focus-visible + span { outline: 2px solid var(--blush-deep); outline-offset: 2px; }
 
 .field-row { margin-bottom: 1.6rem; }
+/* Evening guests don't pick a main course — app.js sets [hidden] on this row.
+   Explicit, so no later display rule can resurrect it. */
+#main-course-field[hidden] { display: none !important; }
 .field-row label {
   display: block;
   font-family: var(--serif);
@@ -1799,8 +1802,9 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
 /* =========================================================
    TARTAN & SALTIRE — Scottish accents
    ========================================================= */
-/* Robertson Hunting Ancient tartan — photo of the real cloth
-   (brand_assets/tartan.jpg), tiled. */
+/* Shared tiling. The default cloth here is Robertson Hunting Ancient
+   (brand_assets/tartan.jpg) — that's the groom's, and the dress-code page
+   labels it as his, so .tartan-swatch must keep it. */
 .tartan-tile,
 .tartan-stripe,
 .tartan-swatch {
@@ -1810,7 +1814,11 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   background-repeat: repeat;
 }
 
+/* Section breakers (two per page, top and footer) use the Macbeth tartan.
+   Same 280px tile as before, so the tartanDrift280 animation still loops
+   seamlessly. */
 .tartan-stripe {
+  background-image: url("brand_assets/mcbethtartan.webp");
   height: 28px;
   width: 100%;
   border-top: 1px solid var(--cream-2);
@@ -2321,8 +2329,8 @@ body.is-locked #site-view { visibility: hidden; }
   margin-top: 0.4rem;
 }
 .tartan-swatch-bride {
-  background-image: url("brand_assets/tartan3.jpg");
-  background-size: 200px auto;
+  background-image: url("brand_assets/mcbethtartan.webp");
+  background-size: 200px auto;   /* same tile size as the groomsmen swatch */
   height: 110px;
   margin-top: 0.4rem;
 }
@@ -2985,10 +2993,11 @@ body.lb-open { overflow: hidden; }
    TARTAN BREAKERS
    ========================================================= */
 .tartan-stripe-footer {
-  background-image: url("brand_assets/tartan3.jpg");
-  /* Same tile size as the top stripe (both source images are 542x542), and
-     show a centred slice of the sett so the weave reads properly rather than
-     a squashed top edge. */
+  background-image: url("brand_assets/mcbethtartan.webp");
+  /* Same tile size as the top stripe. Both sources are square (the top stripe's
+     tartan.jpg is 542x542, the Macbeth is 900x900), so an explicit 280px width
+     renders them at identical scale. Centred so the weave reads properly rather
+     than showing a squashed top edge. */
   background-size: 280px auto;
   background-position: center;
   height: 30px;
@@ -3179,8 +3188,14 @@ body.lb-open { overflow: hidden; }
     align-items: flex-start;
     gap: 0.1rem;
     min-width: 240px;
+    /* svh = the viewport with Safari's bars SHOWING. Plain 100vh is the bars-hidden
+       height, so on an iPhone the panel ran past the bottom of the screen and the
+       last items (Dress Code, FAQs, RSVP) sat under the browser chrome. */
     max-height: calc(100vh - 120px);
+    max-height: calc(100svh - 120px);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;   /* don't hand the scroll off to the page behind */
     padding: 1.1rem 1.4rem;
     background: var(--paper);
     border: 1px solid var(--cream-2);

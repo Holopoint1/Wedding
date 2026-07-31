@@ -108,16 +108,23 @@ let rsvpGuest = null;
   let active = -1;
   const hide = () => { list.hidden = true; list.innerHTML = ""; active = -1; };
 
-  function choose(name) {
-    input.value = name;
-    rsvpGuest = findGuest(name);
-    hide();
+  // Tell them which invitation they're on, and let the RSVP form react (evening
+  // guests aren't asked to pick a main course).
+  function showInvite() {
     if (note && rsvpGuest) {
       note.textContent = rsvpGuest.invite === "evening"
         ? "You're invited to the evening celebration. Join us from 6:00 pm for the cake, first dance and ceilidh."
         : "You're invited to the whole day. Join us from 1:00 pm for the ceremony.";
       note.classList.add("is-found");
     }
+    if (typeof syncMealFields === "function") syncMealFields();
+  }
+
+  function choose(name) {
+    input.value = name;
+    rsvpGuest = findGuest(name);
+    hide();
+    showInvite();
   }
 
   function render() {
@@ -126,20 +133,23 @@ let rsvpGuest = null;
     if (note && !rsvpGuest) {
       note.textContent = "Start typing your name and pick it from the suggestions so we know who's replying.";
       note.classList.remove("is-found");
+    } else {
+      // They typed their full name rather than tapping it — confirm it anyway.
+      showInvite();
     }
-    // Don't reveal the guest list: let people type most of their name
-    // before we suggest anything, and only surface names that genuinely
-    // match what they've typed (from the start of a first name or surname),
-    // so typing a first name recommends the full name (surname included).
+    // Don't reveal the guest list: they have to type enough to match a real
+    // first name or surname before we suggest anything.
     matches = ALL_NAMES.filter(n => {
       const full = norm(n);
       return full.startsWith(q) || full.split(" ").some(w => w.startsWith(q));
-    }).slice(0, 6);
-    // Wait until they've typed enough that only a few relevant names remain.
-    const enoughTyped = q.length >= 4;
-    const narrowedDown = matches.length > 0 && matches.length <= 4;
-    if (!enoughTyped || !narrowedDown) { hide(); return; }
-    if (matches.length === 1 && norm(matches[0]) === q) { hide(); return; }
+    });
+    // Three characters is enough — several guests have short first names
+    // (Mim, Sal, Jen, Rob), and four used to lock them out entirely.
+    if (q.length < 3 || !matches.length) { hide(); return; }
+    // Show every match, not just the first four. Big families here — seven
+    // Beatties, six Dobsons, five Walkers — and capping at four meant typing
+    // your own surname returned an empty list.
+    matches = matches.slice(0, 10);
     active = -1;
     list.innerHTML = "";
     matches.forEach(name => {
@@ -872,6 +882,20 @@ window.addEventListener("scroll", onParallax, { passive: true });
 const rsvpForm   = document.getElementById("rsvp-form");
 const rsvpStatus = document.getElementById("rsvp-status");
 
+/* Evening guests aren't sat down for the wedding breakfast, so they're never
+   asked to pick a main course — they still get the dietary question, because
+   there's food in the evening too. Disabling the select (rather than just
+   hiding it) keeps `main` out of the submitted data altogether.
+   Called both when they accept/decline and when they pick their name. */
+function syncMealFields() {
+  const mainField = document.getElementById("main-course-field");
+  if (!mainField) return;
+  const evening = !!rsvpGuest && rsvpGuest.invite === "evening";
+  mainField.hidden = evening;
+  const sel = mainField.querySelector('select[name="main"]');
+  if (sel) { sel.disabled = evening; if (evening) sel.value = ""; }
+}
+
 if (rsvpForm) {
   // Show the meal choices only when someone accepts; clear + hide them on decline.
   const mealFields = document.getElementById("meal-fields");
@@ -881,6 +905,7 @@ if (rsvpForm) {
       const yes = r.value === "yes" && r.checked;
       mealFields.hidden = !yes;
       if (!yes) mealFields.querySelectorAll("select, input, textarea").forEach((s) => { s.value = ""; });
+      syncMealFields();
     });
   });
 

@@ -1203,6 +1203,20 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   color: var(--forest);
   margin-bottom: 0.4rem;
 }
+/* Says "optional" in the label rather than a placeholder, which disappeared
+   the moment anyone started typing. Evening guests get these two as well. */
+.field-opt {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage-deeper);
+  opacity: 0.7;
+  margin-left: 0.4rem;
+  vertical-align: 0.1em;
+}
 .rsvp-form input[type="text"],
 .rsvp-form textarea,
 .rsvp-form select {

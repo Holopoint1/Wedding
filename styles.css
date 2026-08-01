@@ -2381,7 +2381,14 @@ body.is-locked #site-view { visibility: hidden; }
    "proximity" (not mandatory) so long sections still scroll freely. */
 html { scroll-snap-type: y proximity; }
 .hero { scroll-snap-align: start; }
-.section { scroll-snap-align: start; scroll-margin-top: 64px; }
+/* An anchor jump has to clear the fixed header or the section heading lands
+   underneath it. The bar is ~104px on desktop and ~84px on mobile, plus the
+   notch inset. 64px was short on both. Also fixes the "Things to Do" widget,
+   which links to /travel#things. */
+.section { scroll-snap-align: start; scroll-margin-top: 112px; }
+@media (max-width: 900px) {
+  .section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 76px); }
+}
 
 /* Stronger text colours over the hero photo */
 .hero-time { color: var(--sage-deeper); }

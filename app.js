@@ -770,11 +770,39 @@ if (navToggle && navMenu) {
   // click so the link "does nothing"; the forced nav guarantees it still goes.
   // Guarded to plain left taps so desktop ⌘/Ctrl/middle-click still open tabs.
   const mq = window.matchMedia("(max-width: 900px)");
+
+  /* "/#story" is the same document when we're already on the homepage. Letting
+     it navigate fights the open menu: body.nav-open sets overflow:hidden, so
+     there is nothing to scroll and the jump is swallowed. Detect that case and
+     close the menu first, which releases the lock, then scroll ourselves. */
+  const samePageTarget = (href) => {
+    if (!href) return null;
+    const hash = href.startsWith("#") ? href
+               : /^\/?#/.test(href)   ? "#" + href.split("#")[1]
+               : null;
+    if (!hash || hash === "#") return null;
+    const onHome = location.pathname === "/" || /\/index\.html$/.test(location.pathname);
+    if (!href.startsWith("#") && !onHome) return null;   // needs a real page load
+    try { return document.querySelector(hash); } catch { return null; }
+  };
+
   navMenu.querySelectorAll("a[href]").forEach((a) => {
     a.addEventListener("click", (e) => {
-      setTimeout(closeNav, 80);
       const href = a.getAttribute("href");
       const plain = e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey;
+
+      const target = plain ? samePageTarget(href) : null;
+      if (target) {
+        e.preventDefault();
+        closeNav();                                  // releases the scroll lock
+        try { history.replaceState(null, "", "#" + target.id); } catch {}
+        requestAnimationFrame(() => setTimeout(() => {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 60));
+        return;
+      }
+
+      setTimeout(closeNav, 80);
       if (mq.matches && href && plain && !e.defaultPrevented) {
         setTimeout(() => { window.location.href = href; }, 30);
       }

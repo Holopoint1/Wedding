@@ -45,7 +45,7 @@ const GUEST_LIST = [
   { name: "Cora Mackenzie", invite: "day" },
   { name: "Callan Mackenzie", invite: "day" },
   { name: "Mike Beattie", invite: "day" },
-  { name: "Helen Beattie", invite: "day" },
+  { name: "Helen C Beattie", invite: "day" },
   { name: "Caitlin Beattie", invite: "day" },
   { name: "Helen Beattie", invite: "day" },
   { name: "Sal Ducker", invite: "day" },

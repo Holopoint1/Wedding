@@ -17,7 +17,13 @@
       To remove a guest:  delete their line.
 
    Names are matched ignoring case and extra spaces.
-   Note: there are two Helen Beatties; both can RSVP separately.
+
+   Note: there are two Helen Beatties. They are told apart by the middle
+   initial, exactly as on the guest-list spreadsheet: "Helen C Beattie" and
+   "Helen Beattie". Keep them distinct — replies are stored under the
+   normalised name, so if both were called the same thing the second to
+   reply would overwrite the first. Any change here must be mirrored in
+   rsvp-worker/src/worker.js, which keeps its own copy of this list.
    ========================================================= */
 
 const SITE_PASSWORD = "Fruin2027";
@@ -57,7 +63,7 @@ const GUEST_LIST = [
   { name: "Cora Mackenzie", invite: "day" },
   { name: "Callan Mackenzie", invite: "day" },
   { name: "Mike Beattie", invite: "day" },
-  { name: "Helen Beattie", invite: "day" },
+  { name: "Helen C Beattie", invite: "day" },
   { name: "Caitlin Beattie", invite: "day" },
   { name: "Helen Beattie", invite: "day" },
   { name: "Sal Ducker", invite: "day" },

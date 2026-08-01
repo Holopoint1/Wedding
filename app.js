@@ -113,7 +113,7 @@ let rsvpGuest = null;
   function showInvite() {
     if (note && rsvpGuest) {
       note.textContent = rsvpGuest.invite === "evening"
-        ? "You're invited to the evening celebration. Join us from 6:00 pm for the cake, first dance and ceilidh."
+        ? "You're invited to the evening celebration. Join us from 6:00 pm for the cake, first dance, ceilidh and party."
         : "You're invited to the whole day. Join us from 1:00 pm for the ceremony.";
       note.classList.add("is-found");
     }

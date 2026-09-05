@@ -93,7 +93,7 @@ const GUEST_LIST = [
   { name: "Emma Stepanova", invite: "day" },
   { name: "Katie Broomhead", invite: "day" },
   { name: "Jacs Payne", invite: "day" },
-  { name: "Rachael Farrell", invite: "day" },
+  { name: "Rachel Farrell", invite: "day" },
 
   // ---------- Evening ----------
   { name: "Catherine McKinlay", invite: "evening" },

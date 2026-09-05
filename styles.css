@@ -308,6 +308,8 @@ a:hover { color: var(--blush-deep); text-decoration-color: var(--blush-deep); }
   gap: 1.8rem;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 3;              /* always above the centred countdown so links stay clickable */
 }
 .topnav a {
   position: relative;
@@ -2888,6 +2890,8 @@ html { scroll-snap-type: y proximity; }
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
+  z-index: 1;
+  pointer-events: none;    /* purely informational — never intercept nav clicks */
 }
 @media (max-width: 900px) {
   .nav-countdown { position: static; transform: none; margin: 0 0.4rem; }

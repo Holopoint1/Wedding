@@ -1132,10 +1132,15 @@ window.alfieLornaExport = function () {
   document.addEventListener("click", (e) => { if (!mobile.matches && !li.contains(e.target)) setOpen(false); });
   document.addEventListener("keydown", (e) => { if (!mobile.matches && e.key === "Escape") setOpen(false); });
 
-  // Desktop: open on hover, close shortly after the pointer leaves (delay bridges the gap)
+  // Desktop with a real pointer: open on hover, close shortly after leaving.
+  // Touch devices (tablets, touch laptops) have no true hover — a tap there
+  // fires a synthetic mouseenter that would open then instantly re-close the
+  // menu via the click toggle, so the Info links (FAQ etc.) became unreachable.
+  // Gate hover to (hover: hover) so touch falls back to the click toggle.
+  const canHover = window.matchMedia("(hover: hover) and (pointer: fine)");
   let hoverTimer;
-  li.addEventListener("mouseenter", () => { if (mobile.matches) return; clearTimeout(hoverTimer); setOpen(true); });
-  li.addEventListener("mouseleave", () => { if (mobile.matches) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(() => setOpen(false), 160); });
+  li.addEventListener("mouseenter", () => { if (mobile.matches || !canHover.matches) return; clearTimeout(hoverTimer); setOpen(true); });
+  li.addEventListener("mouseleave", () => { if (mobile.matches || !canHover.matches) return; clearTimeout(hoverTimer); hoverTimer = setTimeout(() => setOpen(false), 160); });
 })();
 
 /* ---------- Gallery: render photos + lightbox ---------- */

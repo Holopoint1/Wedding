@@ -2846,6 +2846,13 @@ html { scroll-snap-type: y proximity; }
 }
 .nav-drop-menu li { display: block; margin: 0; }
 .nav-drop-menu[hidden] { display: none !important; }
+/* `.topnav ul { position: relative }` (0,1,1) out-ranks `.nav-drop-menu` (0,1,0), which
+   turned the panel into an in-flow, relatively-offset box: it stretched the fixed nav
+   to ~325px and the panel opened hundreds of px down the page. Re-assert absolute
+   with higher specificity on desktop only (mobile keeps its static in-drawer list). */
+@media (min-width: 901px) {
+  .topnav .nav-dropdown .nav-drop-menu { position: absolute; }
+}
 .nav-drop-menu li a {
   display: block;
   padding: 0.6rem 1.1rem;

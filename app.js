@@ -1128,7 +1128,15 @@ window.alfieLornaExport = function () {
   applyMode();
   (mobile.addEventListener ? mobile.addEventListener.bind(mobile, "change") : mobile.addListener.bind(mobile))(applyMode);
 
-  btn.addEventListener("click", (e) => { if (mobile.matches) return; e.stopPropagation(); setOpen(menu.hidden); });
+  // With a real mouse the hover has already opened the menu by the time the click
+  // lands, so a plain toggle would slam it shut under the cursor. Click keeps it open
+  // there; touch/keyboard (no hover) still toggles.
+  const canHoverNow = window.matchMedia("(hover: hover) and (pointer: fine)");
+  btn.addEventListener("click", (e) => {
+    if (mobile.matches) return;
+    e.stopPropagation();
+    setOpen(canHoverNow.matches ? true : menu.hidden);
+  });
   document.addEventListener("click", (e) => { if (!mobile.matches && !li.contains(e.target)) setOpen(false); });
   document.addEventListener("keydown", (e) => { if (!mobile.matches && e.key === "Escape") setOpen(false); });
 

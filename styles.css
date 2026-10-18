@@ -2611,6 +2611,7 @@ html { scroll-snap-type: y proximity; }
 }
 .widget-card:hover .widget-btn { background: var(--blush-deep); }
 .widget-card-rsvp {
+  grid-column: 1 / -1;  /* full-width banner closes the grid whatever the column count */
   background: var(--forest);
   justify-content: center;
   text-align: center;
